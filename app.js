@@ -11,6 +11,7 @@ mongoose
 
 const users = require("./routes/api/users");
 const bodyParser = require('body-parser');
+const path = require('path');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,3 +22,4 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use("/api/users", users);
+
