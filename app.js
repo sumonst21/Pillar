@@ -18,6 +18,7 @@ const connect = mongoose
   .catch(err => console.log(err));
 
 const users = require("./routes/api/users");
+const messages = require("./routes/api/messages");
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -28,13 +29,14 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use("/api/users", users);
+app.use("/api/messages", messages);
 
 const Message = require("./models/Message");
 io.on("connection", socket => {
   
   socket.on("Create Message", msg => {
     //msg ->  {message, timestamp, username}
-    debugger;
+    
     connect.then(db => {
       try {
         //create new message
@@ -45,7 +47,7 @@ io.on("connection", socket => {
           message.save((err, document) => {
             //record error, if any
             if(err) return res.json({ success: false, err });
-            debugger;
+            
 
 
             //retrieve new message by sender???

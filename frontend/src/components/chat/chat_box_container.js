@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { login } from '../../actions/session_actions';
+import { fetchMessages } from '../../actions/message_actions';
 import ChatBox from './chat_box';
-import io from "socket.io-client";
+
 
 
 const mapStateToProps = (state) => {
@@ -11,13 +11,13 @@ const mapStateToProps = (state) => {
    };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//    return {
-//       login: user => dispatch(login(user))
-//    }
-// }
+const mapDispatchToProps = (dispatch) => {
+   return {
+      getMessages: () => dispatch(fetchMessages()),
+   }
+}
 
 export default connect(
    mapStateToProps,
-   null
+   mapDispatchToProps
 )(ChatBox);

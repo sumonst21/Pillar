@@ -19,6 +19,7 @@ class ChatBox extends React.Component{
     
     /// this may be an issue when we push to Heroku! How to dynamically set the server?
     let server = "http://localhost:5000";
+    this.props.getMessages();
     this.socket = io(server);
     this.socket.on("Broadcast Message", theMessage =>{
       console.log(theMessage);
