@@ -2,6 +2,7 @@ import { authenticate } from 'passport';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import {Redirect} from 'react-router'
+import { login } from '../../util/session_api_util';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -21,14 +22,18 @@ class SignupForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    //  
     if (nextProps.signedIn === true) {
       this.props.history.push('/pillar');
     }
-
+    //  
     this.setState({errors: nextProps.errors})
   }
+
   componentDidUpdate(prevProps){
+    //  
     if(this.props.authenticated !== prevProps.authenticated){
+      //  
       this.setState({is_authenticated: true})
     }
   }
@@ -50,14 +55,19 @@ class SignupForm extends React.Component {
     };
 
     // this.props.signup(user, this.props.history); 
-    this.props.signup(user, this.props.history); 
-    console.log(this.props)
+    this.props.signup(user, this.props.history)
+      .then(user => {
+         
+        this.props.login(user)
+      })
+    // console.log(this.props)
     // if(this.props.authenticate){
     //   // this.props.login(user)
     //   this.props.history.push('/pillars')
     // }
 
   }
+
   renderErrors() {
     return(
       <ul>
