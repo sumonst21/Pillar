@@ -5,7 +5,8 @@ import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = (state) => {
   return {
-    errors: state.errors.session
+    errors: state.errors.session,
+    currentUser: state.session.isAuthenticated
   };
 };
 
