@@ -35,20 +35,27 @@ app.use("/api/messages", messages);
 app.use("/api/rooms", rooms);
 
 const Message = require("./models/Message");
+// debugger;
+
 io.on("connection", socket => {
   
   socket.on("Create Message", msg => {
     //msg ->  {message, timestamp, username}
     
+    // debugger;
     connect.then(db => {
       try {
         //create new message
+
+
         let message = new Message({ message: msg.message,
-          sender: msg.username});
-          
+          sender: msg.userId
+          });
+          debugger;
           //attempt to save to database
           message.save((err, document) => {
             //record error, if any
+            debugger;
             if(err) return res.json({ success: false, err });
             
 

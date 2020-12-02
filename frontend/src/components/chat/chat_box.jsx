@@ -47,18 +47,20 @@ class ChatBox extends React.Component{
     e.preventDefault();
     //add room id to props
     let username = this.props.user.username;
-    // debugger;
+    let userId = this.props.user.id;
+    debugger;
     console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
-
+    debugger;
     this.socket.emit("Create Message", {
       message,
       timestamp,
       username,
+      userId,
       //add room id here
     })
-
+    debugger;
     this.setState({
       chatMessage: "",
     })
@@ -67,7 +69,7 @@ class ChatBox extends React.Component{
 
   render(){
     let messages = this.props.messages.data || [];
-    // debugger;
+    debugger;
     
     return(
         <div className="chatbox-container">
@@ -78,7 +80,7 @@ class ChatBox extends React.Component{
         </form>
         <ul>
           {messages.map(msg => (
-            <li key={msg._id}>{msg.message}</li>
+            <li key={msg._id}>{msg.sender.username} says: {msg.message}</li>
           ))}
    
         </ul>
