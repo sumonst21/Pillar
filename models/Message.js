@@ -8,7 +8,7 @@ const MessageSchema = new Schema({
   },
   sender: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'User'
   },
   room: {
     type: Schema.Types.ObjectId,

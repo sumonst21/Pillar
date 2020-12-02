@@ -12,6 +12,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the messages route" }
 router.get('/', (req, res) => {
   console.log("this is the messages route");
   Message.find()
+    .populate('sender')
     .then(messages => { 
       res.json(messages);
       //console.log(messages);

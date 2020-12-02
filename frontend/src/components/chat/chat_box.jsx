@@ -23,8 +23,19 @@ class ChatBox extends React.Component{
     this.socket = io(server);
     this.socket.on("Broadcast Message", theMessage =>{
       console.log(theMessage);
+      debugger;
+      this.props.afterMessageSent(theMessage);
+      // this.setState({
+      //   messages: 
+      // })
     })
+    // debugger;
   }
+
+  // componentDidUpdate(prevProps){
+  //   debugger;
+    
+  // }
 
   handleChange(e){
     this.setState({
@@ -36,6 +47,8 @@ class ChatBox extends React.Component{
     e.preventDefault();
     //add room id to props
     let username = this.props.user.username;
+    // debugger;
+    console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
 
@@ -53,6 +66,9 @@ class ChatBox extends React.Component{
   }
 
   render(){
+    let messages = this.props.messages.data || [];
+    debugger;
+    
     return(
         <div className="chatbox-container">
           <h1>Chat Window</h1>
@@ -60,6 +76,12 @@ class ChatBox extends React.Component{
 
             <input type="text" value={this.state.chatMessage} onChange={this.handleChange}/>
         </form>
+        <ul>
+          {messages.map(msg => (
+            <li key={msg._id}>{msg.message}</li>
+          ))}
+   
+        </ul>
         </div>
     )
   }

@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-import { fetchMessages } from '../../actions/message_actions';
+import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
 import ChatBox from './chat_box';
 
 
 
 const mapStateToProps = (state) => {
+   debugger;
    return {
       user: state.session.user,
+      messages: state.messages,
       // errors: state.errors.session
    };
 };
@@ -14,6 +16,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
    return {
       getMessages: () => dispatch(fetchMessages()),
+      afterMessageSent: (msg) => {
+         dispatch(afterMessageSent(msg));
+         debugger;
+      }
    }
 }
 

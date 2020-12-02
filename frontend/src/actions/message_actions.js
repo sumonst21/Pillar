@@ -1,8 +1,8 @@
-import { getMessages} from '../util/message_api_util';
+import { getMessages } from '../util/message_api_util';
 
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 // export const RECEIVE_USER_TWEETS = "RECEIVE_USER_TWEETS";
-// export const RECEIVE_NEW_TWEET = "RECEIVE_NEW_TWEET";
+export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 
 export const receiveMessages = messages => ({
   type: RECEIVE_MESSAGES,
@@ -14,16 +14,23 @@ export const receiveMessages = messages => ({
 //   tweets
 // });
 
-// export const receiveNewTweet = tweet => ({
-//   type: RECEIVE_NEW_TWEET,
-//   tweet
-// })
+export const receiveNewMessage = message => ({
+  type: RECEIVE_NEW_MESSAGE,
+  message
+})
 
 export const fetchMessages = () => dispatch => (
   getMessages()
     .then(messages => dispatch(receiveMessages(messages)))
     .catch(err => console.log(err))
 );
+
+export const afterMessageSent = (msg) => dispatch => {
+  debugger;
+  dispatch(receiveNewMessage(msg[0]))
+};
+
+
 
 // export const fetchUserTweets = id => dispatch => (
 //   getUserTweets(id)
