@@ -23,7 +23,7 @@ class ChatBox extends React.Component{
     this.socket = io(server);
     this.socket.on("Broadcast Message", theMessage =>{
       console.log(theMessage);
-      debugger;
+      // debugger;
       this.props.afterMessageSent(theMessage);
       // this.setState({
       //   messages: 
@@ -67,7 +67,7 @@ class ChatBox extends React.Component{
 
   render(){
     let messages = this.props.messages.data || [];
-    debugger;
+    // debugger;
     
     return(
         <div className="chatbox-container">

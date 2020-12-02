@@ -5,7 +5,7 @@ import ChatBox from './chat_box';
 
 
 const mapStateToProps = (state) => {
-   debugger;
+   // debugger;
    return {
       user: state.session.user,
       messages: state.messages,
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
       getMessages: () => dispatch(fetchMessages()),
       afterMessageSent: (msg) => {
          dispatch(afterMessageSent(msg));
-         debugger;
+         // debugger;
       }
    }
 }
