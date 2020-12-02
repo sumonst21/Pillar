@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom'
 
 
 const mapStateToProps = (state) => {
+   
   return {
     signedIn: state.session.isSignedIn,
     errors: state.errors.session
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+   
   return {
     signup: user => dispatch(signup(user))
   }

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 class SignupForm extends React.Component {
   constructor(props) {
+     
     super(props);
     this.state = {
       email: '',
@@ -32,6 +33,7 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+     
     let user = {
       email: this.state.email,
       username: this.state.username,
@@ -41,6 +43,7 @@ class SignupForm extends React.Component {
 
     // this.props.signup(user, this.props.history); 
     this.props.signup(user); 
+     
     this.props.history.replace('/pillars')
   }
 
