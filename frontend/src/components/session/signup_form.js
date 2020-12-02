@@ -48,12 +48,12 @@ class SignupForm extends React.Component {
     };
 
     // this.props.signup(user, this.props.history); 
-    this.props.signup(user); 
+    this.props.signup(user, this.props.history); 
     console.log(this.props)
-    if(this.props.authenticate){
-      // this.props.login(user)
-      this.props.history.push('/pillars')
-    }
+    // if(this.props.authenticate){
+    //   // this.props.login(user)
+    //   this.props.history.push('/pillars')
+    // }
 
   }
   renderErrors() {
