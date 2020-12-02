@@ -11,9 +11,9 @@ const App = () => (
   <div>
     <NavBarContainer />
     <Switch>
-        <Route exact path="/login" component={LoginFormContainer} />
-        <Route exact path="/signup" component={SignupFormContainer} />
-        <Route exact path="/" component={MainPage} />
+        <AuthRoute exact path="/" component={MainPage} />
+        <AuthRoute exact path="/login" component={LoginFormContainer} />
+        <AuthRoute exact path="/signup" component={SignupFormContainer} />
     </Switch>
   </div>
 );
