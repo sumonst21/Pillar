@@ -8,15 +8,19 @@ export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
 
 // We'll dispatch this when our user signs in
-export const receiveCurrentUser = currentUser => ({
+export const receiveCurrentUser = currentUser => {
+    // console.log(currentUser)
+    return({
     type: RECEIVE_CURRENT_USER,
     currentUser
-});
+})};
 
 // This will be used to redirect the user to the login page upon signup
-export const receiveUserSignIn = () => ({
+export const receiveUserSignIn = () => {
+    console.log('a')
+    return({
     type: RECEIVE_USER_SIGN_IN
-});
+})};
   
 // We dispatch this one to show authentication errors on the frontend
 export const receiveErrors = errors => ({
