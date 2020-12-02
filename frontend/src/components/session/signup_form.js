@@ -1,15 +1,20 @@
+import { authenticate } from 'passport';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import {Redirect} from 'react-router'
+import { login } from '../../util/session_api_util';
 
 class SignupForm extends React.Component {
   constructor(props) {
+     
     super(props);
     this.state = {
       email: '',
       username: '',
       password: '',
       password2: '',
-      errors: {}
+      errors: {},
+      is_authenticated: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,11 +22,20 @@ class SignupForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    //  
     if (nextProps.signedIn === true) {
-      this.props.history.push('/login');
+      this.props.history.push('/pillar');
     }
-
+    //  
     this.setState({errors: nextProps.errors})
+  }
+
+  componentDidUpdate(prevProps){
+    //  
+    if(this.props.authenticated !== prevProps.authenticated){
+      //  
+      this.setState({is_authenticated: true})
+    }
   }
 
   update(field) {
@@ -32,6 +46,7 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+     
     let user = {
       email: this.state.email,
       username: this.state.username,
@@ -39,7 +54,18 @@ class SignupForm extends React.Component {
       password2: this.state.password2
     };
 
-    this.props.signup(user, this.props.history); 
+    // this.props.signup(user, this.props.history); 
+    this.props.signup(user, this.props.history)
+      .then(user => {
+         
+        this.props.login(user)
+      })
+    // console.log(this.props)
+    // if(this.props.authenticate){
+    //   // this.props.login(user)
+    //   this.props.history.push('/pillars')
+    // }
+
   }
 
   renderErrors() {
