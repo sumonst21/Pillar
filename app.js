@@ -39,9 +39,14 @@ io.on("connection", socket => {
     
     connect.then(db => {
       try {
+
         //create new message
-        let message = new Message({ message: msg.message,
-          sender: msg.username});
+        let message = new Message({
+          message: msg.message,
+          sender: msg.userId,
+          room: msg.rooom,
+        });
+        
           debugger;
           //attempt to save to database
           message.save((err, document) => {
