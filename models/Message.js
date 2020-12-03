@@ -12,7 +12,7 @@ const MessageSchema = new Schema({
   },
   room: {
     type: Schema.Types.ObjectId,
-    ref: 'rooms'
+    ref: 'Room'
   }
 }, {
   timestamps: true

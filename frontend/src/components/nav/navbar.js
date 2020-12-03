@@ -19,25 +19,38 @@ class NavBar extends React.Component {
       if (this.props.loggedIn) {
         return (
             <div>
-                <Link to={'/tweets'}>All Channels</Link>
-                <Link to={'/profile'}>Profile</Link>
                 <button onClick={this.logoutUser}>Logout</button>
             </div>
         );
       } else {
-        return (
+        let current_path = this.props.location.pathname.split('/');
+        if(current_path.includes('login') && current_path.length>1){
+          return (
             <div>
                 <Link to={'/signup'}>Signup</Link>
-                <Link to={'/login'}>Login</Link>
             </div>
-        );
+          )
+        } else if (current_path.includes('signup') && current_path.length>1){
+          return (
+              <div>
+                <Link to={'/login'}>Login</Link>
+              </div>
+          );
+        } else {
+            return (
+              <div>
+                  <Link to={'/signup'}>Signup</Link>
+                  <Link to={'/login'}>Login</Link>
+              </div>
+          );
+        }
       }
   }
 
   render() {
       return (
         <div>
-            <h1>Pillar</h1>
+          <h1>Pillar</h1>
             { this.getLinks() }
         </div>
       );
