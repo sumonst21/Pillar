@@ -42,10 +42,10 @@ io.on("connection", socket => {
         //create new message
         let message = new Message({ message: msg.message,
           sender: msg.username});
-          
           //attempt to save to database
           message.save((err, document) => {
             //record error, if any
+            debugger;
             if(err) return res.json({ success: false, err });
             
 
