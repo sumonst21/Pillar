@@ -23,21 +23,17 @@ class ChatBox extends React.Component{
     this.socket = io(server);
     this.socket.on("Broadcast Message", theMessage =>{
       console.log(theMessage);
-<<<<<<< HEAD
       // debugger;
+
+      //how do I make sure a message only goes to one room?
+      
       this.props.afterMessageSent(theMessage);
      })
     // debugger;
-=======
-      this.props.afterMessageSent(theMessage);
-      // this.setState({
-      //   messages: 
-      // })
-    })
->>>>>>> main
   }
 
   // componentDidUpdate(prevProps){
+  //   debugger;
     
   // }
 
@@ -51,12 +47,9 @@ class ChatBox extends React.Component{
     e.preventDefault();
     //add room id to props
     let username = this.props.user.username;
-<<<<<<< HEAD
     let userId = this.props.user.id;
     let room = this.props.room;
     debugger;
-=======
->>>>>>> main
     console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
@@ -78,6 +71,7 @@ class ChatBox extends React.Component{
 
   render(){
     let messages = this.props.messages.data || [];
+    debugger;
     
     return(
         <div className="chatbox-container">
