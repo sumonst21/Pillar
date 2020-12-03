@@ -53,11 +53,11 @@ io.on("connection", socket => {
                                     sender: msg.userId,
                                     room: msg.rooom,
           });
-          debugger;
+          
           //attempt to save to database
           message.save((err, document) => {
             //record error, if any
-            debugger;
+            
             if(err) return res.json({ success: false, err });
 
             //retrieve new message by sender???

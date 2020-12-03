@@ -49,11 +49,11 @@ class ChatBox extends React.Component{
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
-    debugger;
+    // debugger;
     console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
-    debugger;
+    // debugger;
     this.socket.emit("Create Message", {
       message,
       timestamp,
@@ -62,7 +62,7 @@ class ChatBox extends React.Component{
       room
       //add room id here
     })
-    debugger;
+    // debugger;
     this.setState({
       chatMessage: "",
     })
@@ -71,10 +71,7 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.messages.data || [];
-    debugger;
-    
- 
-
+  
     return (
       <div className="chatbox-container">
         <h1>Chat Window</h1>

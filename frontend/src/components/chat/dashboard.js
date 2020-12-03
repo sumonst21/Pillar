@@ -10,8 +10,6 @@ class DashBoard extends React.Component{
 
          <div>
             <ChatBox room="5fc810be1f1ba53c26f5a0aa"/>    
-            <ChatBox room="5fc879982d81c84872b2f7fb"/>    
-
          </div>
 
 
