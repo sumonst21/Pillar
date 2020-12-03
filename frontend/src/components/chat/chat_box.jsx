@@ -43,7 +43,7 @@ class ChatBox extends React.Component{
     })
   }
 
-  submitMessage(e){
+  submitMessage(e) {
     e.preventDefault();
     //add room id to props
     let username = this.props.user.username;
@@ -69,24 +69,26 @@ class ChatBox extends React.Component{
 
   }
 
-  render(){
+  render() {
     let messages = this.props.messages.data || [];
     debugger;
     
-    return(
-        <div className="chatbox-container">
-          <h1>Chat Window</h1>
-          <form onSubmit={this.submitMessage}>
+ 
 
-            <input type="text" value={this.state.chatMessage} onChange={this.handleChange}/>
+    return (
+      <div className="chatbox-container">
+        <h1>Chat Window</h1>
+        <form onSubmit={this.submitMessage}>
+
+          <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
         </form>
         <ul>
           {messages.map(msg => (
             <li key={msg._id}>{msg.sender.username} says: {msg.message}</li>
           ))}
-   
+
         </ul>
-        </div>
+      </div>
     )
   }
 

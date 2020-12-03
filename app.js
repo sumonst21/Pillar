@@ -20,7 +20,6 @@ const connect = mongoose
 const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
 const rooms = require("./routes/api/rooms");
-
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -45,6 +44,7 @@ io.on("connection", socket => {
     // debugger;
     connect.then(db => {
       try {
+
         //create new message
 
 
