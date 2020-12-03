@@ -10,14 +10,14 @@ const RoomSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  messages:{
-    type: Schema.Types.ObjectId,
-    ref: 'Message'
-  },
-  users:{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  messages:[{
+    type: Schema.Type.ObjectId,
+    ref: "message"
+  }],
+  users:[{
+    type: Schema.Type.ObjectId,
+    ref: "user"
+  }]
 }, {
   timestamps: true
 })

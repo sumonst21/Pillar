@@ -26,6 +26,10 @@ const UserSchema = new Schema({
   rooms_admin_of: [{
       type: Schema.Type.ObjectId,
       ref: "Room"
+  }],
+  messages: [{
+    type: Schema.Type.ObjectId,
+    ref: "message"
   }]
 }, {
   timestamps: true
