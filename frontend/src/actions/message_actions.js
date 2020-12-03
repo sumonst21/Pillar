@@ -26,10 +26,6 @@ export const fetchMessages = () => dispatch => (
 );
 
 export const afterMessageSent = (msg) => dispatch => {
-<<<<<<< HEAD
-  // debugger;
-=======
->>>>>>> main
   dispatch(receiveNewMessage(msg[0]))
 };
 
