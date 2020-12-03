@@ -12,11 +12,11 @@ const RoomSchema = new Schema({
   },
   messages:[{
     type: Schema.Type.ObjectId,
-    ref: "message"
+    ref: "Message"
   }],
   users:[{
     type: Schema.Type.ObjectId,
-    ref: "user"
+    ref: "User"
   }]
 }, {
   timestamps: true
