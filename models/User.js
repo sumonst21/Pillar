@@ -29,7 +29,7 @@ const UserSchema = new Schema({
   }],
   messages: [{
     type: Schema.Type.ObjectId,
-    ref: "message"
+    ref: "Message"
   }]
 }, {
   timestamps: true
