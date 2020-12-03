@@ -19,6 +19,7 @@ const connect = mongoose
 
 const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
+const rooms = require("./routes/api/rooms");
 const bodyParser = require('body-parser');
 const path = require('path');
 
@@ -30,6 +31,7 @@ require('./config/passport')(passport);
 
 app.use("/api/users", users);
 app.use("/api/messages", messages);
+app.use("/api/rooms", rooms);
 
 const Message = require("./models/Message");
 io.on("connection", socket => {
