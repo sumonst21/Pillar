@@ -19,14 +19,15 @@ export const receiveNewMessage = message => ({
   message
 })
 
-export const fetchMessages = () => dispatch => (
-  getMessages()
+export const fetchMessages = (roomId) => dispatch => (
+  getMessages(roomId)
     .then(messages => dispatch(receiveMessages(messages)))
     .catch(err => console.log(err))
 );
 
 export const afterMessageSent = (msg) => dispatch => {
-  dispatch(receiveNewMessage(msg[0]))
+  // debugger;
+  dispatch(receiveNewMessage(msg))
 };
 
 

@@ -19,15 +19,20 @@ class ChatBox extends React.Component{
     
     /// this may be an issue when we push to Heroku! How to dynamically set the server?
     let server = "http://localhost:5000";
-    this.props.getMessages();
-    this.socket = io(server);
+    let roomId = this.props.socketId.substring(1);
+    this.props.getMessages(roomId);
+ 
+    this.socket = io(this.props.socketId);
     this.socket.on("Broadcast Message", theMessage =>{
-      console.log(theMessage);
       // debugger;
+      console.log(theMessage[0].message);
 
       //how do I make sure a message only goes to one room?
+      let msg = theMessage[0];
       
-      this.props.afterMessageSent(theMessage);
+      msg.room = roomId;
+      // debugger;
+      this.props.afterMessageSent(msg);
      })
     // debugger;
   }
@@ -48,7 +53,7 @@ class ChatBox extends React.Component{
     //add room id to props
     let username = this.props.user.username;
     let userId = this.props.user.id;
-    let room = this.props.room;
+    let room = this.props.socketId.substring(1);
     // debugger;
     console.log(username);
     let timestamp = moment().format('LT');
@@ -71,7 +76,7 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.messages.data || [];
-  
+    // debugger;
     return (
       <div className="chatbox-container">
         <h1>Chat Window</h1>

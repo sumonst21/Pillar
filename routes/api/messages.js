@@ -20,5 +20,16 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ nomessagesfound: 'No messages found' }));
 });
 
+router.get('/:roomId', (req, res) => {
+
+  Message.find({room: req.params.roomId})
+    .populate('sender')
+    .then(messages => {
+      res.json(messages);
+      //console.log(messages);
+    })
+    .catch(err => res.status(404).json({ nomessagesfound: 'No messages found' }));
+});
+
 
 module.exports = router;
