@@ -25,10 +25,7 @@ class ChatBox extends React.Component{
       console.log(theMessage);
       // debugger;
       this.props.afterMessageSent(theMessage);
-      // this.setState({
-      //   messages: 
-      // })
-    })
+     })
     // debugger;
   }
 
@@ -48,6 +45,7 @@ class ChatBox extends React.Component{
     //add room id to props
     let username = this.props.user.username;
     let userId = this.props.user.id;
+    let room = this.props.room;
     debugger;
     console.log(username);
     let timestamp = moment().format('LT');
@@ -58,6 +56,7 @@ class ChatBox extends React.Component{
       timestamp,
       username,
       userId,
+      room
       //add room id here
     })
     debugger;
