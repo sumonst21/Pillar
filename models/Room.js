@@ -11,11 +11,11 @@ const RoomSchema = new Schema({
     ref: 'User'
   },
   messages:[{
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Message"
   }],
   users:[{
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User"
   }]
 }, {
