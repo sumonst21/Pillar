@@ -20,15 +20,15 @@ const UserSchema = new Schema({
   },
   // rooms: [Room]
   rooms_subscribe_to: [{
-      type: Schema.Type.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Room"
     }],
   rooms_admin_of: [{
-      type: Schema.Type.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Room"
   }],
   messages: [{
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Message"
   }]
 }, {
