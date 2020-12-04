@@ -9,8 +9,9 @@ const RoomsReducer = (state = {}, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_ROOM:
+      const roomId = action.room.data._id;
+      Object.assign(newState,{ [roomId]: action.room.data });
       debugger;
-      newState.rooms[action.room.id] = action.room;
       return newState;
     // case RECEIVE_USER_TWEETS:
     //   newState.user = action.tweets.data;

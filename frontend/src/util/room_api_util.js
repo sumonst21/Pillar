@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-export const getRooms = () => {
-  return axios.get('/api/rooms/')
+export const getRooms = (userId) => {
+  return axios.get('/api/rooms/:userId')
 };
 
 export const createRoomUtil = (room) => {
+  debugger;
   return axios.post('api/rooms/', room)
 }
 

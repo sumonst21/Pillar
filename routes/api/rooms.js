@@ -11,13 +11,24 @@ router.get("/test", (req, res) => res.json({ msg: "This is the rooms route" }));
 
 
 //retrieve all rooms
-router.get('/', (req, res) => {
+router.get('/:userId/rooms', (req, res) => {
   console.log("this is the rooms route");
-  Room.find()
-    .populate('admin')
-    .then(rooms => {
+
+  // let ObjectId = mongoose.Types.ObjectId;
+  debugger;
+
+  // need this path to return only the rooms in which the current user is subscribed.
+  // Room.find does not work because the array of users in each room are 
+  // 'foreign keys' meaning they must be 'populate()' ed first before you can
+  // filter results by inclusion in the array.  Mongoose allows for a lookup() method,
+  // but could not figure out how to do it.
+
+
+  Room.find({
+      'users._id': req.params.userId})  //find all rooms where userId is a member
+      .then(rooms => {
       res.json(rooms);
-      //console.log(messages);
+      console.log(rooms);
     })
     .catch(err => res.status(404).json({ noroomsfound: 'No messages found' }));
 });
@@ -50,7 +61,7 @@ router.post('/',
       title: req.body.title,
       admin: req.body.admin,
       messages: [],
-      users: [],
+      users: req.body.users,
     });
 
     newRoom.save().then(room => res.json(room));

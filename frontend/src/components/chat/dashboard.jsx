@@ -12,13 +12,13 @@ class DashBoard extends React.Component{
    createNewRoom(e){
       e.preventDefault();
       e.stopPropagation();
-      debugger;
       let room = {
          title: "Hardcode for now",
          admin: this.props.user.id,
-
+         users: this.props.user.id,
       }
-
+      
+      debugger;
       this.props.createRoom(room)
 
    }

@@ -48,8 +48,8 @@ export const editRoom = room => dispatch => (
 )
 
 //we won't need this....
-export const fetchRooms = () => dispatch => (
-  getRooms()
+export const fetchRooms = (userId) => dispatch => (
+  getRooms(userId)
     .then(rooms => dispatch(receiveRoom(rooms)))
     .catch(err => console.log(err))
 );
