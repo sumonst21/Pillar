@@ -9,29 +9,35 @@ const validateRoomInput = require('../../validation/room');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the rooms route" }));
 
+const filterRooms = (rooms, userId) =>{
+  let filteredRooms = [];
+  rooms.forEach(room => {
+    room.users.forEach(user => {
+      //debugger;
+      if (user.toString() === userId){
+        filteredRooms.push(room);
+      } 
+    });
+  });
+  return filteredRooms;
+}
+
 
 //retrieve all rooms
 router.get('/:userId/rooms', (req, res) => {
   console.log("this is the rooms route");
 
-  // let ObjectId = mongoose.Types.ObjectId;
-  debugger;
-
-  // need this path to return only the rooms in which the current user is subscribed.
-  // Room.find does not work because the array of users in each room are 
-  // 'foreign keys' meaning they must be 'populate()' ed first before you can
-  // filter results by inclusion in the array.  Mongoose allows for a lookup() method,
-  // but could not figure out how to do it.
-
-
-  Room.find({
-      'users._id': req.params.userId})  //find all rooms where userId is a member
+  Room.find({})
+  //.populate('users')  //find all rooms where userId is a member
       .then(rooms => {
-      res.json(rooms);
-      console.log(rooms);
+        let roomList = filterRooms(rooms, req.params.userId);
+        res.json(roomList);
+        console.log(roomList);
     })
     .catch(err => res.status(404).json({ noroomsfound: 'No messages found' }));
 });
+
+
 
 
 //retrieve single room

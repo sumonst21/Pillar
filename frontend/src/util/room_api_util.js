@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getRooms = (userId) => {
-  return axios.get('/api/rooms/:userId')
+  return axios.get('/api/rooms/:userId/rooms')
 };
 
 export const createRoomUtil = (room) => {
