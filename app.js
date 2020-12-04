@@ -36,9 +36,17 @@ app.use("/api/rooms", rooms);
 const Message = require("./models/Message");
 // debugger;
 
+//need access to a users list of rooms
+//then, how to dynamically create a socket for each room?
 
+
+function test (){
+  debugger;
+}
 const room1Socket = io.of('/5fc90aaf6da6f760b4b3b84a');
 const room2Socket = io.of('/5fc9193d0cb8b668f49456cd');
+
+debugger;
 
 room1Socket.on('connection', function (socket) {
   console.log('someone connected to room 1');
