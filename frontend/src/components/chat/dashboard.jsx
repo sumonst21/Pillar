@@ -1,4 +1,5 @@
 import React from 'react';
+//import room from '../../../../validation/room';
 import ChatBox from './chat_box_container';
 
 class DashBoard extends React.Component{
@@ -11,8 +12,10 @@ class DashBoard extends React.Component{
 
    //component did mount
    componentDidMount(){
-      debugger;
+      //debugger;
       this.props.getRooms(this.props.user.id);
+      //when the dashboard mounts, this.props.rooms will have a list of all rooms a user belongs to 
+      // need to render the chatboxes with unique socket ids
    }
 
    createNewRoom(e){
@@ -24,7 +27,7 @@ class DashBoard extends React.Component{
          users: this.props.user.id,
       }
       
-      debugger;
+      //debugger;
       this.props.createRoom(room)
 
    }
@@ -32,15 +35,21 @@ class DashBoard extends React.Component{
 
    render(){
 
-      //login here to create chat boxes for each chatbox in state?
+      let rooms = this.props.rooms || {};
+      let socketIds = []
+      Object.keys(rooms).forEach(key => {
+         socketIds.push("/" + rooms[key]._id);  //add the '/' for socketio syntax
+      })
 
-      //the ids entered below are the instance ids of two rooms in the db
       return(
          <div>
             <button onClick={this.createNewRoom}>Create a New Chat Room</button>
             <div>
-               <ChatBox socketId="/5fc90aaf6da6f760b4b3b84a"/>    
-               <ChatBox socketId="/5fc9193d0cb8b668f49456cd"/>    
+               {
+                  socketIds.map(id=>(
+                     <ChatBox socketId={id} key={id} />
+                  ))
+               }  
             </div>
 
          </div>

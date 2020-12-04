@@ -17,8 +17,12 @@ const RoomsReducer = (state = {}, action) => {
     //   newState.user = action.tweets.data;
     //   return newState;
     case RECEIVE_ROOMS:
-      debugger;
-      Object.assign(newState.rooms, action.rooms);
+        
+      action.rooms.data.forEach(room => {
+        const roomId = room._id;
+        Object.assign(newState, { [roomId]: room })
+      });
+      
       return newState;
     case DELETE_ROOM:
       // debugger;
