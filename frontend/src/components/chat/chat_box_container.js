@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
    let roomId = ownProps.socketId.substring(1);
    if (state.messages.data){
       let messages = state.messages.data.filter(msg => msg.room === roomId); 
-      debugger;
+      // debugger;
    }
 
    return {

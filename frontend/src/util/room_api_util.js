@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 export const getRooms = () => {
-  return axios.get('/api/rooms')
+  return axios.get('/api/rooms/')
 };
 
-export const createRoom = (room) => {
-  return axios.post('api/rooms', {room})
+export const createRoomUtil = (room) => {
+  return axios.post('api/rooms/', room)
 }
 
 export const getRoom = (roomId) => {
@@ -13,11 +13,11 @@ export const getRoom = (roomId) => {
 };
 
 export const deleteRoomUtil = (roomId) => {
-  return axios.post(`/api/${roomId}/delete`)
+  return axios.post(`/api/rooms/${roomId}/delete`)
 }
 
 export const updateRoomUtil = (room) => {
-  return axios.post(`/api/${room.id}`,{room})
+  return axios.post(`/api/rooms/${room.id}`, room)
 }
 // /:roomId
 
