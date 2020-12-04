@@ -25,8 +25,8 @@ const filterRooms = (rooms, userId) =>{
 
 //retrieve all rooms
 router.get('/:userId/rooms', (req, res) => {
-  console.log("this is the rooms route");
-
+  //console.log("this is the rooms route");
+debugger;
   Room.find({})
   //.populate('users')  //find all rooms where userId is a member
       .then(rooms => {

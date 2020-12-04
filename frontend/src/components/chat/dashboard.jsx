@@ -6,7 +6,13 @@ class DashBoard extends React.Component{
       super(props);
 
       this.createNewRoom = this.createNewRoom.bind(this);
+      
+   }
 
+   //component did mount
+   componentDidMount(){
+      debugger;
+      this.props.getRooms(this.props.user.id);
    }
 
    createNewRoom(e){
