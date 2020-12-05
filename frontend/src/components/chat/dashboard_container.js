@@ -5,7 +5,7 @@ import DashBoard from './dashboard';
 
 
 const mapStateToProps = (state) => {
-  debugger;
+   ;
   return {
     user: state.session.user,
     rooms: state.rooms,

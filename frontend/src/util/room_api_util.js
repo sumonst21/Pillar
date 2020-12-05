@@ -5,7 +5,7 @@ export const getRooms = (userId) => {
 };
 
 export const createRoomUtil = (room) => {
-  debugger;
+   ;
   return axios.post('api/rooms/', room)
 }
 

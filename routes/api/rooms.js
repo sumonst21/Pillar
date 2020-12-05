@@ -13,7 +13,7 @@ const filterRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {
     room.users.forEach(user => {
-      //debugger;
+       ;
       if (user.toString() === userId){
         filteredRooms.push(room);
       } 
@@ -26,13 +26,13 @@ const filterRooms = (rooms, userId) =>{
 //retrieve all rooms
 router.get('/:userId/rooms', (req, res) => {
   //console.log("this is the rooms route");
-// debugger;
+ ;
   Room.find({})
-  //.populate('users')  //find all rooms where userId is a member
+      .populate('messages')  //find all rooms where userId is a member
       .then(rooms => {
         let roomList = filterRooms(rooms, req.params.userId);
         res.json(roomList);
-        console.log(roomList);
+        //console.log(roomList);
     })
     .catch(err => res.status(404).json({ noroomsfound: 'No messages found' }));
 });

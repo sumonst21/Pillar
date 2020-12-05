@@ -1,5 +1,6 @@
 import React from 'react';
 //import room from '../../../../validation/room';
+import io from "socket.io-client";
 import ChatBox from './chat_box_container';
 
 class DashBoard extends React.Component{
@@ -12,10 +13,19 @@ class DashBoard extends React.Component{
 
    //component did mount
    componentDidMount(){
-      //debugger;
       this.props.getRooms(this.props.user.id);
       //when the dashboard mounts, this.props.rooms will have a list of all rooms a user belongs to 
       // need to render the chatboxes with unique socket ids
+   }
+
+   componentDidUpdate(prevProps){
+      let user = this.props.user.username;
+      let rooms = this.props.rooms;
+      if (Object.keys(rooms).length != Object.keys(prevProps.rooms).length) {
+         this.socket = io();
+          ;
+         this.socket.emit("User connected", { user, rooms });
+      }
    }
 
    createNewRoom(e){
@@ -27,7 +37,7 @@ class DashBoard extends React.Component{
          users: this.props.user.id,
       }
       
-      //debugger;
+       ;
       this.props.createRoom(room)
 
    }
@@ -37,8 +47,12 @@ class DashBoard extends React.Component{
 
       let rooms = this.props.rooms || {};
       let socketIds = []
+
+
+
+
       Object.keys(rooms).forEach(key => {
-         socketIds.push("/" + rooms[key]._id);  //add the '/' for socketio syntax
+         socketIds.push(rooms[key]._id);  
       })
 
       return(

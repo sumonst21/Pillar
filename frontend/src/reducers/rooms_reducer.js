@@ -5,13 +5,13 @@ import { RECEIVE_ROOM,
 
 const RoomsReducer = (state = {}, action) => {
   Object.freeze(state);
-  // debugger;
+   ;
   let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_ROOM:
       const roomId = action.room.data._id;
       Object.assign(newState,{ [roomId]: action.room.data });
-      debugger;
+       ;
       return newState;
     // case RECEIVE_USER_TWEETS:
     //   newState.user = action.tweets.data;
@@ -25,7 +25,7 @@ const RoomsReducer = (state = {}, action) => {
       
       return newState;
     case DELETE_ROOM:
-      // debugger;
+       ;
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
