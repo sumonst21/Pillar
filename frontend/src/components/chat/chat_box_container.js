@@ -5,15 +5,11 @@ import ChatBox from './chat_box';
 
 
 const mapStateToProps = (state, ownProps) => {
-   let roomId = ownProps.socketId.substring(1);
-   if (state.messages.data){
-      let messages = state.messages.data.filter(msg => msg.room === roomId); 
-       ;
-   }
-
+   debugger;
    return {
       user: state.session.user,
-      messages: state.messages,
+      room: state.rooms[ownProps.roomId],
+       
       // errors: state.errors.session
    };
 };

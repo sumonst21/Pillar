@@ -16,34 +16,18 @@ class ChatBox extends React.Component{
 
 
   componentDidMount(){
-    
-    /// this may be an issue when we push to Heroku! How to dynamically set the server?
-    let server = "http://localhost:5000";
-    let roomId = this.props.socketId;
-    this.props.getMessages(roomId);
+    let roomId = this.props.room._id;
+    debugger;
+    //this.props.getMessages(roomId);
  
     this.socket = io();
-    // let userName = this.props.user.username;
-     ;
-    // this.socket.emit("User connected", userName)
     this.socket.on(`MTC_${roomId}`, theMessage =>{
-       ;
+       debugger;
       console.log(theMessage[0].message);
       this.props.afterMessageSent(theMessage[0]);
     });
-      // //how do I make sure a message only goes to one room?
-      // let msg = theMessage[0];
-      
-      // msg.room = roomId;
-      //  ;
-     
-     ;
   }
-
-  // componentDidUpdate(prevProps){
-  //    ;
-    
-  // }
+     
 
   handleChange(e){
     this.setState({
@@ -56,33 +40,33 @@ class ChatBox extends React.Component{
     //add room id to props
     let username = this.props.user.username;
     let userId = this.props.user.id;
-    let room = this.props.socketId;
-     ;
+    let room = this.props.room;
+     
     console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
-     ;
+     
     this.socket.emit("Create Message", {
       message,
       timestamp,
       username,
       userId,
       room
-      //add room id here
     })
-     ;
+     
     this.setState({
       chatMessage: "",
     })
-
   }
 
+
+
   render() {
-    let messages = this.props.messages.data || [];
-     ;
+    let messages = this.props.room.messages || [];
+     
     return (
       <div className="chatbox-container">
-        <h1>Chat Window</h1>
+        <h1>{this.props.room.title}</h1>
         <form onSubmit={this.submitMessage}>
 
           <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />

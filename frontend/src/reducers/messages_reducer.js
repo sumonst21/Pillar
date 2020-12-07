@@ -11,10 +11,10 @@ const MessagesReducer = (state = { }, action) => {
     // case RECEIVE_USER_TWEETS:
     //   newState.user = action.tweets.data;
     //   return newState;
-    case RECEIVE_NEW_MESSAGE:
-       ;
-      newState.data.push(action.message);
-      return newState;
+    // case RECEIVE_NEW_MESSAGE:
+    //    debugger;
+    //   newState.data.push(action.message);
+    //   return newState;
     default:
       return state;
   }

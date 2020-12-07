@@ -4,6 +4,7 @@ export const RECEIVE_ROOMS = "RECEIVE_ROOMS";
 export const RECEIVE_ROOM = "RECEIVE_ROOM";
 export const DELETE_ROOM = "DELETE_ROOM";
 export const UPDATE_ROOM = "UPDATE_ROOM";
+export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 
 
 export const receiveRooms = rooms => ({
@@ -47,9 +48,11 @@ export const editRoom = room => dispatch => (
     .then(room => dispatch(updateRoom(room)))
 )
 
-//we won't need this....
 export const fetchRooms = (userId) => dispatch => (
   getRooms(userId)
-    .then(rooms => dispatch(receiveRooms(rooms)))
+    .then(rooms => {
+      debugger;
+      dispatch(receiveRooms(rooms));
+    })
     .catch(err => console.log(err))
 );
