@@ -62,7 +62,7 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.room.messages || [];
-     
+     debugger;
     return (
       <div className="chatbox-container">
         <h1>{this.props.room.title}</h1>

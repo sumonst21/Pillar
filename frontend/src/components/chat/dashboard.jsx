@@ -39,7 +39,15 @@ class DashBoard extends React.Component{
       if (Object.keys(rooms).length != Object.keys(prevProps.rooms).length) {
          this.socket = io();
          this.socket.emit("User connected", { user, rooms });
-      }
+      };
+      getAvailableRooms(this.props.user.id)
+         .then(rooms => {
+            this.setState({
+               roomsAvailable: rooms,
+            })
+            //console.log(roomsAvailable);
+
+         });
    }
 
    createNewRoom(e){
@@ -50,9 +58,10 @@ class DashBoard extends React.Component{
          admin: this.props.user.id,
          users: this.props.user.id,
       }
-      
-       ;
       this.props.createRoom(room)
+      this.setState({
+         newTitle: "",
+      })
    }
 
    joinRoom(e){
