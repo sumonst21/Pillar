@@ -2,22 +2,33 @@ import React from 'react';
 //import room from '../../../../validation/room';
 import io from "socket.io-client";
 import ChatBox from './chat_box_container';
+import { getAvailableRooms } from '../../util/room_api_util';
 
 class DashBoard extends React.Component{
    constructor(props){
       super(props);
       this.state = {
          newTitle: "",
+         roomsAvailable: [],
       }
 
       this.createNewRoom = this.createNewRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      this.joinRoom = this.joinRoom.bind(this);
    }
 
    //component did mount
    componentDidMount(){
-      debugger;
       this.props.getRooms(this.props.user.id);
+      getAvailableRooms(this.props.user.id)
+         .then(rooms => {
+            this.setState({
+               roomsAvailable: rooms,
+            })
+            //console.log(roomsAvailable);
+
+         });
+    
       //when the dashboard mounts, this.props.rooms will have a list of all rooms a user belongs to 
       // need to render the chatboxes with unique socket ids
    }
@@ -27,7 +38,6 @@ class DashBoard extends React.Component{
       let rooms = this.props.rooms;
       if (Object.keys(rooms).length != Object.keys(prevProps.rooms).length) {
          this.socket = io();
-          ;
          this.socket.emit("User connected", { user, rooms });
       }
    }
@@ -43,7 +53,13 @@ class DashBoard extends React.Component{
       
        ;
       this.props.createRoom(room)
+   }
 
+   joinRoom(e){
+      let room = this.state.roomsAvailable.data.filter(room => e.currentTarget.id === room._id ? room : null);
+      room[0].users.push(this.props.user.id);
+      this.props.editRoom(room[0]);
+      debugger;
    }
 
    handleChange(e){
@@ -57,7 +73,7 @@ class DashBoard extends React.Component{
 
       let rooms = this.props.rooms || {};
       let roomIds = [];
-      debugger;
+      let roomsAvailable = this.state.roomsAvailable.data || [];
 
 
 
@@ -67,6 +83,17 @@ class DashBoard extends React.Component{
 
       return(
          <div>
+            <p>Available rooms</p>
+            <ul>
+               {
+                  roomsAvailable.map(room => {
+                     return (
+                        <li onClick={this.joinRoom} id={room._id} key={room._id}>{room.title}</li>
+                     )
+                  })
+               }
+   
+            </ul>
             <form onSubmit={this.createNewRoom}>
                <input type="text" value={this.state.newTitle} 
                         onChange={this.handleChange}

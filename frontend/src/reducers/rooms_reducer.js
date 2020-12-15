@@ -17,7 +17,7 @@ const RoomsReducer = (state = {}, action) => {
 
       /////
     case RECEIVE_NEW_MESSAGE:
-      debugger
+      
       //make a deep dupe of the messages array and reassign to the new state
       // let NewArray = [];
       // newArray = lodash.newState[action.message.room].messages
@@ -26,7 +26,6 @@ const RoomsReducer = (state = {}, action) => {
       return newState;
       /////
     case RECEIVE_ROOMS:
-      debugger;  
       action.rooms.data.forEach(room => {
         const roomId = room._id;
         Object.assign(newState, { [roomId]: room })
@@ -38,7 +37,10 @@ const RoomsReducer = (state = {}, action) => {
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
-      newState.rooms[action.room.id] = action.room;
+      debugger;
+      const id = action.room._id;
+      //newState.rooms[action.room._id] = action.room;
+      Object.assign(newState,{[id]: action.room })
       return newState;
     default:
       return state;

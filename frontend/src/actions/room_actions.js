@@ -45,13 +45,16 @@ export const removeRoom = roomId => dispatch => (
 
 export const editRoom = room => dispatch => (
   updateRoomUtil(room)
-    .then(room => dispatch(updateRoom(room)))
+    .then(room => {
+      debugger;
+      dispatch(updateRoom(room.data))
+    })
 )
 
 export const fetchRooms = (userId) => dispatch => (
   getRooms(userId)
     .then(rooms => {
-      debugger;
+      
       dispatch(receiveRooms(rooms));
     })
     .catch(err => console.log(err))

@@ -5,12 +5,9 @@ import ChatBox from './chat_box';
 
 
 const mapStateToProps = (state, ownProps) => {
-   debugger;
    return {
       user: state.session.user,
       room: state.rooms[ownProps.roomId],
-       
-      // errors: state.errors.session
    };
 };
 

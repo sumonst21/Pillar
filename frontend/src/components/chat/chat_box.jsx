@@ -17,12 +17,11 @@ class ChatBox extends React.Component{
 
   componentDidMount(){
     let roomId = this.props.room._id;
-    debugger;
     //this.props.getMessages(roomId);
  
     this.socket = io();
     this.socket.on(`MTC_${roomId}`, theMessage =>{
-       debugger;
+       
       console.log(theMessage[0].message);
       this.props.afterMessageSent(theMessage[0]);
     });

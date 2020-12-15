@@ -4,8 +4,11 @@ export const getRooms = (userId) => {
   return axios.get(`/api/rooms/${userId}/rooms`)
 };
 
+export const getAvailableRooms = (userId) => {
+  return axios.get(`/api/rooms/${userId}/roomsAvailable`)
+};
+
 export const createRoomUtil = (room) => {
-   ;
   return axios.post('api/rooms/', room)
 }
 
@@ -18,7 +21,8 @@ export const deleteRoomUtil = (roomId) => {
 }
 
 export const updateRoomUtil = (room) => {
-  return axios.post(`/api/rooms/${room.id}`, room)
+  debugger;
+  return axios.post(`/api/rooms/${room._id}`, room)
 }
 // /:roomId
 

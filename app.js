@@ -35,7 +35,7 @@ app.use("/api/rooms", rooms);
 
 const Message = require("./models/Message");
 const Room = require("./models/Room");
-const room = require("./validation/room");
+//const room = require("./validation/room");
 
 
 io.on("connection", socket => {
@@ -67,7 +67,6 @@ io.on("connection", socket => {
             .exec((err,document) => {
               //emit to a unique reciever
               io.emit(`MTC_${document[0].room.toString()}`, document);
-              debugger;
 
               //add to a rooms array of messages
               Room.findOneAndUpdate(
