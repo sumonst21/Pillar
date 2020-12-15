@@ -5,7 +5,7 @@ const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-const server= require("http").createServer(app);
+const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: '*',  //added this due to CORS error
@@ -39,57 +39,57 @@ const Room = require("./models/Room");
 
 
 io.on("connection", socket => {
-  console.log("connection made")
-  
+  console.log(`connection made from socket id ${socket.id}`);
+
   socket.on("User connected", ({ user, rooms }) => {
     //create rooms
     Object.keys(rooms).forEach(roomId => {
       socket.join(roomId);
     })
-     ;  
-  } )
+      ;
+  })
 
   socket.on("Create Message", msg => {
     connect.then(db => {
       try {
-        let message = new Message({ 
-                                    message: msg.message,
-                                    sender: msg.userId,
-                                    room: msg.room,
-          });
-          message.save((err, document) => {
-            //record error, if any
-            if(err) return res.json({ success: false, err });
+        let message = new Message({
+          message: msg.message,
+          sender: msg.userId,
+          room: msg.room,
+        });
+        message.save((err, document) => {
+          //record error, if any
+          if (err) return res.json({ success: false, err });
 
-            //retrieve new message by sender???
-            Message.find({ "_id": document._id })
+          //retrieve new message by sender???
+          Message.find({ "_id": document._id })
             .populate("sender")
-            .exec((err,document) => {
+            .exec((err, document) => {
               //emit to a unique reciever
               io.emit(`MTC_${document[0].room.toString()}`, document);
 
               //add to a rooms array of messages
               Room.findOneAndUpdate(
-                { _id: document[0].room},
-                { $push: { messages: document }},
+                { _id: document[0].room },
+                { $push: { messages: document } },
                 (error, success) => {
-                  if(error){
+                  if (error) {
                     console.log("Add message to room array failed: " + error);
                   } else {
                     console.log("Message added to room");
                   }
                 }
-              ) 
+              )
             })
-          })
-        } catch (error) {
-          console.log(error);
-        }
-      })
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    })
 
   })
-   
+
 })
 
-  const port = process.env.PORT || 5000;
-  server.listen(port, () => console.log(`Server is running on port ${port}`));
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`Server is running on port ${port}`));
