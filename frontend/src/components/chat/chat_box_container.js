@@ -4,18 +4,16 @@ import ChatBox from './chat_box';
 
 
 
-const mapStateToProps = (state) => {
-   debugger;
+const mapStateToProps = (state, ownProps) => {
    return {
       user: state.session.user,
-      messages: state.messages,
-      // errors: state.errors.session
+      room: state.rooms[ownProps.roomId],
    };
 };
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      getMessages: () => dispatch(fetchMessages()),
+      getMessages: (roomId) => dispatch(fetchMessages(roomId)),
       afterMessageSent: (msg) => {
          dispatch(afterMessageSent(msg));
       }

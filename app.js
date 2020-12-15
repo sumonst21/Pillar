@@ -5,7 +5,7 @@ const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-const server= require("http").createServer(app);
+const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
   cors: {
     origin: '*',  //added this due to CORS error
@@ -41,52 +41,62 @@ app.use("/api/messages", messages);
 app.use("/api/rooms", rooms);
 
 const Message = require("./models/Message");
-// debugger;
+const Room = require("./models/Room");
+//const room = require("./validation/room");
+
 
 io.on("connection", socket => {
-  
-  socket.on("Create Message", msg => {
-    //msg ->  {message, timestamp, username, room}
-    
-    // debugger;
-    connect.then(db => {
-      try {
+  console.log(`connection made from socket id ${socket.id}`);
 
-        //create new message
-
-
-        let message = new Message({ 
-                                    message: msg.message,
-                                    sender: msg.userId,
-                                    room: msg.rooom,
-          });
-          
-          //attempt to save to database
-          message.save((err, document) => {
-            //record error, if any
-            
-            if(err) return res.json({ success: false, err });
-
-            //retrieve new message by sender???
-            Message.find({ "_id": document._id })
-            .populate("sender")
-            .exec((err,document) => {
-//added socket.join
-              socket.join(document.room);
-              return io.to(document.room).emit("Broadcast Message",document);
-            })
-          })
-        } catch (error) {
-          console.log(error);
-        }
-      })
-      
+  socket.on("User connected", ({ user, rooms }) => {
+    //create rooms
+    Object.keys(rooms).forEach(roomId => {
+      socket.join(roomId);
     })
-    
-    
+      ;
   })
 
+  socket.on("Create Message", msg => {
+    connect.then(db => {
+      try {
+        let message = new Message({
+          message: msg.message,
+          sender: msg.userId,
+          room: msg.room,
+        });
+        message.save((err, document) => {
+          //record error, if any
+          if (err) return res.json({ success: false, err });
 
-  
-  const port = process.env.PORT || 5000;
-  server.listen(port, () => console.log(`Server is running on port ${port}`));
+          //retrieve new message by sender???
+          Message.find({ "_id": document._id })
+            .populate("sender")
+            .exec((err, document) => {
+              //emit to a unique reciever
+              io.emit(`MTC_${document[0].room.toString()}`, document);
+
+              //add to a rooms array of messages
+              Room.findOneAndUpdate(
+                { _id: document[0].room },
+                { $push: { messages: document } },
+                (error, success) => {
+                  if (error) {
+                    console.log("Add message to room array failed: " + error);
+                  } else {
+                    console.log("Message added to room");
+                  }
+                }
+              )
+            })
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+  })
+
+})
+
+const port = process.env.PORT || 5000;
+server.listen(port, () => console.log(`Server is running on port ${port}`));

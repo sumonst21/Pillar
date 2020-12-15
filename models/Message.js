@@ -4,10 +4,11 @@ const Schema = mongoose.Schema;
 const MessageSchema = new Schema({
   message: {
     type: String,
-    required: true
+    require: true
   },
   sender: {
     type: Schema.Types.ObjectId,
+    require: true,
     ref: 'User'
   },
   room: {

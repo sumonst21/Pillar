@@ -9,18 +9,74 @@ const validateRoomInput = require('../../validation/room');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the rooms route" }));
 
+const filterRooms = (rooms, userId) =>{
+  let filteredRooms = [];
+  rooms.forEach(room => {
+    room.users.forEach(user => {
+      if (user.toString() === userId){
+        filteredRooms.push(room);
+      } 
+    });
+  });
+  return filteredRooms;
+}
+const filterAvailableRooms = (rooms, userId) =>{
+  let filteredRooms = [];
+  rooms.forEach(room => {
+    let include = true;
+    room.users.forEach(user => {
+      if (user.toString() === userId){
+        include = false;
+      } 
+    });
+    include ? filteredRooms.push(room) : null;
 
-//retrieve all rooms
-router.get('/', (req, res) => {
-  console.log("this is the rooms route");
-  Room.find()
-    .populate('admin')
-    .then(rooms => {
-      res.json(rooms);
-      //console.log(messages);
-    })
-    .catch(err => res.status(404).json({ noroomsfound: 'No messages found' }));
+  });
+  return filteredRooms;
+}
+
+//get available rooms to join
+  //excludes rooms a user already bleongs to
+router.get('/:userId/roomsAvailable', (req,res)=> {
+  
+  Room.find({}).exec((err, rooms)=>{
+    if (err) {
+      res.status(404).json({ noroomsfound: 'No rooms found' });
+    } else {
+      let roomList = filterAvailableRooms(rooms, req.params.userId);
+      //debugger;
+      res.json(roomList);
+    }
+  })
+
+})
+
+//retrieve all rooms by user
+router.get('/:userId/rooms', (req, res) => {
+
+  Room.find({})
+      .populate({
+        path: 'messages',
+        model: 'Message',
+        populate: {
+          path: 'sender',
+          model: 'User'
+        }
+      }) //populate the array of messages
+      .exec((err, rooms)=>{
+
+        if(err){
+          res.status(404).json({ noroomsfound: 'No rooms found' });
+        } else {
+          let roomList = filterRooms(rooms, req.params.userId);
+          //debugger;
+          res.json(roomList);
+        }
+
+      }) 
 });
+
+
 
 
 //retrieve single room
@@ -50,7 +106,7 @@ router.post('/',
       title: req.body.title,
       admin: req.body.admin,
       messages: [],
-      users: [],
+      users: req.body.users,
     });
 
     newRoom.save().then(room => res.json(room));
@@ -76,14 +132,19 @@ router.post('/:roomId',
   (req, res) => {
     const { errors, isValid } = validateRoomInput(req.body);
     
-
+    debugger;
     if (!isValid) {
       return res.status(400).json(errors);
     }
     let updateRoom = Room.findById(req.params.roomId).exec().then(room => {
       room.title = req.body.title;
       room.admin = req.body.admin;
-      room.save().then(room => res.json(room));
+      room.users = req.body.users;
+      debugger;
+      room.save().then(room => {
+        debugger;
+        res.json(room);
+      });
       //returns the updated room
     }
     );

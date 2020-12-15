@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const getMessages = () => {
-  return axios.get('/api/messages')
+export const getMessages = (roomId) => {
+  return axios.get(`/api/messages/${roomId}`)
 };
 
 // export const getUserTweets = id => {
