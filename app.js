@@ -23,7 +23,6 @@ const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
 const rooms = require("./routes/api/rooms");
 const bodyParser = require('body-parser');
-const path = require('path');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
