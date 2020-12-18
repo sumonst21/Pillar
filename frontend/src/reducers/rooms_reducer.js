@@ -37,7 +37,7 @@ const RoomsReducer = (state = {}, action) => {
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
-      debugger;
+      // debugger;
       const id = action.room._id;
       //newState.rooms[action.room._id] = action.room;
       Object.assign(newState,{[id]: action.room })

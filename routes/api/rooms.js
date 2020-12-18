@@ -132,7 +132,7 @@ router.post('/:roomId',
   (req, res) => {
     const { errors, isValid } = validateRoomInput(req.body);
     
-    debugger;
+    // debugger;
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -140,9 +140,9 @@ router.post('/:roomId',
       room.title = req.body.title;
       room.admin = req.body.admin;
       room.users = req.body.users;
-      debugger;
+      // debugger;
       room.save().then(room => {
-        debugger;
+        // debugger;
         res.json(room);
       });
       //returns the updated room
