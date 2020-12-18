@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const db = require('./config/keys_prod').mongoURI;
+const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
 const path = require('path');
