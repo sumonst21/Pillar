@@ -72,7 +72,8 @@ class ChatBox extends React.Component{
         </form>
         <ul>
           {messages.map(msg => (
-            <li key={msg._id}>{msg.sender.username} says: {msg.message}</li>
+            <li key={msg._id}>{(msg.sender) === null? null:msg.sender.username} says: {msg.message}</li>
+            //why adding null? 
           ))}
 
         </ul>
