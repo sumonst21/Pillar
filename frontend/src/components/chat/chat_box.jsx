@@ -62,7 +62,7 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.room.messages || [];
-    //  debugger;
+    // debugger
     return (
       <div className="chatbox-container">
         <h1>{this.props.room.title}</h1>
@@ -71,9 +71,11 @@ class ChatBox extends React.Component{
           <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
         </form>
         <ul>
-          {messages.map(msg => (
-            <li key={msg._id}>{msg.sender.username} says: {msg.message}</li>
-          ))}
+          {messages.map(msg => {
+            <li key={msg._id}>{(msg.sender) === null ? null : msg.sender.username} says: {msg.message}</li>
+            // <li key={msg._id}> says: {msg.message}</li>
+
+          })}
 
         </ul>
       </div>
