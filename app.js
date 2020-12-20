@@ -4,6 +4,8 @@ const app = express();
 const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
+const path = require('path');
+
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
@@ -21,7 +23,6 @@ const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
 const rooms = require("./routes/api/rooms");
 const bodyParser = require('body-parser');
-const path = require('path');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -65,6 +66,7 @@ io.on("connection", socket => {
           room: msg.room,
         });
         message.save((err, document) => {
+
           //record error, if any
           if (err) return res.json({ success: false, err });
 
@@ -73,7 +75,6 @@ io.on("connection", socket => {
             .populate("sender")
             .exec((err, document) => {
               //emit to a unique reciever
-              io.emit(`MTC_${document[0].room.toString()}`, document);
 
               //add to a rooms array of messages
               Room.findOneAndUpdate(
@@ -83,6 +84,7 @@ io.on("connection", socket => {
                   if (error) {
                     console.log("Add message to room array failed: " + error);
                   } else {
+                    io.emit(`MTC_${document[0].room.toString()}`, document);
                     console.log("Message added to room");
                   }
                 }

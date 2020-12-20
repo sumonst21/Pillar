@@ -21,7 +21,7 @@ export const deleteRoomUtil = (roomId) => {
 }
 
 export const updateRoomUtil = (room) => {
-  debugger;
+  // debugger;
   return axios.post(`/api/rooms/${room._id}`, room)
 }
 // /:roomId
