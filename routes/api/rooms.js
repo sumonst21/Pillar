@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Room = require('../../models/Room');
+const User = require('../../models/User');
 const validateRoomInput = require('../../validation/room');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the rooms route" }));
@@ -33,7 +34,9 @@ const filterAvailableRooms = (rooms, userId) =>{
 
   });
   return filteredRooms;
-}
+};
+
+
 
 //get available rooms to join
   //excludes rooms a user already bleongs to
@@ -48,8 +51,9 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
       res.json(roomList);
     }
   })
-
 })
+
+
 
 //retrieve all rooms by user
 router.get('/:userId/rooms', (req, res) => {
@@ -90,6 +94,24 @@ router.get('/:roomId', (req, res) => {
     })
     .catch(err => res.status(404).json({ noroomfound: 'No room found' }));
 });
+
+
+//find current users in one single room
+// router.get('/:roomId/users', (req,res)=> {
+  
+//   Room.findById(req.params.roomId)
+//     .then((err, room)=>{
+//       if (err) {
+//         res.status(404).json({ noroomsfound: 'No rooms found' });
+//       } else {
+//         let userList = [];
+//         room.users.forEach(user => {
+//           userList.push(User.find({_id: user}));
+//         })
+//         res.json(userList);
+//       }
+//   })
+// })
 
 
 //create room
