@@ -19,6 +19,7 @@ class DashBoard extends React.Component{
 
    //component did mount
    componentDidMount(){
+      this.socket = io();
       this.props.getRooms(this.props.user.id);
       getAvailableRooms(this.props.user.id)
          .then(rooms => {
@@ -37,7 +38,7 @@ class DashBoard extends React.Component{
       let user = this.props.user.username;
       let rooms = this.props.rooms;
       if (Object.keys(rooms).length != Object.keys(prevProps.rooms).length) {
-         this.socket = io();
+         // this.socket = io();
          this.socket.emit("User connected", { user, rooms });
       };
       getAvailableRooms(this.props.user.id)

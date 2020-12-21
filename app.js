@@ -54,7 +54,7 @@ io.on("connection", socket => {
     Object.keys(rooms).forEach(roomId => {
       socket.join(roomId);
     })
-      ;
+      //io.emit("new member", members + rooms) to let rooms know someone else is now online
   })
 
   socket.on("Create Message", msg => {
