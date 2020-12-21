@@ -1,6 +1,8 @@
 import React from "react"
 import io from "socket.io-client";
 import moment from "moment";
+import './chatbox.css'
+
 
 
 class ChatBox extends React.Component{
@@ -8,8 +10,10 @@ class ChatBox extends React.Component{
     super(props);
     this.state = {
       chatMessage: "",
+      open: true,
+      openOrClose: 'close'
     }
-
+    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
   }
@@ -58,25 +62,31 @@ class ChatBox extends React.Component{
     })
   }
 
-
+  toggle(){
+    this.state.open ? 
+    this.setState({open: false, openOrClose: 'open'}) : 
+    this.setState({open: true, openOrClose: 'close'});
+  }
 
   render() {
     let messages = this.props.room.messages || [];
-    //  debugger;
     return (
-      <div className="chatbox-container">
-        <h1>{this.props.room.title}</h1>
-        <form onSubmit={this.submitMessage}>
+      <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
+        {this.state.open ? (
+          <div className="chatbox-container">
 
-          <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-        </form>
-        <ul>
-          {messages.map(msg => (
-            <li key={msg._id}>{(msg.sender) === null? null:msg.sender.username} says: {msg.message}</li>
-            //why adding null? 
-          ))}
+            <h1>{this.props.room.title}</h1>
+            <form onSubmit={this.submitMessage}>
 
-        </ul>
+              <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
+            </form>
+            <ul>
+              {messages.map(msg => (
+                <li key={msg._id}>{(msg.sender) === null? null:msg.sender.username} says: {msg.message}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     )
   }
