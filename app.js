@@ -57,39 +57,39 @@ io.on("connection", socket => {
       //io.emit("new member", members + rooms) to let rooms know someone else is now online
   })
 
+
   socket.on("Create Message", msg => {
+
     connect.then(db => {
       try {
-        let message = new Message({
+        
+
+        const message = new Message({
           message: msg.message,
           sender: msg.userId,
           room: msg.room,
+          username: msg.username,
         });
-        message.save((err, document) => {
 
+        message.save((err, document) => {
           //record error, if any
           if (err) return res.json({ success: false, err });
-
-          //retrieve new message by sender???
-          Message.find({ "_id": document._id })
-            .populate("sender")
-            .exec((err, document) => {
-              //emit to a unique reciever
-
-              //add to a rooms array of messages
-              Room.findOneAndUpdate(
-                { _id: document[0].room },
-                { $push: { messages: document } },
-                (error, success) => {
-                  if (error) {
-                    console.log("Add message to room array failed: " + error);
-                  } else {
-                    io.emit(`MTC_${document[0].room.toString()}`, document);
-                    console.log("Message added to room");
-                  }
-                }
-              )
-            })
+          
+          //add to a rooms array of messages
+          Room.findOneAndUpdate(
+            { _id: document.room._id },
+            { $push: { messages: document } },
+            (error, success) => {
+               
+              if (error) {
+                console.log("Add message to room array failed: " + error);
+              } else {
+                io.emit(`MTC_${document.room._id.toString()}`, document);
+                console.log("Username: "+message.username);
+              }
+            }
+          )
+            
         })
       } catch (error) {
         console.log(error);
