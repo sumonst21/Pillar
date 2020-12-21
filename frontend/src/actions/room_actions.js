@@ -4,7 +4,7 @@ export const RECEIVE_ROOMS = "RECEIVE_ROOMS";
 export const RECEIVE_ROOM = "RECEIVE_ROOM";
 export const DELETE_ROOM = "DELETE_ROOM";
 export const UPDATE_ROOM = "UPDATE_ROOM";
-export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
+//export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 export const RECEIVE_ROOM_USERS = "RECEIVE_ROOM_USERS";
 
 
@@ -48,7 +48,7 @@ export const removeRoom = roomId => dispatch => (
 export const editRoom = room => dispatch => (
   updateRoomUtil(room)
     .then(room => {
-      // debugger;
+      //  
       dispatch(updateRoom(room.data))
     })
 )

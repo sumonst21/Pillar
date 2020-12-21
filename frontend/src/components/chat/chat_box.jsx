@@ -21,13 +21,26 @@ class ChatBox extends React.Component{
 
   componentDidMount(){
     let roomId = this.props.room._id;
-    //this.props.getMessages(roomId);
- 
-    this.socket = io();
-    this.socket.on(`MTC_${roomId}`, theMessage =>{
-       
-      console.log(theMessage[0].message);
-      this.props.afterMessageSent(theMessage[0]);
+
+    this.props.socket.on(`MTC_${roomId}`, msg =>{
+       //this message has been saved to the database, now need to update redux and components
+      console.log(msg);
+    
+      let newMessage = {
+        id: msg._id,
+        message: msg.message,
+        createdAt: msg.createdAt,
+        updatedAt: msg.updatedAt,
+        room: msg.room,
+        sender: msg.sender,
+        username: msg.username,
+      }
+      this.props.afterMessageSent(newMessage); 
+      
+      //update messages slice of state
+
+      //update messages array in the rooms slice of state?
+      
     });
   }
      
@@ -45,11 +58,11 @@ class ChatBox extends React.Component{
     let userId = this.props.user.id;
     let room = this.props.room;
      
-    console.log(username);
+    //console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
      
-    this.socket.emit("Create Message", {
+    this.props.socket.emit("Create Message", {
       message,
       timestamp,
       username,
@@ -70,6 +83,7 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.room.messages || [];
+    
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
@@ -82,7 +96,7 @@ class ChatBox extends React.Component{
             </form>
             <ul>
               {messages.map(msg => (
-                <li key={msg._id}>{(msg.sender) === null? null:msg.sender.username} says: {msg.message}</li>
+                <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
               ))}
             </ul>
           </div>

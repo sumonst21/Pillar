@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => {
    return {
       user: state.session.user,
       room: state.rooms[ownProps.roomId],
+      socket: ownProps.socket,
    };
 };
 

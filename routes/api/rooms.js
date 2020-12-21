@@ -47,7 +47,7 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
       res.status(404).json({ noroomsfound: 'No rooms found' });
     } else {
       let roomList = filterAvailableRooms(rooms, req.params.userId);
-      //debugger;
+      // 
       res.json(roomList);
     }
   })
@@ -73,7 +73,7 @@ router.get('/:userId/rooms', (req, res) => {
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
           let roomList = filterRooms(rooms, req.params.userId);
-          //debugger;
+          // 
           res.json(roomList);
         }
 
@@ -154,7 +154,7 @@ router.post('/:roomId',
   (req, res) => {
     const { errors, isValid } = validateRoomInput(req.body);
     
-    // debugger;
+    //  
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -162,9 +162,9 @@ router.post('/:roomId',
       room.title = req.body.title;
       room.admin = req.body.admin;
       room.users = req.body.users;
-      // debugger;
+      //  
       room.save().then(room => {
-        // debugger;
+        //  
         res.json(room);
       });
       //returns the updated room

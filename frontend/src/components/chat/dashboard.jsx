@@ -8,6 +8,7 @@ import { getAvailableRooms } from '../../util/room_api_util';
 class DashBoard extends React.Component{
    constructor(props){
       super(props);
+      this.socket = io();
       this.state = {
          newTitle: "",
          roomsAvailable: [],
@@ -20,8 +21,11 @@ class DashBoard extends React.Component{
 
    //component did mount
    componentDidMount(){
-      this.props.getRooms(this.props.user.id);
-      getAvailableRooms(this.props.user.id)
+      
+      this.props.getRooms(this.props.user.id); //this pings the database
+
+
+      getAvailableRooms(this.props.user.id) //this pings the database
          .then(rooms => {
             this.setState({
                roomsAvailable: rooms,
@@ -38,7 +42,7 @@ class DashBoard extends React.Component{
       let user = this.props.user.username;
       let rooms = this.props.rooms;
       if (Object.keys(rooms).length != Object.keys(prevProps.rooms).length) {
-         this.socket = io();
+         // this.socket = io();
          this.socket.emit("User connected", { user, rooms });
       };
       getAvailableRooms(this.props.user.id)
@@ -69,7 +73,7 @@ class DashBoard extends React.Component{
       let room = this.state.roomsAvailable.data.filter(room => e.currentTarget.id === room._id ? room : null);
       room[0].users.push(this.props.user.id);
       this.props.editRoom(room[0]);
-      // debugger;
+      //  
    }
 
    handleChange(e){
@@ -101,7 +105,7 @@ class DashBoard extends React.Component{
                   roomIds.map(id=>
                      {
                         return (
-                           <ChatBox roomId={id} key={id} />
+                           <ChatBox roomId={id} key={id} socket={this.socket}/>
                         )
                      }
                   )
