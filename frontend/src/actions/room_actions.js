@@ -1,10 +1,11 @@
-import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil } from '../util/room_api_util';
+import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil, getRoomUsers } from '../util/room_api_util';
 
 export const RECEIVE_ROOMS = "RECEIVE_ROOMS";
 export const RECEIVE_ROOM = "RECEIVE_ROOM";
 export const DELETE_ROOM = "DELETE_ROOM";
 export const UPDATE_ROOM = "UPDATE_ROOM";
-export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
+//export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
+export const RECEIVE_ROOM_USERS = "RECEIVE_ROOM_USERS";
 
 
 export const receiveRooms = rooms => ({
@@ -27,6 +28,7 @@ export const receiveRoom = room => ({
   room
 })
 
+
 export const fetchRoom = (roomId) => dispatch => (
   getRoom(roomId)
     .then(room => dispatch(receiveRoom(room)))
@@ -46,7 +48,7 @@ export const removeRoom = roomId => dispatch => (
 export const editRoom = room => dispatch => (
   updateRoomUtil(room)
     .then(room => {
-      // debugger;
+      //  
       dispatch(updateRoom(room.data))
     })
 )
@@ -59,3 +61,4 @@ export const fetchRooms = (userId) => dispatch => (
     })
     .catch(err => console.log(err))
 );
+

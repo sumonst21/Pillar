@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:roomId', (req, res) => {
-  // debugger;
+  //  
   Room.find({id: req.params.roomId})
     .populate('sender')
     .then(messages => {

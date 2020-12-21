@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Room = require('../../models/Room');
+const User = require('../../models/User');
 const validateRoomInput = require('../../validation/room');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the rooms route" }));
@@ -33,7 +34,9 @@ const filterAvailableRooms = (rooms, userId) =>{
 
   });
   return filteredRooms;
-}
+};
+
+
 
 //get available rooms to join
   //excludes rooms a user already bleongs to
@@ -44,12 +47,13 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
       res.status(404).json({ noroomsfound: 'No rooms found' });
     } else {
       let roomList = filterAvailableRooms(rooms, req.params.userId);
-      //debugger;
+      // 
       res.json(roomList);
     }
   })
-
 })
+
+
 
 //retrieve all rooms by user
 router.get('/:userId/rooms', (req, res) => {
@@ -69,7 +73,7 @@ router.get('/:userId/rooms', (req, res) => {
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
           let roomList = filterRooms(rooms, req.params.userId);
-          //debugger;
+          // 
           res.json(roomList);
         }
 
@@ -90,6 +94,24 @@ router.get('/:roomId', (req, res) => {
     })
     .catch(err => res.status(404).json({ noroomfound: 'No room found' }));
 });
+
+
+//find current users in one single room
+// router.get('/:roomId/users', (req,res)=> {
+  
+//   Room.findById(req.params.roomId)
+//     .then((err, room)=>{
+//       if (err) {
+//         res.status(404).json({ noroomsfound: 'No rooms found' });
+//       } else {
+//         let userList = [];
+//         room.users.forEach(user => {
+//           userList.push(User.find({_id: user}));
+//         })
+//         res.json(userList);
+//       }
+//   })
+// })
 
 
 //create room
@@ -132,7 +154,7 @@ router.post('/:roomId',
   (req, res) => {
     const { errors, isValid } = validateRoomInput(req.body);
     
-    // debugger;
+    //  
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -140,9 +162,9 @@ router.post('/:roomId',
       room.title = req.body.title;
       room.admin = req.body.admin;
       room.users = req.body.users;
-      // debugger;
+      //  
       room.save().then(room => {
-        // debugger;
+        //  
         res.json(room);
       });
       //returns the updated room

@@ -1,6 +1,8 @@
 import React from "react"
 import io from "socket.io-client";
 import moment from "moment";
+import './chatbox.css'
+
 
 
 class ChatBox extends React.Component{
@@ -8,8 +10,10 @@ class ChatBox extends React.Component{
     super(props);
     this.state = {
       chatMessage: "",
+      open: true,
+      openOrClose: 'close'
     }
-
+    this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
   }
@@ -17,13 +21,26 @@ class ChatBox extends React.Component{
 
   componentDidMount(){
     let roomId = this.props.room._id;
-    //this.props.getMessages(roomId);
- 
-    this.socket = io();
-    this.socket.on(`MTC_${roomId}`, theMessage =>{
-       
-      console.log(theMessage[0].message);
-      this.props.afterMessageSent(theMessage[0]);
+
+    this.props.socket.on(`MTC_${roomId}`, msg =>{
+       //this message has been saved to the database, now need to update redux and components
+      console.log(msg);
+    
+      let newMessage = {
+        id: msg._id,
+        message: msg.message,
+        createdAt: msg.createdAt,
+        updatedAt: msg.updatedAt,
+        room: msg.room,
+        sender: msg.sender,
+        username: msg.username,
+      }
+      this.props.afterMessageSent(newMessage); 
+      
+      //update messages slice of state
+
+      //update messages array in the rooms slice of state?
+      
     });
   }
      
@@ -41,11 +58,11 @@ class ChatBox extends React.Component{
     let userId = this.props.user.id;
     let room = this.props.room;
      
-    console.log(username);
+    //console.log(username);
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
      
-    this.socket.emit("Create Message", {
+    this.props.socket.emit("Create Message", {
       message,
       timestamp,
       username,
@@ -58,26 +75,32 @@ class ChatBox extends React.Component{
     })
   }
 
-
+  toggle(){
+    this.state.open ? 
+    this.setState({open: false, openOrClose: 'open'}) : 
+    this.setState({open: true, openOrClose: 'close'});
+  }
 
   render() {
     let messages = this.props.room.messages || [];
-    // debugger
+    
     return (
-      <div className="chatbox-container">
-        <h1>{this.props.room.title}</h1>
-        <form onSubmit={this.submitMessage}>
+      <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
+        {this.state.open ? (
+          <div className="chatbox-container">
 
-          <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-        </form>
-        <ul>
-          {messages.map(msg => {
-            <li key={msg._id}>{(msg.sender) === null ? null : msg.sender.username} says: {msg.message}</li>
-            // <li key={msg._id}> says: {msg.message}</li>
+            <h1>{this.props.room.title}</h1>
+            <form onSubmit={this.submitMessage}>
 
-          })}
-
-        </ul>
+              <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
+            </form>
+            <ul>
+              {messages.map(msg => (
+                <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     )
   }
