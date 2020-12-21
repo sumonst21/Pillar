@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
 import ChatBox from './chat_box';
+import {getRoomUsers} from '../../util/room_api_util'
 
 
 

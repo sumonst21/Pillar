@@ -16,6 +16,10 @@ export const getRoom = (roomId) => {
   return axios.get(`/api/rooms/${roomId}`)
 };
 
+// export const getRoomUsers = (roomId) => {
+//   return axios.get(`/api/rooms/${roomId}/users`);
+// };
+
 export const deleteRoomUtil = (roomId) => {
   return axios.post(`/api/rooms/${roomId}/delete`)
 }
