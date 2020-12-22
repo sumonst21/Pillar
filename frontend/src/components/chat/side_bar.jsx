@@ -28,6 +28,14 @@ class Sidebar extends React.Component{
         return(
             <div className='sidebar-contaier'>
                 <div>
+                    <input 
+                    className='search-bar' 
+                    type='text'
+                    value=''
+                    placeholder='type here to search for messages and chatrooms'
+                    />
+                </div>
+                <div>
                     <form onSubmit={this.props.createNewRoom}>
                         <input type="text" value={this.props.newTitle} 
                         onChange={this.props.handleChange}

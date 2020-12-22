@@ -33,7 +33,7 @@ class DashBoard extends React.Component{
             //console.log(roomsAvailable);
 
          });
-    
+    debugger
       //when the dashboard mounts, this.props.rooms will have a list of all rooms a user belongs to 
       // need to render the chatboxes with unique socket ids
    }
