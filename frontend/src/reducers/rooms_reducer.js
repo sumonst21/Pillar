@@ -33,8 +33,8 @@ const RoomsReducer = (state = {}, action) => {
             createdAt: msg.createdAt,
             updatedAt: msg.updatedAt,
             room: msg.room,
-            sender: msg.sender === null ? null : msg.sender._id,
-            username: msg.sender === null ? null : msg.sender.username,
+            sender: msg.sender._id,
+            username: msg.sender.username,
           })
         });
          
