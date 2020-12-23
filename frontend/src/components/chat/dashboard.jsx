@@ -33,18 +33,6 @@ class DashBoard extends React.Component{
       
       
       getAvailableRooms(this.props.user.id) //this pings the database
-<<<<<<< HEAD
-         .then(rooms => {
-            this.setState({
-               roomsAvailable: rooms,
-            })
-            //console.log(roomsAvailable);
-
-         });
-    debugger
-      //when the dashboard mounts, this.props.rooms will have a list of all rooms a user belongs to 
-      // need to render the chatboxes with unique socket ids
-=======
       .then(rooms => {
          
          this.setState({
@@ -54,7 +42,6 @@ class DashBoard extends React.Component{
       
       this.socket.on("user left", this.userLeft);
       this.socket.on("user joined", this.userJoined);
->>>>>>> 6076fad703e380215079d20c58040679c61f5c45
    }
    
    componentDidUpdate(prevProps){
