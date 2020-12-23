@@ -49,13 +49,14 @@ const Room = require("./models/Room");
 io.on("connection", socket => {
   console.log(`connection made from socket id ${socket.id}`);
 
-  socket.on("User connected", ({ user, rooms }) => {
-    //create rooms
-    Object.keys(rooms).forEach(roomId => {
-      socket.join(roomId);
-    })
-      //io.emit("new member", members + rooms) to let rooms know someone else is now online
-  })
+  socket.on("leave room", package => {
+    // 
+    io.emit("user left", package);
+  });
+
+  socket.on("join room", package => {
+    io.emit("user joined", package);
+  });
 
 
   socket.on("Create Message", msg => {
