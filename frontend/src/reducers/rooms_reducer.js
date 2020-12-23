@@ -2,8 +2,8 @@ import { RECEIVE_ROOM,
         RECEIVE_ROOMS,
         DELETE_ROOM,
         UPDATE_ROOM,
-        RECEIVE_NEW_MESSAGE,
          } from '../actions/room_actions';
+import { RECEIVE_NEW_MESSAGE } from '../actions/message_actions';
 import * as cloneDeep from 'lodash/cloneDeep';
 
 const RoomsReducer = (state = {}, action) => {
@@ -15,19 +15,29 @@ const RoomsReducer = (state = {}, action) => {
       Object.assign(newState,{ [roomId]: action.room.data });
       return newState;
 
-      /////
     case RECEIVE_NEW_MESSAGE:
-      
-      //make a deep dupe of the messages array and reassign to the new state
-      // let NewArray = [];
-      // newArray = lodash.newState[action.message.room].messages
-
       newState[action.message.room].messages.push(action.message);
       return newState;
-      /////
+
     case RECEIVE_ROOMS:
       action.rooms.data.forEach(room => {
         const roomId = room._id;
+        //shape the messages for each room
+        let messages = [];
+        room.messages.forEach(msg => {
+          messages.push({
+            id: msg._id,
+            message: msg.message,
+            createdAt: msg.createdAt,
+            updatedAt: msg.updatedAt,
+            room: msg.room,
+            sender: msg.sender._id,
+            username: msg.sender.username,
+          })
+        });
+
+        room.messages = messages;
+
         Object.assign(newState, { [roomId]: room })
       });
       
@@ -37,7 +47,7 @@ const RoomsReducer = (state = {}, action) => {
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
-      debugger;
+       
       const id = action.room._id;
       //newState.rooms[action.room._id] = action.room;
       Object.assign(newState,{[id]: action.room })

@@ -26,7 +26,7 @@ export const fetchMessages = (roomId) => dispatch => (
 );
 
 export const afterMessageSent = (msg) => dispatch => {
-   debugger;
+     
   dispatch(receiveNewMessage(msg))
 };
 

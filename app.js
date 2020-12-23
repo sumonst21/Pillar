@@ -4,6 +4,8 @@ const app = express();
 const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
+const path = require('path');
+
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
@@ -21,7 +23,6 @@ const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
 const rooms = require("./routes/api/rooms");
 const bodyParser = require('body-parser');
-const path = require('path');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -53,41 +54,42 @@ io.on("connection", socket => {
     Object.keys(rooms).forEach(roomId => {
       socket.join(roomId);
     })
-      ;
+      //io.emit("new member", members + rooms) to let rooms know someone else is now online
   })
 
+
   socket.on("Create Message", msg => {
+
     connect.then(db => {
       try {
-        let message = new Message({
+        
+
+        const message = new Message({
           message: msg.message,
           sender: msg.userId,
           room: msg.room,
+          username: msg.username,
         });
+
         message.save((err, document) => {
           //record error, if any
           if (err) return res.json({ success: false, err });
-
-          //retrieve new message by sender???
-          Message.find({ "_id": document._id })
-            .populate("sender")
-            .exec((err, document) => {
-              //emit to a unique reciever
-              io.emit(`MTC_${document[0].room.toString()}`, document);
-
-              //add to a rooms array of messages
-              Room.findOneAndUpdate(
-                { _id: document[0].room },
-                { $push: { messages: document } },
-                (error, success) => {
-                  if (error) {
-                    console.log("Add message to room array failed: " + error);
-                  } else {
-                    console.log("Message added to room");
-                  }
-                }
-              )
-            })
+          
+          //add to a rooms array of messages
+          Room.findOneAndUpdate(
+            { _id: document.room._id },
+            { $push: { messages: document } },
+            (error, success) => {
+               
+              if (error) {
+                console.log("Add message to room array failed: " + error);
+              } else {
+                io.emit(`MTC_${document.room._id.toString()}`, document);
+                console.log("Username: "+message.username);
+              }
+            }
+          )
+            
         })
       } catch (error) {
         console.log(error);
