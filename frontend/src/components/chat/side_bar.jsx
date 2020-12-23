@@ -24,7 +24,7 @@ class Sidebar extends React.Component{
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
-
+         
         return(
             <div className='sidebar-contaier'>
                 <div>
