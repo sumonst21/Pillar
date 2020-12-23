@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import moment from "moment";
 import UserList  from './user_list.js';
 import './chatbox.css'
-
+import Picker from 'emoji-picker-react';
 
 
 class ChatBox extends React.Component{
@@ -13,11 +13,13 @@ class ChatBox extends React.Component{
       chatMessage: "",
       open: true,
       openOrClose: 'close',
+      emojiPicker: false
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
-    
+    this.openEmoji = this.openEmoji.bind(this);
+    this.selectEmoji = this.selectEmoji.bind(this);
   }
 
 
@@ -48,6 +50,18 @@ class ChatBox extends React.Component{
     })
   }
 
+  selectEmoji(e, emojiObject){
+    let newMessage = this.state.chatMessage + emojiObject.emoji;
+    this.setState({
+      chatMessage: newMessage
+    })
+  }
+
+  openEmoji(){
+    this.state.emojiPicker === true ? 
+      this.setState({emojiPicker: false}) :
+      this.setState({emojiPicker: true})
+  }
   submitMessage(e) {
     e.preventDefault();
     //add room id to props
@@ -93,6 +107,9 @@ class ChatBox extends React.Component{
 
               <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
             </form>
+              {this.state.emojiPicker === false ? 
+              <button onClick={this.openEmoji} > ☺ </button> : 
+             <div onMouseLeave= {this.openEmoji}> <Picker onEmojiClick={this.selectEmoji}/> </div>}
             <ul>
               {messages.map(msg => (
                 <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
