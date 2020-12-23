@@ -1,6 +1,7 @@
 import React from "react"
 import io from "socket.io-client";
 import moment from "moment";
+import UserList  from './user_list.js';
 import './chatbox.css'
 
 
@@ -11,11 +12,12 @@ class ChatBox extends React.Component{
     this.state = {
       chatMessage: "",
       open: true,
-      openOrClose: 'close'
+      openOrClose: 'close',
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
+    
   }
 
 
@@ -35,15 +37,10 @@ class ChatBox extends React.Component{
         sender: msg.sender,
         username: msg.username,
       }
-      this.props.afterMessageSent(newMessage); 
-      
-      //update messages slice of state
-
-      //update messages array in the rooms slice of state?
-      
+      this.props.afterMessageSent(newMessage);      
     });
   }
-     
+    
 
   handleChange(e){
     this.setState({
@@ -57,8 +54,7 @@ class ChatBox extends React.Component{
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
-     
-    //console.log(username);
+
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
      
@@ -83,13 +79,16 @@ class ChatBox extends React.Component{
 
   render() {
     let messages = this.props.room.messages || [];
-    
+    let users = this.props.room.users || [];
+
+     
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
           <div className="chatbox-container">
 
             <h1>{this.props.room.title}</h1>
+            <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
             <form onSubmit={this.submitMessage}>
 
               <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
@@ -99,6 +98,7 @@ class ChatBox extends React.Component{
                 <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
               ))}
             </ul>
+            <UserList users={users}/>
           </div>
         ) : null}
       </div>
