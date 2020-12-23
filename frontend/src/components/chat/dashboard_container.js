@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.session.user,
     rooms: state.rooms,
-        messages: state.messages
+    messages: state.messages
 
     // errors: state.errors.session
   };

@@ -3,7 +3,7 @@ import React from 'react';
 import io from "socket.io-client";
 import ChatBox from './chat_box_container';
 import Sidebar from './side_bar_container'
-import { getAvailableRooms } from '../../util/room_api_util';
+import { getAvailableRooms, getRooms } from '../../util/room_api_util';
 import * as cloneDeep from 'lodash/cloneDeep';
 
 class DashBoard extends React.Component{
@@ -13,6 +13,8 @@ class DashBoard extends React.Component{
       this.state = {
          newTitle: "",
          roomsAvailable: [],
+         roomsJoined: [],
+         all: []
       }
 
       this.createNewRoom = this.createNewRoom.bind(this);
@@ -31,14 +33,30 @@ class DashBoard extends React.Component{
       
       this.props.getRooms(this.props.user.id); //this pings the database
       
-      
-      getAvailableRooms(this.props.user.id) //this pings the database
-      .then(rooms => {
-         
-         this.setState({
-            roomsAvailable: rooms,
+      getRooms(this.props.user.id)
+         .then(rooms => {
+            this.setState({
+               roomsJoined: rooms,
+            })
          })
-      });
+         .then(()=>{
+            getAvailableRooms(this.props.user.id) //this pings the database                                
+            .then(rooms => {
+               this.setState({
+                  roomsAvailable: rooms,
+               })
+            })
+            .then(()=>{
+               this.setState({all: this.state.roomsAvailable.data.concat(this.state.roomsJoined.data)})
+            })
+         })
+      // getAvailableRooms(this.props.user.id) //this pings the database
+      // .then(rooms => {
+         
+      //    this.setState({
+      //       roomsAvailable: rooms,
+      //    })
+      // });
       
       this.socket.on("user left", this.userLeft);
       this.socket.on("user joined", this.userJoined);
@@ -54,14 +72,10 @@ class DashBoard extends React.Component{
          
          
          getAvailableRooms(this.props.user.id)
-         .then(rooms => {
-            console.log("get available rooms")  ;
-            this.setState({
-               roomsAvailable: rooms,
-            })
+
             //console.log(roomsAvailable);
             
-         });
+         
       };
    }
 
@@ -92,6 +106,7 @@ class DashBoard extends React.Component{
       this.setState({
          newTitle: "",
       })
+      
    }
 
    joinRoom(e){
@@ -134,13 +149,13 @@ class DashBoard extends React.Component{
 
 
    render(){
-
       let rooms = this.props.rooms || {};
       let roomIds = [];
       console.log("Dashboard rendered");
       Object.keys(rooms).forEach(key => {
          roomIds.push(rooms[key]._id);  
-      })
+      });
+
       return(
          <div>
                <Sidebar 
@@ -149,6 +164,9 @@ class DashBoard extends React.Component{
                   handleChange={this.handleChange}
                   joinRoom={this.joinRoom}
                   roomsAvailable={this.state.roomsAvailable}
+                  rooms={this.props.rooms}
+                  messages={this.props.messages}
+                  allRooms = {this.state.all}
                />
             <div>
                {

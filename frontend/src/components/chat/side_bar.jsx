@@ -1,16 +1,28 @@
 import React from 'react';
 import {getRoomUsers} from '../../util/room_api_util'
+import SearchBarDropdown from './search_dropdown'
 
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            show_rooms: false
+            show_rooms: false,
+            searchInput: '',
+            dropDown: false
         };
-
+        this.handleSearchInput = this.handleSearchInput.bind(this);
+        this.handleDropDown = this.handleDropDown.bind(this);
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
     }
+
+    handleSearchInput(e){
+        this.setState({searchInput: e.currentTarget.value, dropDown: true});
+    };
+
+    handleDropDown(){
+        this.setState({dropDown: false});
+    };
 
     displayRooms(){
         this.state.show_rooms === true ? 
@@ -27,13 +39,25 @@ class Sidebar extends React.Component{
          
         return(
             <div className='sidebar-contaier'>
-                <div>
+                <div className='search-bar-container'>
                     <input 
-                    className='search-bar' 
-                    type='text'
-                    value=''
-                    placeholder='type here to search for messages and chatrooms'
+                        className='search-bar' 
+                        type='text'
+                        onChange={this.handleSearchInput}
+                        onBlur={this.handleDropDown}
+                        value={this.state.searchInput}
+                        placeholder='type here to search'
                     />
+                    {this.state.dropDown ? 
+                        <SearchBarDropdown 
+                        dropdown={this.state.dropdown} 
+                        searchInput={this.state.searchInput} 
+                        roomsJoined={this.props.rooms} 
+                        messages={this.props.messages} //add logic here to make message and sorted array 
+                        allRooms={this.props.allRooms}
+                        roomsAvailable={this.props.roomsAvailable}/>
+                        : null
+                    }
                 </div>
                 <div>
                     <form onSubmit={this.props.createNewRoom}>

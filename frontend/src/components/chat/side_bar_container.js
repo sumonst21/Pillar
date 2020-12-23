@@ -7,8 +7,7 @@ import { fetchRoom } from '../../actions/room_actions';
 const mapStateToProps = (state) => {
 
   return {
-    user: state.session.user,
-    rooms: state.rooms
+    user: state.session.user
     // errors: state.errors.session
   };
 };
