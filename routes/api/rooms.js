@@ -14,7 +14,8 @@ const filterRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {
     room.users.forEach(user => {
-      if (user.toString() === userId){
+       
+      if (user.id === userId){
         filteredRooms.push(room);
       } 
     });
@@ -25,8 +26,10 @@ const filterAvailableRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {
     let include = true;
+    
     room.users.forEach(user => {
-      if (user.toString() === userId){
+      
+      if (user._id.toString() === userId){
         include = false;
       } 
     });
@@ -42,15 +45,26 @@ const filterAvailableRooms = (rooms, userId) =>{
   //excludes rooms a user already bleongs to
 router.get('/:userId/roomsAvailable', (req,res)=> {
   
-  Room.find({}).exec((err, rooms)=>{
-    if (err) {
-      res.status(404).json({ noroomsfound: 'No rooms found' });
-    } else {
-      let roomList = filterAvailableRooms(rooms, req.params.userId);
-      // 
-      res.json(roomList);
-    }
-  })
+  Room.find({})
+    .populate({
+      path: 'messages',
+      model: 'Message',
+      populate: {
+        path: 'sender',
+        model: 'User'
+      }
+    }).populate({
+      path: 'users',
+      model: 'User'
+    }).exec((err, rooms)=>{
+      if (err) {
+        res.status(404).json({ noroomsfound: 'No rooms found' });
+      } else {
+        let roomList = filterAvailableRooms(rooms, req.params.userId);
+        // 
+        res.json(roomList);
+      }
+    })
 })
 
 
@@ -66,14 +80,18 @@ router.get('/:userId/rooms', (req, res) => {
           path: 'sender',
           model: 'User'
         }
+      }).populate({
+        path: 'users',
+        model: 'User'
       }) //populate the array of messages
       .exec((err, rooms)=>{
-
+         
         if(err){
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
           let roomList = filterRooms(rooms, req.params.userId);
           // 
+           
           res.json(roomList);
         }
 
@@ -164,14 +182,14 @@ router.post('/:roomId',
       room.users = req.body.users;
       //  
       room.save().then(room => {
-        //  
+        
         res.json(room);
       });
       //returns the updated room
     }
     );
 
-    //allows the changing of title and admin only, messages and users retained
+    
   }
 );
 
