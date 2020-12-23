@@ -49,7 +49,7 @@ class Sidebar extends React.Component{
                         <p>
                             Number of current users: {room.users.length}
                         </p>
-                        <button onClick={this.props.joinRoom}>Join Room</button>
+                        <button id={room._id} onClick={this.props.joinRoom}>Join Room</button>
                         </li>
                      )
                   }) : null}
