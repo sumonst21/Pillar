@@ -13,20 +13,13 @@ class ChatBox extends React.Component{
       chatMessage: "",
       open: true,
       openOrClose: 'close',
-<<<<<<< HEAD
-=======
       emojiPicker: false
->>>>>>> 7310148757bac6f91fd220f0712d6603678c6b2c
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
-<<<<<<< HEAD
-    
-=======
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
->>>>>>> 7310148757bac6f91fd220f0712d6603678c6b2c
   }
 
 
