@@ -54,8 +54,7 @@ class ChatBox extends React.Component{
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
-     
-    //console.log(username);
+
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
      

@@ -182,8 +182,21 @@ router.post('/:roomId',
       room.users = req.body.users;
       //  
       room.save().then(room => {
-        
-        res.json(room);
+        Room.findById(req.params.roomId)
+          .populate({
+            path: 'messages',
+            model: 'Message',
+            populate: {
+              path: 'sender',
+              model: 'User'
+            }
+          }).populate({
+            path: 'users',
+            model: 'User'
+          }).exec().then(room => {
+            res.json(room);
+
+          })
       });
       //returns the updated room
     }

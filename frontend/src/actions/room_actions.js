@@ -54,12 +54,12 @@ export const removeRoom = roomId => dispatch => (
 export const editRoom = room => dispatch => (
   updateRoomUtil(room)
     .then(room => {
-        debugger;
+         
       dispatch(updateRoom(room.data))
     })
 )
 export const updateUserList = room => dispatch => {
-   
+    
   dispatch(updateRoom(room));
     
 }
