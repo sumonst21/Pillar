@@ -53,7 +53,7 @@ class Giphy extends React.Component {
          return(   
             <div>
                   <button id="toggler" onClick={this.toggleGiphy}> Giphy </button>
-                  <input type="text" onChange={this.handleChange} placeholder="Search Giphy" />
+                  <input type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Search Giphy" />
                   
                   {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
                      <div> 
