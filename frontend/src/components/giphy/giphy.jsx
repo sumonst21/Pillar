@@ -1,4 +1,5 @@
 import React from "react"
+import './giphy.css'
 
 class Giphy extends React.Component {
    constructor(props){
@@ -56,13 +57,13 @@ class Giphy extends React.Component {
                   
                   {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
                      <div> 
-                        <ul>
+                        <ul className="giphy-ul">
                            {this.state.giphys.map(gifs => {
                               debugger;
 
                               return(
-                              <li key={gifs.images.downsized.url} onClick={this.props.useGiphy}>
-                                 <img src={gifs.images.downsized.url} alt="" />
+                              <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.props.useGiphy}>
+                                 <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
                               </li>      
                               )
                               

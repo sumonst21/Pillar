@@ -124,14 +124,14 @@ class ChatBox extends React.Component{
             </form>
               {this.state.emojiPicker === false ? 
               <button onClick={this.openEmoji} > ☺ </button> : 
-             <div onMouseLeave= {this.openEmoji}> <Picker onEmojiClick={this.selectEmoji}/> </div>}
+             <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} style={{ position: 'absolute', bottom: '20px', right: '20px' }} /> </div>}
 
             <Giphy useGiphy={this.useGiphy}/>
             <ul>
               {messages.map(msg => {
                 if(msg.message.includes("giphy")){
                   debugger;
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img src={msg.message} alt="image"/></li>
+                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
                 }else{
                   // debugger;
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>

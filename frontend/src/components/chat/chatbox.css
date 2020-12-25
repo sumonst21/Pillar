@@ -5,3 +5,15 @@
 .open{
     width: 100%
 }
+
+.chat-img{
+    width: 200px;
+}
+
+.emoji-picker-react{
+    font-size: 5px;
+}
+
+.chatbox-list{
+    display: flex;
+}

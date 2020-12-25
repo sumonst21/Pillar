@@ -5,7 +5,7 @@ import ChatBox from './chat_box_container';
 import Sidebar from './side_bar_container'
 import { getAvailableRooms } from '../../util/room_api_util';
 import * as cloneDeep from 'lodash/cloneDeep';
-
+import "./chatbox.css"
 class DashBoard extends React.Component{
    constructor(props){
       super(props);
@@ -150,7 +150,7 @@ class DashBoard extends React.Component{
                   joinRoom={this.joinRoom}
                   roomsAvailable={this.state.roomsAvailable}
                />
-            <div>
+            <div className="chatbox-list">
                {
                   roomIds.map(id=>
                      {

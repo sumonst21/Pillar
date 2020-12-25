@@ -1,0 +1,14 @@
+.giphy-ul{
+   display: inline-flex;
+   border: 1px solid gray;
+   background-color: black;
+}
+
+.giphy-li-img{
+   height: 41px;
+}
+
+.giphy-li{
+   list-style: none;
+   padding: 2px;
+}
