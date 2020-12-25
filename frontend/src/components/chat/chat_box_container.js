@@ -1,9 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
 import ChatBox from './chat_box';
-import {getRoomUsers} from '../../util/room_api_util'
-
-
 
 const mapStateToProps = (state, ownProps) => {
    return {
@@ -18,7 +15,8 @@ const mapDispatchToProps = (dispatch) => {
       getMessages: (roomId) => dispatch(fetchMessages(roomId)),
       afterMessageSent: (msg) => {
          dispatch(afterMessageSent(msg));
-      }
+      },
+      
    }
 }
 

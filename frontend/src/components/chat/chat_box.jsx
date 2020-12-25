@@ -1,9 +1,10 @@
 import React from "react"
 import io from "socket.io-client";
 import moment from "moment";
+import UserList  from './user_list.js';
 import './chatbox.css'
 import Picker from 'emoji-picker-react';
-
+import Giphy from "../giphy/giphy_container"
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -19,6 +20,7 @@ class ChatBox extends React.Component{
     this.submitMessage = this.submitMessage.bind(this);
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
+    this.useGiphy = this.useGiphy.bind(this);
   }
 
 
@@ -38,15 +40,16 @@ class ChatBox extends React.Component{
         sender: msg.sender,
         username: msg.username,
       }
-      this.props.afterMessageSent(newMessage); 
-      
-      //update messages slice of state
-
-      //update messages array in the rooms slice of state?
-      
+      this.props.afterMessageSent(newMessage);      
     });
   }
-     
+
+  componentDidUpdate(prevProps, prevState, snapshot){
+    debugger;
+    // prevProps.room.messages.length
+    // this.props.room.messages.length
+
+  }    
 
   handleChange(e){
     this.setState({
@@ -73,8 +76,7 @@ class ChatBox extends React.Component{
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
-     
-    //console.log(username);
+
     let timestamp = moment().format('LT');
     let message = this.state.chatMessage;
      
@@ -97,15 +99,25 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
+  useGiphy(e){
+    debugger;
+    let newMessage = this.state.chatMessage + `${e.target.src}`;
+    this.setState({
+      chatMessage: newMessage
+    })
+  }
   render() {
     let messages = this.props.room.messages || [];
-    
+    let users = this.props.room.users || [];
+
+     
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
           <div className="chatbox-container">
 
             <h1>{this.props.room.title}</h1>
+            <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
             <form onSubmit={this.submitMessage}>
 
               <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
@@ -113,11 +125,20 @@ class ChatBox extends React.Component{
               {this.state.emojiPicker === false ? 
               <button onClick={this.openEmoji} > ☺ </button> : 
              <div onMouseLeave= {this.openEmoji}> <Picker onEmojiClick={this.selectEmoji}/> </div>}
+
+            <Giphy useGiphy={this.useGiphy}/>
             <ul>
-              {messages.map(msg => (
-                <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
-              ))}
+              {messages.map(msg => {
+                if(msg.message.includes("giphy")){
+                  debugger;
+                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img src={msg.message} alt="image"/></li>
+                }else{
+                  // debugger;
+                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
+                }
+              })}
             </ul>
+            <UserList users={users}/>
           </div>
         ) : null}
       </div>

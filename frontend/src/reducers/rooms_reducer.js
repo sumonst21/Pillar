@@ -2,6 +2,7 @@ import { RECEIVE_ROOM,
         RECEIVE_ROOMS,
         DELETE_ROOM,
         UPDATE_ROOM,
+        LEAVE_ROOM,
          } from '../actions/room_actions';
 import { RECEIVE_NEW_MESSAGE } from '../actions/message_actions';
 import * as cloneDeep from 'lodash/cloneDeep';
@@ -20,6 +21,7 @@ const RoomsReducer = (state = {}, action) => {
       return newState;
 
     case RECEIVE_ROOMS:
+      
       action.rooms.data.forEach(room => {
         const roomId = room._id;
         //shape the messages for each room
@@ -35,7 +37,7 @@ const RoomsReducer = (state = {}, action) => {
             username: msg.sender.username,
           })
         });
-
+         
         room.messages = messages;
 
         Object.assign(newState, { [roomId]: room })
@@ -47,10 +49,17 @@ const RoomsReducer = (state = {}, action) => {
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
+        
+      let id = action.room._id;
        
-      const id = action.room._id;
+      //update room is adding users as a list of ids rather than user objects at some point after the 
+      //join room chain is initiated.... which then braks other things...
       //newState.rooms[action.room._id] = action.room;
       Object.assign(newState,{[id]: action.room })
+      return newState;
+    case LEAVE_ROOM:
+       
+      delete newState[action.room._id];
       return newState;
     default:
       return state;
