@@ -71,8 +71,23 @@ class DashBoard extends React.Component{
          this.props.getRooms(this.props.user.id); 
          
          
-         getAvailableRooms(this.props.user.id)
-
+      getRooms(this.props.user.id)
+         .then(rooms => {
+            this.setState({
+               roomsJoined: rooms,
+            })
+         })
+         .then(()=>{
+            getAvailableRooms(this.props.user.id) //this pings the database                                
+            .then(rooms => {
+               this.setState({
+                  roomsAvailable: rooms,
+               })
+            })
+            .then(()=>{
+               this.setState({all: this.state.roomsAvailable.data.concat(this.state.roomsJoined.data)})
+            })
+         })
             //console.log(roomsAvailable);
             
          

@@ -31,12 +31,16 @@ class Sidebar extends React.Component{
 
     hideRooms(){
         this.setState({show_rooms:false});
-    }
+    };
+
+
 
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
-         
+        // let filtered_messages = this.props.rooms.messages.map(message_obj => {
+        //     message_obj.message
+        // });
         return(
             <div className='sidebar-contaier'>
                 <div className='search-bar-container'>
