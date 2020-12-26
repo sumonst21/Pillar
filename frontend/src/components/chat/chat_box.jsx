@@ -13,7 +13,8 @@ class ChatBox extends React.Component{
       chatMessage: "",
       open: true,
       openOrClose: 'close',
-      emojiPicker: false
+      emojiPicker: false,
+      giphyMessage: ""
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -21,6 +22,7 @@ class ChatBox extends React.Component{
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
+    this.submitGiphy = this.submitGiphy.bind(this);
   }
 
 
@@ -71,7 +73,7 @@ class ChatBox extends React.Component{
       this.setState({emojiPicker: true})
   }
   submitMessage(e) {
-    e.preventDefault();
+    if (e) { e.preventDefault()}
     //add room id to props
     let username = this.props.user.username;
     let userId = this.props.user.id;
@@ -87,10 +89,20 @@ class ChatBox extends React.Component{
       userId,
       room
     })
-     
+
+    // let chatMessage = this.state.chatMessage;
+    // let url = chatMessage.match(/\bhttps?:\/\/\S+/gi);
+    // let newMessage = chatMessage.replace(url, "");
+    // debugger; 
+    // url.length > 0 ? 
+    // this.setState({
+    //   chatMessage: newMessage
+    // })
+    // :
     this.setState({
       chatMessage: "",
     })
+
   }
 
   toggle(){
@@ -99,12 +111,37 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
+  submitGiphy(){
+
+    let username = this.props.user.username;
+    let userId = this.props.user.id;
+    let room = this.props.room;
+
+    let timestamp = moment().format('LT');
+    let message = this.state.giphyMessage;
+     
+    this.props.socket.emit("Create Message", {
+      message,
+      timestamp,
+      username,
+      userId,
+      room
+    })
+    debugger;
+    
+    this.setState({
+      giphyMessage: ""
+    })
+  }
+  
   useGiphy(e){
     debugger;
-    let newMessage = this.state.chatMessage + `${e.target.src}`;
+    let newMessage = `${e.target.src}`;
     this.setState({
-      chatMessage: newMessage
-    })
+      giphyMessage: newMessage
+    }, this.submitGiphy)
+
+    // :
   }
   render() {
     let messages = this.props.room.messages || [];
@@ -130,7 +167,7 @@ class ChatBox extends React.Component{
             <ul>
               {messages.map(msg => {
                 if(msg.message.includes("giphy")){
-                  debugger;
+                  // debugger;
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
                 }else{
                   // debugger;
