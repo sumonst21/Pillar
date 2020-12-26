@@ -1,0 +1,25 @@
+.giphy-ul{
+   display: inline-flex;
+   border: 1px solid gray;
+   background-color: black;
+     padding: 4px;
+     height: 50px;
+  
+}
+.giphy-ul:first-child {
+   
+}
+
+.giphy-li-img{
+   height: 41px;
+ 
+}
+.giphy-li-img:hover{
+   height: 45px;
+  
+}
+
+.giphy-li{
+   list-style: none;
+   padding: 3px;
+}
