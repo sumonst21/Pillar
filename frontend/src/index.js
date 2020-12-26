@@ -16,6 +16,7 @@ import { setAuthToken } from './util/session_api_util';
 // We have not created this action yet, but will do so in the next step
 import { logout } from './actions/session_actions';
 
+import {getGiphy} from './util/giphy_api_util'
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
@@ -49,4 +50,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   ReactDOM.render(<Root store={store} />, root);
+  window.getGiphy = getGiphy;
 });
