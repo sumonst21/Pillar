@@ -5,7 +5,7 @@ const GiphyReducer = (oldState = {}, action) => {
 
    switch(action.type){
       case RECEIVE_GIPHY:
-      debugger;
+      ;
          return Object.assign({}, oldState, action.giphy.data)
       default:
          return oldState;

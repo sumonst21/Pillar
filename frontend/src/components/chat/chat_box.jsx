@@ -47,7 +47,7 @@ class ChatBox extends React.Component{
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
-    debugger;
+    ;
     // prevProps.room.messages.length
     // this.props.room.messages.length
 
@@ -60,7 +60,7 @@ class ChatBox extends React.Component{
   }
 
   selectEmoji(e, emojiObject){
-    debugger;
+    ;
     let newMessage = this.state.chatMessage + emojiObject.emoji;
     this.setState({
       chatMessage: newMessage

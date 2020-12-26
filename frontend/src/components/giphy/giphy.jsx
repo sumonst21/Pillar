@@ -17,11 +17,11 @@ class Giphy extends React.Component {
    }
    makeGiphyRequest(){
        let keyword = this.state.keyword;
-      if (keyword.length > 1){
-         debugger;
+      if (keyword.length >= 1){
+         ;
          this.props.fetchGiphy(keyword)
          .then(giphy => {
-            debugger;
+            ;
             this.setState({
                giphys: giphy.giphy.data.data
             })
@@ -31,7 +31,7 @@ class Giphy extends React.Component {
    }
 
   toggleGiphy(e){
-     debugger;
+     ;
      let giphyBoxOpen = this.state.giphyBoxOpen;
      giphyBoxOpen === true ? 
       this.setState({ giphyBoxOpen: false}) : this.setState({giphyBoxOpen: true})
@@ -59,7 +59,7 @@ class Giphy extends React.Component {
                      <div> 
                         <ul className="giphy-ul">
                            {this.state.giphys.map(gifs => {
-                              debugger;
+                              ;
 
                               return(
                               <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.props.useGiphy}>
