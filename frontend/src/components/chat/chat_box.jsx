@@ -90,15 +90,6 @@ class ChatBox extends React.Component{
       room
     })
 
-    // let chatMessage = this.state.chatMessage;
-    // let url = chatMessage.match(/\bhttps?:\/\/\S+/gi);
-    // let newMessage = chatMessage.replace(url, "");
-    // debugger; 
-    // url.length > 0 ? 
-    // this.setState({
-    //   chatMessage: newMessage
-    // })
-    // :
     this.setState({
       chatMessage: "",
     })
@@ -121,27 +112,21 @@ class ChatBox extends React.Component{
     let message = this.state.giphyMessage;
      
     this.props.socket.emit("Create Message", {
-      message,
-      timestamp,
-      username,
-      userId,
-      room
+      message,timestamp, username, userId, room
     })
-    debugger;
-    
+  
     this.setState({
       giphyMessage: ""
     })
   }
-  
+
   useGiphy(e){
-    debugger;
+
     let newMessage = `${e.target.src}`;
     this.setState({
       giphyMessage: newMessage
     }, this.submitGiphy)
 
-    // :
   }
   render() {
     let messages = this.props.room.messages || [];
@@ -167,10 +152,8 @@ class ChatBox extends React.Component{
             <ul>
               {messages.map(msg => {
                 if(msg.message.includes("giphy")){
-                  // debugger;
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
                 }else{
-                  // debugger;
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
                 }
               })}
