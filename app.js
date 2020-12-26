@@ -23,6 +23,7 @@ const users = require("./routes/api/users");
 const messages = require("./routes/api/messages");
 const rooms = require("./routes/api/rooms");
 const bodyParser = require('body-parser');
+const giphy = require("./routes/api/giphy")
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -40,7 +41,7 @@ require('./config/passport')(passport);
 app.use("/api/users", users);
 app.use("/api/messages", messages);
 app.use("/api/rooms", rooms);
-
+app.use("/api/giphy", giphy);
 const Message = require("./models/Message");
 const Room = require("./models/Room");
 //const room = require("./validation/room");
