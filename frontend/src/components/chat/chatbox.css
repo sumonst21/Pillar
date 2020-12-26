@@ -5,3 +5,16 @@
 .open{
     width: 100%
 }
+
+.chat-img{
+    width: 150px;
+     border-radius: 4px;
+}
+
+.emoji-picker-react{
+    font-size: 5px;
+}
+
+.chatbox-list{
+    display: flex;
+}
