@@ -114,6 +114,7 @@ class SearchBarDropdown extends React.Component {
     handleClick(id){
         const ele = document.getElementById(id);
         ele.scrollIntoView();
+        this.props.handleDropDown();
     };
 
     render() {
