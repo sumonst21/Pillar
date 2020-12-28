@@ -4,7 +4,8 @@ import moment from "moment";
 import UserList  from './user_list.js';
 import './chatbox.css'
 import Picker from 'emoji-picker-react';
-import Giphy from "../giphy/giphy_container"
+import Giphy from "../giphy/giphy_container";
+import Message from '../message/message_container';
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -47,9 +48,6 @@ class ChatBox extends React.Component{
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
-    ;
-    // prevProps.room.messages.length
-    // this.props.room.messages.length
 
   }    
 
@@ -71,6 +69,7 @@ class ChatBox extends React.Component{
       this.setState({emojiPicker: false}) :
       this.setState({emojiPicker: true})
   }
+
   submitMessage(e) {
     if (e) { e.preventDefault()}
     //add room id to props
@@ -128,7 +127,8 @@ class ChatBox extends React.Component{
 
   }
   render() {
-    let messages = this.props.room.messages || [];
+    let messages = this.props.room.messages.map(msg=> (<Message msg={msg}/>)) || [];
+
     let users = this.props.room.users || [];
 
      
@@ -149,13 +149,7 @@ class ChatBox extends React.Component{
 
             <Giphy useGiphy={this.useGiphy}/>
             <ul>
-              {messages.map(msg => {
-                if(msg.message.includes("giphy")){
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
-                }else{
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
-                }
-              })}
+                {messages}
             </ul>
             <UserList users={users}/>
           </div>
