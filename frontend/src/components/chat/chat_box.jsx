@@ -93,6 +93,10 @@ class ChatBox extends React.Component{
       chatMessage: "",
     })
 
+    const ele = document.getElementById(`charbox-item-${room.title}`);
+    ele.scrollTop = ele.scrollHeight;
+
+
   }
 
   toggle(){
@@ -135,7 +139,7 @@ class ChatBox extends React.Component{
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
-          <div className="chatbox-container">
+          <div className="chatbox-container" id={`charbox-item-${this.props.room.title}`}>
 
             <h1>{this.props.room.title}</h1>
             <div className='input-container' >

@@ -183,7 +183,7 @@ class DashBoard extends React.Component{
                   messages={this.props.messages}
                   allRooms = {this.state.all}
                />
-            <div className="chatbox-list">
+            <div className="chatbox-list" >
                {
                   roomIds.map(id=>
                      {

@@ -108,7 +108,7 @@ class SearchBarDropdown extends React.Component {
             }
         });
         
-        return filteredMessages; //this returns an array with room name, message index and matching character index
+        return filteredMessages; //this returns an array: [room_title, message_index, matching_character_index]
     };
 
     handleClick(id){
@@ -122,7 +122,7 @@ class SearchBarDropdown extends React.Component {
         const roomArr = this.listedMessages(roomsJoined);  
         const roomObj = this.objectifiedMessages(roomsJoined);
         const matchedMessages = this.boyer_moore(roomArr, searchInput).map(m=>{
-            return [roomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]];
+            return [roomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title, m[1] is the index number for the matching string, and m[2] is the matching substring
         });
         const matchedRooms = this.filteredRooms(searchInput);
 
