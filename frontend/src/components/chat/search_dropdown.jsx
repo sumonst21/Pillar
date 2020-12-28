@@ -41,13 +41,13 @@ class SearchBarDropdown extends React.Component {
 
     filteredRooms(sub){//display a list of matching rooms
         const {allRooms} = this.props;
-        const roomList = allRooms.map(room=>(
-            room.title
-        ));
+        const roomList = allRooms.map(room=>{
+            
+            return room.title
+        });
         let filteredRooms = [];
         for(let r=0; r<roomList.length; r++){
             let skip;
-            let searchObj = {};
             let bad_char = new Array(265).fill(-1);
 
             for(let t=0; t<sub.length; t++){//constructing a bad character table for each chatacter in the substring at its corresponding place in 256 ASCII characters
@@ -65,9 +65,9 @@ class SearchBarDropdown extends React.Component {
                     }
                 };
                 if(skip === 0){
-                    searchObj[r]=i;
-                    filteredRooms.push(searchObj);
+                    filteredRooms.push([roomList[r]]);
                     skip++;
+                    break
                 }
             }
         }
@@ -118,34 +118,70 @@ class SearchBarDropdown extends React.Component {
     };
 
     render() {
-        const {roomsJoined, allRooms, roomsAvailable, searchInput} = this.props;
+        let {roomsJoined, allRooms, roomsAvailable, searchInput} = this.props;
+        if(allRooms !== undefined && roomsAvailable.data !== undefined){
+            allRooms = allRooms.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])); //return an array of all of the room titles ["Dave's Room #1", "sss", "hahaha", "heyheyhey", "lala", "blah", "yoyo", "Cars", "new new new"]
+            roomsAvailable = roomsAvailable.data.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])) || []; //return an array of all the rooms available to join
+        }
         const roomArr = this.listedMessages(roomsJoined);  
-        const roomObj = this.objectifiedMessages(roomsJoined);
+        const roomsDisplayed = roomArr.map(r=>(r[0]));
+        const availableRoomObj = this.objectifiedMessages(roomsJoined);
         const matchedMessages = this.boyer_moore(roomArr, searchInput).map(m=>{
-            return [roomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title, m[1] is the index number for the matching string, and m[2] is the matching substring
+            return [availableRoomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
         });
-        const matchedRooms = this.filteredRooms(searchInput);
+        const matchedRooms = this.filteredRooms(searchInput).map(room=>{
+            return room[0];
+        });
+        const roomsJoinable = matchedRooms.filter(room=>(roomsAvailable.includes(room)));
+        const roomsOpened = matchedRooms.filter(room=>(roomsDisplayed.includes(room)));
 
-        debugger      
+
+        debugger
         return (
                 <div className='searchbar-dropdown'>
-                    {matchedMessages.length === 0 ? 
-                        <p>No Match Found</p> 
-                    : 
-                    <ul>
-                        {matchedMessages.map(m=>{
-                            return(
-                                <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
-                                    Message: {m[0]} Room: {m[1]}
-                                </li>
-                            )
-                        })}
-                    </ul>}
+                    <div className='message-results'>
+                        {matchedMessages.length === 0 ? 
+                            <p>No Match Found</p> 
+                        : 
+                        <ul>
+                            {matchedMessages.map(m=>{
+                                return(
+                                    <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
+                                        Message: {m[0]} Room: {m[1]}
+                                    </li>
+                                )
+                            })}
+                        </ul>}
+                    </div>
+                    <p>------------------------------</p>
+                    <div className='room-results'>
+                        {matchedRooms.length === 0 ? 
+                            <p>No Match Found</p> 
+                        : 
+                        <ul>
+                            {roomsJoinable.length === 0 ? null : 
+                                
+                                roomsJoinable.map(r=>{
+                                    return (
+                                        <li>
+                                            {r}
+                                            <p>Rooms Not Joined</p>
+                                        </li>
+                                    )
+                                })
+                            }
+                            {roomsOpened.length === 0 ? null :  
+                                roomsOpened.map(r=>{
+                                    return (
+                                        <li>{r}</li>
+                                    )
+                                })
+                            }
+                        </ul>}
+                        
+                    </div>
                 </div>
-        )
-                    
-        
-        
+        )      
     }  
 };
 

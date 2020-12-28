@@ -58,7 +58,8 @@ class Sidebar extends React.Component{
                             roomsJoined={this.props.rooms} 
                             messages={this.props.messages}  
                             allRooms={this.props.allRooms}
-                            roomsAvailable={this.props.roomsAvailable}/>
+                            roomsAvailable={this.props.roomsAvailable}
+                            joinRoom={this.props.joinRoom}/>
                         : null
                     }
                 </div>
@@ -70,6 +71,7 @@ class Sidebar extends React.Component{
                     </form>
                     <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
                 </div>
+
                 <div>
                     <button onClick={()=>this.displayRooms()}>Display All Joinable Chatrooms</button>
                 </div>

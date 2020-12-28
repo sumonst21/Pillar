@@ -128,6 +128,7 @@ class DashBoard extends React.Component{
       
       let room = this.state.roomsAvailable.data.filter(room => e.currentTarget.id === room._id ? room : null);
       
+      debugger
       room[0].users.push(this.props.user.id);
       this.props.editRoom(room[0]);
       
