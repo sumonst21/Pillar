@@ -93,6 +93,10 @@ class ChatBox extends React.Component{
       chatMessage: "",
     })
 
+    const ele = document.getElementById(`charbox-item-${room.title}`);
+    ele.scrollTop = ele.scrollHeight;
+
+
   }
 
   toggle(){
@@ -135,25 +139,27 @@ class ChatBox extends React.Component{
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
-          <div className="chatbox-container">
+          <div className="chatbox-container" id={`charbox-item-${this.props.room.title}`}>
 
             <h1>{this.props.room.title}</h1>
-            <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
-            <form onSubmit={this.submitMessage}>
+            <div className='input-container' >
+              <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
+              <form onSubmit={this.submitMessage}>
 
-              <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-            </form>
-              {this.state.emojiPicker === false ? 
-              <button onClick={this.openEmoji} > ☺ </button> : 
-             <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
+                <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
+              </form>
+                {this.state.emojiPicker === false ? 
+                <button onClick={this.openEmoji} > ☺ </button> : 
+              <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
 
-            <Giphy useGiphy={this.useGiphy}/>
+              <Giphy useGiphy={this.useGiphy}/>
+            </div>
             <ul>
               {messages.map(msg => {
                 if(msg.message.includes("giphy")){
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
                 }else{
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
+                  return <li key={msg.id} id={`msg-${this.props.room.title}-${messages.indexOf(msg)}`}>{(msg.sender) === null ? null:msg.username} says: {msg.message}</li>
                 }
               })}
             </ul>
