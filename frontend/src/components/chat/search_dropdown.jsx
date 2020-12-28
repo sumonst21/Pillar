@@ -6,9 +6,11 @@ class SearchBarDropdown extends React.Component {
         super(props)
 
         this.removeEmojis = this.removeEmojis.bind(this);
+        this.listedMessages = this.listedMessages.bind(this);
         this.objectifiedMessages = this.objectifiedMessages.bind(this);
         this.filteredRooms = this.filteredRooms.bind(this);
         this.boyer_moore = this.boyer_moore.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     };
 
     removeEmojis(string) {//function to replace emojis from https://stackoverflow.com/questions/18862256/how-to-detect-emoji-using-javascript
@@ -18,7 +20,7 @@ class SearchBarDropdown extends React.Component {
     
 
     
-    objectifiedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
+    listedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
         const messageArr = [];
         Object.entries(obj).forEach(room => {
             const title = [room[1].title];
@@ -29,13 +31,20 @@ class SearchBarDropdown extends React.Component {
         return messageArr; 
     };
 
-    filteredRooms(sub){//display a list of matching rooms; since number of rooms will be limited, brute force will be used instead of Boyer-Moore
+    objectifiedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
+        const newObj = {}        
+        Object.entries(obj).forEach(room => {
+            newObj[room[1].title]=room[1].messages.map(m=>(m.message));
+        });
+        return newObj;
+    };
+
+    filteredRooms(sub){//display a list of matching rooms
         const {allRooms} = this.props;
         const roomList = allRooms.map(room=>(
             room.title
         ));
         let filteredRooms = [];
-        debugger
         for(let r=0; r<roomList.length; r++){
             let skip;
             let searchObj = {};
@@ -62,14 +71,15 @@ class SearchBarDropdown extends React.Component {
                 }
             }
         }
-        return filteredRooms;
+        return filteredRooms; //return list of object with matching room name as key and character index as value 
     };
 
     boyer_moore(arr, sub){//customized seaching function based on Boyer Moore searchign algorithm for faster lookup
         let filteredMessages = [];
         arr.forEach(room => {//iterating thru rooms
             for(let r=1; r<room.length; r++){//iterating thru messages in each room
-                if(room[r].slice(0,8) !== 'https://' && room[r].slice(room[r].length-4, room[r].length) !== '.gif'){//skipiing gifs
+                if(room[r].slice(0,8) !== 'https://' && room[r].slice(room[r].length-4, room[r].length) !== '.gif' && 
+                room[r].slice(0,4) !== '<img' && room[r].slice(room[r].length-1, room[r].length) !== '>'){//skipiing gifs
                     room[r] = this.removeEmojis(room[r]);
                     let skip;
                     let searchObj = {};
@@ -90,8 +100,7 @@ class SearchBarDropdown extends React.Component {
                             }
                         };
                         if(skip === 0){
-                            searchObj[room[0]]=[r-1, i];
-                            filteredMessages.push(searchObj);
+                            filteredMessages.push([room[0],r-1,i]);
                             skip++;
                         }
                     }
@@ -99,28 +108,32 @@ class SearchBarDropdown extends React.Component {
             }
         });
         
-        return filteredMessages; //this returns an array of object with room name as key and an array with corresponding message index and matching character index
+        return filteredMessages; //this returns an array with room name, message index and matching character index
     };
 
-    displayMessages(){//adding logic to determine which room it belongs to
-        //find the room using number of 'Þ' jas passed
-        //find the message and only show that specific portion before the joiner position
-
-
-    }
-
+    handleClick(id){
+        const ele = document.getElementById(id);
+        ele.scrollIntoView();
+    };
 
     render() {
         const {roomsJoined, allRooms, roomsAvailable, searchInput} = this.props;
-        const roomObj = this.objectifiedMessages(roomsJoined);  
-        const matchedMessages = this.boyer_moore(roomObj, searchInput);
+        const roomArr = this.listedMessages(roomsJoined);  
+        const roomObj = this.objectifiedMessages(roomsJoined);
+        const matchedMessages = this.boyer_moore(roomArr, searchInput).map(m=>{
+            return [roomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]];
+        });
         const matchedRooms = this.filteredRooms(searchInput);
 
-        debugger
+        debugger      
         return (
-            <div>
-                caonima
-            </div>
+                <div className='searchbar-dropdown'>
+                    <ul>
+                        {matchedMessages.map(m=>{
+                            <li>Message: {m[0]} Room: {m[1]}</li>
+                        })}
+                    </ul>
+                </div>
         )
                     
         

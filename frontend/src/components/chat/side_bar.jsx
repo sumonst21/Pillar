@@ -53,7 +53,7 @@ class Sidebar extends React.Component{
                         placeholder='type here to search'
                     />
                     {this.state.dropDown ? 
-                        <SearchBarDropdown 
+                        <SearchBarDropdown className='search-bar-dropdown-container'
                         dropdown={this.state.dropdown} 
                         searchInput={this.state.searchInput} 
                         roomsJoined={this.props.rooms} 
