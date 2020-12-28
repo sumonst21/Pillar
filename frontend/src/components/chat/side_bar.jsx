@@ -57,7 +57,7 @@ class Sidebar extends React.Component{
                         dropdown={this.state.dropdown} 
                         searchInput={this.state.searchInput} 
                         roomsJoined={this.props.rooms} 
-                        messages={this.props.messages} //add logic here to make message and sorted array 
+                        messages={this.props.messages}  
                         allRooms={this.props.allRooms}
                         roomsAvailable={this.props.roomsAvailable}/>
                         : null

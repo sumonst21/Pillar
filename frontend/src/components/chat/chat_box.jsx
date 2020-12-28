@@ -153,7 +153,7 @@ class ChatBox extends React.Component{
                 if(msg.message.includes("giphy")){
                   return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
                 }else{
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
+                  return <li key={msg.id} id={msg.message}>{(msg.sender) === null? null:msg.username} says: {msg.message}</li>
                 }
               })}
             </ul>
