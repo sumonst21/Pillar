@@ -131,14 +131,15 @@ class SearchBarDropdown extends React.Component {
                     <ul>
                         {matchedMessages.map(m=>{
                             return(
-                            <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
-                                Message: {m[0]} Room: {m[1]}
-                            </li>
+                                <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
+                                    Message: {m[0]} Room: {m[1]}
+                                </li>
                             )
                         })}
                     </ul>
                 </div>
         )
+        //add join room options
                     
         
         
