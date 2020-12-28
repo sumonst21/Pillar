@@ -128,6 +128,7 @@ class DashBoard extends React.Component{
       
       let room = this.state.roomsAvailable.data.filter(room => e.currentTarget.id === room._id ? room : null);
       
+      debugger
       room[0].users.push(this.props.user.id);
       this.props.editRoom(room[0]);
       
@@ -183,7 +184,7 @@ class DashBoard extends React.Component{
                   messages={this.props.messages}
                   allRooms = {this.state.all}
                />
-            <div className="chatbox-list">
+            <div className="chatbox-list" >
                {
                   roomIds.map(id=>
                      {
