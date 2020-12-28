@@ -130,7 +130,11 @@ class SearchBarDropdown extends React.Component {
                 <div className='searchbar-dropdown'>
                     <ul>
                         {matchedMessages.map(m=>{
-                            <li>Message: {m[0]} Room: {m[1]}</li>
+                            return(
+                            <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
+                                Message: {m[0]} Room: {m[1]}
+                            </li>
+                            )
                         })}
                     </ul>
                 </div>
