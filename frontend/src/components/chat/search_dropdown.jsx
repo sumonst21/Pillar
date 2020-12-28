@@ -129,6 +129,9 @@ class SearchBarDropdown extends React.Component {
         debugger      
         return (
                 <div className='searchbar-dropdown'>
+                    {matchedMessages.length === 0 ? 
+                        <p>No Match Found</p> 
+                    : 
                     <ul>
                         {matchedMessages.map(m=>{
                             return(
@@ -137,10 +140,9 @@ class SearchBarDropdown extends React.Component {
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul>}
                 </div>
         )
-        //add join room options
                     
         
         
