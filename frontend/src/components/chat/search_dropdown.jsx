@@ -13,7 +13,7 @@ class SearchBarDropdown extends React.Component {
         const messageArr = [];
         Object.entries(obj).forEach(room => {
             const newObj = {};
-            // debugger
+            //  
             newObj[room[1].title]=room[1].messages.map(m=>(m.message));
             messageArr.push(newObj);
         });
@@ -36,7 +36,7 @@ class SearchBarDropdown extends React.Component {
         //use the Royer-Moore algorithm
             //count the 'Þ' to get the index, and use the index to find the corresponding messages in the array below
         //roomObj: [{Dave's Room #1: ["hello Dave?", "Hi Dave.", "who am i?"...]}...]
-        debugger
+         
         return (
             <div>
                 caonima

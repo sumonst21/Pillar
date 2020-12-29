@@ -1,9 +1,26 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import EditMessageForm from './edit_message_form_container.js';
 
 export default class Message extends Component {
 
   constructor(props) {
     super(props);
+
+    this.editMessage = this.editMessage.bind(this);
+  }
+
+  componentDidMount(){
+    this.props.socket.on("Message Edited", this.editMessage)
+  }
+
+  editMessage(msg){
+    
+    if (msg._id === this.props.msg.id){
+      debugger;
+      //dispatch edit message action (message already saved in Database)
+      this.props.editMessage(msg);
+
+    }
   }
 
   render() {
@@ -28,7 +45,7 @@ export default class Message extends Component {
     } else {
       message = <li key={msg.id}>{msg.username} says: {msg.message}
         {author &&
-          <button>Edit Message</button>
+          <EditMessageForm editMessage={this.editMessage} socket={this.props.socket} msg={msg}/>
         }
       </li>
     }

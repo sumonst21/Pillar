@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Message from './message';
-import { afterMessageSent, editMessage } from '../../actions/message_actions';
+import EditMessageForm from './edit_message_form';
+import { afterMessageSent } from '../../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -9,13 +9,12 @@ const mapStateToProps = (state, ownProps) => {
     user: state.session.user,
     room: state.rooms[ownProps.msg.room],
     message: state.messages[ownProps.msg.id],
-
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    editMessage: msg => dispatch(editMessage(msg)),
+    
     afterMessageSent: (msg) => {
       dispatch(afterMessageSent(msg));
     },
@@ -27,4 +26,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Message);
+)(EditMessageForm);

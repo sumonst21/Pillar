@@ -61,10 +61,8 @@ io.on("connection", socket => {
 
 
   socket.on("Create Message", msg => {
-
     connect.then(db => {
       try {
-        
 
         const message = new Message({
           message: msg.message,
@@ -99,6 +97,36 @@ io.on("connection", socket => {
     })
 
   })
+
+  //EDIT MESSAGE
+  socket.on("Edit Message", msg => {
+    connect.then(db => {
+      try {
+
+        const message = Message.findById(msg.id, (err, message)=>{
+          message.message = msg.message;
+
+          message.save((err, document) => {
+            //record error, if any
+            
+            if (err) return res.json({ success: false, err });
+            io.emit("Message Edited", document);
+          })
+
+
+
+
+        });
+        debugger;
+
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+  })
+
+
 
 })
 

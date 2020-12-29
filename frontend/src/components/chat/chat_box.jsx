@@ -72,7 +72,7 @@ class ChatBox extends React.Component{
 
   submitMessage(e) {
     if (e) { e.preventDefault()}
-    //add room id to props
+
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
@@ -127,7 +127,7 @@ class ChatBox extends React.Component{
 
   }
   render() {
-    let messages = this.props.room.messages.map(msg=> (<Message msg={msg}/>)) || [];
+    let messages = this.props.room.messages.map(msg=> (<Message socket={this.props.socket} msg={msg}/>)) || [];
 
     let users = this.props.room.users || [];
 
