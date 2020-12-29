@@ -33,7 +33,6 @@ class SearchBarDropdown extends React.Component {
     listedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
         const messageArr = [];
         Object.entries(obj).forEach(room => {
-            debugger;
             const title = [room[1].title];
             const messages = room[1].messages.map(m=>(m.message));
             const newArr = title.concat(messages)
