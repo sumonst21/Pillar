@@ -4,7 +4,7 @@ import moment from "moment";
 import UserList  from './user_list.js';
 import './chatbox.css'
 import Picker from 'emoji-picker-react';
-import Giphy from "../giphy/giphy_container";
+import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
 
 class ChatBox extends React.Component{
@@ -15,7 +15,6 @@ class ChatBox extends React.Component{
       open: true,
       openOrClose: 'close',
       emojiPicker: false,
-      giphyMessage: ""
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -23,7 +22,6 @@ class ChatBox extends React.Component{
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
-    this.submitGiphy = this.submitGiphy.bind(this);
   }
 
 
@@ -100,32 +98,16 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
-  submitGiphy(){
-
-    let username = this.props.user.username;
-    let userId = this.props.user.id;
-    let room = this.props.room;
-
-    let timestamp = moment().format('LT');
-    let message = this.state.giphyMessage;
-     
-    this.props.socket.emit("Create Message", {
-      message,timestamp, username, userId, room
-    })
-  
-    this.setState({
-      giphyMessage: ""
-    })
-  }
-
   useGiphy(e){
-
-    let newMessage = `${e.target.src}`;
-    this.setState({
-      giphyMessage: newMessage
-    }, this.submitGiphy)
-
+    this.props.socket.emit("Create Message", {
+      message: `${e.target.src}`,
+      timestamp: moment().format('LT'), 
+      username: this.props.user.username, 
+      userId: this.props.user.id,
+      room: this.props.room,
+    })
   }
+
   render() {
     let messages = this.props.room.messages.map(msg=> (<Message socket={this.props.socket} msg={msg}/>)) || [];
 

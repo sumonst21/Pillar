@@ -120,7 +120,6 @@ io.on("connection", socket => {
 
   })
 
-
   //DELETE MESSAGE
   socket.on("Delete Message", msg => {
     connect.then(db => {

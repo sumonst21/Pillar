@@ -8,6 +8,7 @@ export default class Message extends Component {
 
     this.editMessage = this.editMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
+    this.deleteGif = this.deleteGif.bind(this);
   }
 
   componentDidMount(){
@@ -22,9 +23,15 @@ export default class Message extends Component {
   }
 
   deleteMessage(msg){
-     
     if (msg._id === this.props.msg.id) {
       this.props.deleteMessage(msg);
+    }
+  }
+
+  deleteGif(){
+    let response = window.confirm(`Are you sure you want to delete your Gif?`);
+    if (response) {
+      this.props.socket.emit("Delete Message", this.props.msg);
     }
   }
 
@@ -44,7 +51,7 @@ export default class Message extends Component {
     if (msg.message.includes('giphy')){
       message = <li key={msg.id}>{msg.username} says: <img className="chat-img" src={msg.message} alt="image" />
         {author && 
-          <button>Edit Message</button>
+          <button onClick={this.deleteGif}>Delete Gif</button>
         }
       </li>
     } else {
