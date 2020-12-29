@@ -1,4 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+
+  return {
+    roomsJoined: state.rooms
+
+  };
+};
+
+
 
 class SearchBarDropdown extends React.Component {
     constructor(props) {
@@ -22,6 +33,7 @@ class SearchBarDropdown extends React.Component {
     listedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
         const messageArr = [];
         Object.entries(obj).forEach(room => {
+            debugger;
             const title = [room[1].title];
             const messages = room[1].messages.map(m=>(m.message));
             const newArr = title.concat(messages)
@@ -133,7 +145,6 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room=>(roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room=>(roomsDisplayed.includes(room)));
 
-
         return (
                 <div className='searchbar-dropdown'>
                     <div className='message-results'>
@@ -183,5 +194,7 @@ class SearchBarDropdown extends React.Component {
 };
 
 
-
-export default (SearchBarDropdown);
+export default connect(
+  mapStateToProps,
+  null
+)(SearchBarDropdown);

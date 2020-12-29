@@ -61,10 +61,8 @@ io.on("connection", socket => {
 
 
   socket.on("Create Message", msg => {
-
     connect.then(db => {
       try {
-        
 
         const message = new Message({
           message: msg.message,
@@ -76,7 +74,8 @@ io.on("connection", socket => {
         message.save((err, document) => {
           //record error, if any
           if (err) return res.json({ success: false, err });
-          
+          io.emit(`MTC_${document.room._id.toString()}`, document);
+           
           //add to a rooms array of messages
           Room.findOneAndUpdate(
             { _id: document.room._id },
@@ -88,6 +87,7 @@ io.on("connection", socket => {
               } else {
                 io.emit(`MTC_${document.room._id.toString()}`, document);
                 console.log("Username: "+message.username);
+                 
               }
             }
           )
@@ -99,6 +99,47 @@ io.on("connection", socket => {
     })
 
   })
+
+  //EDIT MESSAGE
+  socket.on("Edit Message", msg => {
+    connect.then(db => {
+      try {
+
+        const message = Message.findById(msg.id, (err, message)=>{
+          message.message = msg.message;
+
+          message.save((err, document) => {
+            //record error, if any
+            
+            if (err) return res.json({ success: false, err });
+            io.emit("Message Edited", document);
+          })
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+  })
+
+  //DELETE MESSAGE
+  socket.on("Delete Message", msg => {
+    connect.then(db => {
+      try {
+         
+        const message = Message.findByIdAndDelete(msg.id, (err, message)=>{
+           
+          if (err) return res.json({ success: false, err });
+          io.emit("Message Deleted", message);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+  })
+
+
 
 })
 
