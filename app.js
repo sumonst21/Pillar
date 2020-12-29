@@ -112,13 +112,25 @@ io.on("connection", socket => {
             if (err) return res.json({ success: false, err });
             io.emit("Message Edited", document);
           })
-
-
-
-
         });
-        debugger;
+      } catch (error) {
+        console.log(error);
+      }
+    })
 
+  })
+
+
+  //DELETE MESSAGE
+  socket.on("Delete Message", msg => {
+    connect.then(db => {
+      try {
+         
+        const message = Message.findByIdAndDelete(msg.id, (err, message)=>{
+           
+          if (err) return res.json({ success: false, err });
+          io.emit("Message Deleted", message);
+          });
       } catch (error) {
         console.log(error);
       }

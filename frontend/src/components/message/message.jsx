@@ -7,19 +7,24 @@ export default class Message extends Component {
     super(props);
 
     this.editMessage = this.editMessage.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
   componentDidMount(){
-    this.props.socket.on("Message Edited", this.editMessage)
+    this.props.socket.on("Message Edited", this.editMessage);
+    this.props.socket.on("Message Deleted", this.deleteMessage);
   }
 
   editMessage(msg){
-    
     if (msg._id === this.props.msg.id){
-      debugger;
-      //dispatch edit message action (message already saved in Database)
       this.props.editMessage(msg);
+    }
+  }
 
+  deleteMessage(msg){
+     
+    if (msg._id === this.props.msg.id) {
+      this.props.deleteMessage(msg);
     }
   }
 
@@ -45,7 +50,7 @@ export default class Message extends Component {
     } else {
       message = <li key={msg.id}>{msg.username} says: {msg.message}
         {author &&
-          <EditMessageForm editMessage={this.editMessage} socket={this.props.socket} msg={msg}/>
+          <EditMessageForm socket={this.props.socket} msg={msg}/>
         }
       </li>
     }

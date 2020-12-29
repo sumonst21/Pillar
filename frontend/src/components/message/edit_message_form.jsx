@@ -37,7 +37,6 @@ export default class EditMessageForm extends Component {
   }
 
   handleSubmit(e){
-    debugger;
     this.props.socket.emit("Edit Message",{
       message: this.state.chatMessage,
       createdAt: this.props.message.createdAt,
@@ -52,7 +51,10 @@ export default class EditMessageForm extends Component {
   }
 
   handleDelete(e){
-    window.confirm("Are you sure?");
+    let response = window.confirm(`Are you sure you want to delete "${this.props.msg.message}"?`);
+    if (response) {
+      this.props.socket.emit("Delete Message", this.props.msg);
+    }
   }
 
 

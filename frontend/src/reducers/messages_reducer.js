@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
 import { RECEIVE_ROOMS } from '../actions/room_actions';
 
 const MessagesReducer = (state = { }, action) => {
@@ -34,7 +34,10 @@ const MessagesReducer = (state = { }, action) => {
       action.message.id = action.message._id; //rename the id property key
       delete action.message._id;
       newState[action.message.id] = action.message;
-      debugger;
+      return newState;
+    case REMOVE_MESSAGE:
+       
+      delete newState[action.message._id];
       return newState;
     default:
       return state;

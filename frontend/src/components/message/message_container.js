@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Message from './message';
-import { afterMessageSent, editMessage } from '../../actions/message_actions';
+import { afterMessageSent, editMessage, deleteMessage } from '../../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     editMessage: msg => dispatch(editMessage(msg)),
+    deleteMessage: msg => dispatch(deleteMessage(msg)),
     afterMessageSent: (msg) => {
       dispatch(afterMessageSent(msg));
     },
