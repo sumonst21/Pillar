@@ -1,5 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+
+  return {
+    roomsJoined: state.rooms
+
+  };
+};
+
+
 
 class SearchBarDropdown extends React.Component {
     constructor(props) {
@@ -82,7 +92,6 @@ class SearchBarDropdown extends React.Component {
                 room[r].slice(0,4) !== '<img' && room[r].slice(room[r].length-1, room[r].length) !== '>'){//skipiing gifs
                     room[r] = this.removeEmojis(room[r]);
                     let skip;
-                    let searchObj = {};
                     let bad_char = new Array(265).fill(-1);
 
                     for(let t=0; t<sub.length; t++){//constructing a bad character table for each chatacter in the substring at its corresponding place in 256 ASCII characters
@@ -120,7 +129,7 @@ class SearchBarDropdown extends React.Component {
     render() {
         let {roomsJoined, allRooms, roomsAvailable, searchInput} = this.props;
         if(allRooms !== undefined && roomsAvailable.data !== undefined){
-            allRooms = allRooms.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])); //return an array of all of the room titles ["Dave's Room #1", "sss", "hahaha", "heyheyhey", "lala", "blah", "yoyo", "Cars", "new new new"]
+            allRooms = allRooms.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])) || []; //return an array of all of the room titles ["Dave's Room #1", "sss", "hahaha", "heyheyhey", "lala", "blah", "yoyo", "Cars", "new new new"]
             roomsAvailable = roomsAvailable.data.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])) || []; //return an array of all the rooms available to join
         }
         const roomArr = this.listedMessages(roomsJoined);  
@@ -135,8 +144,6 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room=>(roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room=>(roomsDisplayed.includes(room)));
 
-
-        debugger
         return (
                 <div className='searchbar-dropdown'>
                     <div className='message-results'>
@@ -181,10 +188,12 @@ class SearchBarDropdown extends React.Component {
                         
                     </div>
                 </div>
-        )      
+            )      
     }  
 };
 
 
-
-export default (SearchBarDropdown);
+export default connect(
+  mapStateToProps,
+  null
+)(SearchBarDropdown);

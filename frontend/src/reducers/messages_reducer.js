@@ -1,4 +1,4 @@
-import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
 import { RECEIVE_ROOMS } from '../actions/room_actions';
 
 const MessagesReducer = (state = { }, action) => {
@@ -10,7 +10,8 @@ const MessagesReducer = (state = { }, action) => {
       newState = action.messages;
       return newState;
     case RECEIVE_NEW_MESSAGE:
-      Object.assign(newState, action.message);
+       
+      Object.assign(newState, {[action.message.id]: action.message});
       return newState;
     case RECEIVE_ROOMS:
       let messages = {};
@@ -30,7 +31,15 @@ const MessagesReducer = (state = { }, action) => {
       });
       Object.assign(newState, messages);
       return newState;
-
+    case UPDATE_MESSAGE:
+      action.message.id = action.message._id; //rename the id property key
+      delete action.message._id;
+      newState[action.message.id] = action.message;
+      return newState;
+    case REMOVE_MESSAGE:
+       
+      delete newState[action.message._id];
+      return newState;
     default:
       return state;
   }

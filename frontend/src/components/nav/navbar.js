@@ -20,7 +20,6 @@ class NavBar extends React.Component {
         return (
             <div>
                 <button onClick={this.logoutUser}>Logout</button>
-                {/* put sidebar component here */}
             </div>
         );
       } else {

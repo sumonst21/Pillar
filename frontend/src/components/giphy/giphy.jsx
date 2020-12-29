@@ -1,5 +1,6 @@
-import React from "react"
-import './giphy.css'
+import React from "react";
+import './giphy.css';
+import { getGiphy } from "../../util/giphy_api_util";
 
 class Giphy extends React.Component {
    constructor(props){
@@ -13,20 +14,20 @@ class Giphy extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.makeGiphyRequest = this.makeGiphyRequest.bind(this);
       this.toggleGiphy = this.toggleGiphy.bind(this);
+      this.handleSelection = this.handleSelection.bind(this);
       // this.useGiphy = this.props.useGiphy.bind(this);
    }
    makeGiphyRequest(){
-       let keyword = this.state.keyword;
+      let keyword = this.state.keyword;
       if (keyword.length >= 1){
          
-         this.props.fetchGiphy(keyword)
+         getGiphy(keyword)
          .then(giphy => {
-            
+             
             this.setState({
-               giphys: giphy.giphy.data.data
+               giphys: giphy.data.data
             })
          }
-
       )}
    }
 
@@ -39,9 +40,14 @@ class Giphy extends React.Component {
   }
    handleChange(e){
       this.setState({
-         keyword: e.currentTarget.value
+         keyword: e.currentTarget.value,
       }, this.makeGiphyRequest);
-     
+   }
+
+   handleSelection(e){
+      this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));      
+      const ele = document.getElementById(`charbox-item-${this.props.roomTitle}`);
+      ele.scrollTop = ele.scrollHeight;
    }
 
    componentDidMount(){
@@ -62,7 +68,7 @@ class Giphy extends React.Component {
                               
 
                               return(
-                              <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.props.useGiphy}>
+                              <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.handleSelection}>
                                  <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
                               </li>      
                               )

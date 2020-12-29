@@ -90,7 +90,7 @@ router.get('/:userId/rooms', (req, res) => {
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
           let roomList = filterRooms(rooms, req.params.userId);
-          // 
+           
            
           res.json(roomList);
         }
