@@ -74,7 +74,8 @@ io.on("connection", socket => {
         message.save((err, document) => {
           //record error, if any
           if (err) return res.json({ success: false, err });
-          
+          io.emit(`MTC_${document.room._id.toString()}`, document);
+           
           //add to a rooms array of messages
           Room.findOneAndUpdate(
             { _id: document.room._id },
@@ -86,6 +87,7 @@ io.on("connection", socket => {
               } else {
                 io.emit(`MTC_${document.room._id.toString()}`, document);
                 console.log("Username: "+message.username);
+                 
               }
             }
           )

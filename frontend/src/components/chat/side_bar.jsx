@@ -53,13 +53,14 @@ class Sidebar extends React.Component{
                     {this.state.dropDown && this.state.searchInput.length !== 0 ? 
                         <SearchBarDropdown className='search-bar-dropdown-container'
                             handleDropDown={this.handleDropDown}
-                            dropdown={this.state.dropdown} 
-                            searchInput={this.state.searchInput} 
-                            roomsJoined={this.props.rooms} 
-                            messages={this.props.messages}  
-                            allRooms={this.props.allRooms}
-                            roomsAvailable={this.props.roomsAvailable}
-                            joinRoom={this.props.joinRoom}/>
+                            //dropdown={this.state.dropdown} 
+                            //searchInput={this.state.searchInput} 
+                            //roomsJoined={this.props.rooms} 
+                            // messages={this.props.messages}  
+                            //allRooms={this.props.allRooms}
+                            //roomsAvailable={this.props.roomsAvailable}
+                            //joinRoom={this.props.joinRoom}
+                            />
                         : null
                     }
                 </div>

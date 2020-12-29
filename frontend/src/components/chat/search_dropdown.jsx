@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 
 class SearchBarDropdown extends React.Component {
     constructor(props) {

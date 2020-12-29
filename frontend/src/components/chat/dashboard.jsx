@@ -180,9 +180,9 @@ class DashBoard extends React.Component{
                   handleChange={this.handleChange}
                   joinRoom={this.joinRoom}
                   roomsAvailable={this.state.roomsAvailable}
-                  rooms={this.props.rooms}
-                  messages={this.props.messages}
-                  allRooms = {this.state.all}
+                  //rooms={this.props.rooms}
+                  // messages={this.props.messages}
+                  //allRooms = {this.state.all}
                />
             <div className="chatbox-list" >
                {

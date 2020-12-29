@@ -23,7 +23,7 @@ class Giphy extends React.Component {
          
          getGiphy(keyword)
          .then(giphy => {
-            debugger;
+             
             this.setState({
                giphys: giphy.data.data
             })
