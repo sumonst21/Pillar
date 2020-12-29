@@ -21,10 +21,14 @@ const RoomsReducer = (state = {}, action) => {
       let length = messagesArray.length;
       let lastMessage = messagesArray[length-1];
 
-
-      if(lastMessage.id !== action.message.id){
+      if (length !== 0){
+        if( lastMessage.id !== action.message.id){
+          newState[action.message.room].messages.push(action.message);
+        }
+      }else{
         newState[action.message.room].messages.push(action.message);
-      }
+      };
+
       return newState;
 
     case RECEIVE_ROOMS:
