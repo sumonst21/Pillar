@@ -135,7 +135,7 @@ class ChatBox extends React.Component{
                 <button onClick={this.openEmoji} > ☺ </button> : 
               <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
 
-              <Giphy useGiphy={this.useGiphy}/>
+              <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
             </div>
             <ul>
                 {messages}
