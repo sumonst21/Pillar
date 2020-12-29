@@ -4,7 +4,7 @@ import { RECEIVE_ROOM,
         UPDATE_ROOM,
         LEAVE_ROOM,
          } from '../actions/room_actions';
-import { RECEIVE_NEW_MESSAGE } from '../actions/message_actions';
+import { RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
 import * as cloneDeep from 'lodash/cloneDeep';
 
 const RoomsReducer = (state = {}, action) => {
@@ -17,7 +17,18 @@ const RoomsReducer = (state = {}, action) => {
       return newState;
 
     case RECEIVE_NEW_MESSAGE:
-      newState[action.message.room].messages.push(action.message);
+      let messagesArray = newState[action.message.room].messages;
+      let length = messagesArray.length;
+      let lastMessage = messagesArray[length-1];
+
+      if (length !== 0){
+        if( lastMessage.id !== action.message.id){
+          newState[action.message.room].messages.push(action.message);
+        }
+      }else{
+        newState[action.message.room].messages.push(action.message);
+      };
+
       return newState;
 
     case RECEIVE_ROOMS:
@@ -49,17 +60,22 @@ const RoomsReducer = (state = {}, action) => {
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:
-        
       let id = action.room._id;
-       
-      //update room is adding users as a list of ids rather than user objects at some point after the 
-      //join room chain is initiated.... which then braks other things...
-      //newState.rooms[action.room._id] = action.room;
       Object.assign(newState,{[id]: action.room })
       return newState;
     case LEAVE_ROOM:
        
       delete newState[action.room._id];
+      return newState;
+    case UPDATE_MESSAGE:
+      let messages = newState[action.message.room].messages;
+      let index = messages.findIndex(msg => msg.id === action.message.id);
+      newState[action.message.room].messages[index] = action.message;
+      return newState;
+    case REMOVE_MESSAGE:
+      let msgs = newState[action.message.room].messages;
+      let indx = msgs.findIndex(msg => msg.id === action.message._id);
+      newState[action.message.room].messages.splice(indx,1);
       return newState;
     default:
       return state;

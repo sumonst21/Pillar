@@ -4,7 +4,8 @@ import moment from "moment";
 import UserList  from './user_list.js';
 import './chatbox.css'
 import Picker from 'emoji-picker-react';
-import Giphy from "../giphy/giphy_container"
+import Giphy from "../giphy/giphy";
+import Message from '../message/message_container';
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -14,7 +15,6 @@ class ChatBox extends React.Component{
       open: true,
       openOrClose: 'close',
       emojiPicker: false,
-      giphyMessage: ""
     }
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +22,6 @@ class ChatBox extends React.Component{
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
-    this.submitGiphy = this.submitGiphy.bind(this);
   }
 
 
@@ -32,6 +31,7 @@ class ChatBox extends React.Component{
     this.props.socket.on(`MTC_${roomId}`, msg =>{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
+       
     
       let newMessage = {
         id: msg._id,
@@ -47,9 +47,6 @@ class ChatBox extends React.Component{
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
-    ;
-    // prevProps.room.messages.length
-    // this.props.room.messages.length
 
   }    
 
@@ -71,9 +68,10 @@ class ChatBox extends React.Component{
       this.setState({emojiPicker: false}) :
       this.setState({emojiPicker: true})
   }
+
   submitMessage(e) {
     if (e) { e.preventDefault()}
-    //add room id to props
+
     let username = this.props.user.username;
     let userId = this.props.user.id;
     let room = this.props.room;
@@ -105,34 +103,19 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
-  submitGiphy(){
-
-    let username = this.props.user.username;
-    let userId = this.props.user.id;
-    let room = this.props.room;
-
-    let timestamp = moment().format('LT');
-    let message = this.state.giphyMessage;
-     
-    this.props.socket.emit("Create Message", {
-      message,timestamp, username, userId, room
-    })
-  
-    this.setState({
-      giphyMessage: ""
-    })
-  }
-
   useGiphy(e){
-
-    let newMessage = `${e.target.src}`;
-    this.setState({
-      giphyMessage: newMessage
-    }, this.submitGiphy)
-
+    this.props.socket.emit("Create Message", {
+      message: `${e.target.src}`,
+      timestamp: moment().format('LT'), 
+      username: this.props.user.username, 
+      userId: this.props.user.id,
+      room: this.props.room,
+    })
   }
+
   render() {
-    let messages = this.props.room.messages || [];
+    let messages = this.props.room.messages.map((msg, index) => (<Message socket={this.props.socket} id={`msg-${this.props.room.title}-${index}`} msg={msg}/>)) || [];
+      
     let users = this.props.room.users || [];
 
      
@@ -152,16 +135,10 @@ class ChatBox extends React.Component{
                 <button onClick={this.openEmoji} > ☺ </button> : 
               <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
 
-              <Giphy useGiphy={this.useGiphy}/>
+              <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
             </div>
             <ul>
-              {messages.map(msg => {
-                if(msg.message.includes("giphy")){
-                  return <li key={msg.id}>{(msg.sender) === null? null:msg.username} says: <img className="chat-img" src={msg.message} alt="image"/></li>
-                }else{
-                  return <li key={msg.id} id={`msg-${this.props.room.title}-${messages.indexOf(msg)}`}>{(msg.sender) === null ? null:msg.username} says: {msg.message}</li>
-                }
-              })}
+                {messages}
             </ul>
             <UserList users={users}/>
           </div>
