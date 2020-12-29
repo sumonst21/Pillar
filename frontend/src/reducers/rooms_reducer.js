@@ -18,14 +18,16 @@ const RoomsReducer = (state = {}, action) => {
     case RECEIVE_NEW_MESSAGE:
       let messagesArray = newState[action.message.room].messages;
       let length = messagesArray.length;
-      let lastMessage = messagesArray[length - 1];
-      if (length !== 0) {
-        if (lastMessage.id !== action.message.id) {
+      let lastMessage = messagesArray[length-1];
+
+      if (length !== 0){
+        if( lastMessage.id !== action.message.id){
           newState[action.message.room].messages.push(action.message);
         }
-      } else {
+      }else{
         newState[action.message.room].messages.push(action.message);
       };
+
       return newState;
     case RECEIVE_ROOMS:
       action.rooms.data.forEach(room => {
