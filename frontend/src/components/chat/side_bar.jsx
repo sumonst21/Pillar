@@ -38,9 +38,7 @@ class Sidebar extends React.Component{
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
-        // let filtered_messages = this.props.rooms.messages.map(message_obj => {
-        //     message_obj.message
-        // });
+
         return(
             <div className='sidebar-contaier'>
                 <div className='search-bar-container'>
@@ -48,18 +46,20 @@ class Sidebar extends React.Component{
                         className='search-bar' 
                         type='text'
                         onChange={this.handleSearchInput}
-                        onBlur={this.handleDropDown}
+                        onKeyDown={this.handleDropDown}
                         value={this.state.searchInput}
                         placeholder='type here to search'
                     />
-                    {this.state.dropDown ? 
-                        <SearchBarDropdown 
-                        dropdown={this.state.dropdown} 
-                        searchInput={this.state.searchInput} 
-                        roomsJoined={this.props.rooms} 
-                        messages={this.props.messages} //add logic here to make message and sorted array 
-                        allRooms={this.props.allRooms}
-                        roomsAvailable={this.props.roomsAvailable}/>
+                    {this.state.dropDown && this.state.searchInput.length !== 0 ? 
+                        <SearchBarDropdown className='search-bar-dropdown-container'
+                            handleDropDown={this.handleDropDown}
+                            dropdown={this.state.dropdown} 
+                            searchInput={this.state.searchInput} 
+                            roomsJoined={this.props.rooms} 
+                            messages={this.props.messages}  
+                            allRooms={this.props.allRooms}
+                            roomsAvailable={this.props.roomsAvailable}
+                            joinRoom={this.props.joinRoom}/>
                         : null
                     }
                 </div>
@@ -71,6 +71,7 @@ class Sidebar extends React.Component{
                     </form>
                     <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
                 </div>
+
                 <div>
                     <button onClick={()=>this.displayRooms()}>Display All Joinable Chatrooms</button>
                 </div>
