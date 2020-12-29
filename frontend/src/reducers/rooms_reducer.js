@@ -17,6 +17,7 @@ const RoomsReducer = (state = {}, action) => {
       return newState;
 
     case RECEIVE_NEW_MESSAGE:
+      debugger;
       newState[action.message.room].messages.push(action.message);
       return newState;
 

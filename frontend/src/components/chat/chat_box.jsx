@@ -31,6 +31,7 @@ class ChatBox extends React.Component{
     this.props.socket.on(`MTC_${roomId}`, msg =>{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
+      debugger;
     
       let newMessage = {
         id: msg._id,

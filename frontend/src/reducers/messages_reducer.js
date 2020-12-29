@@ -10,7 +10,8 @@ const MessagesReducer = (state = { }, action) => {
       newState = action.messages;
       return newState;
     case RECEIVE_NEW_MESSAGE:
-      Object.assign(newState, action.message);
+      debugger;
+      Object.assign(newState, {[action.message.id]: action.message});
       return newState;
     case RECEIVE_ROOMS:
       let messages = {};
