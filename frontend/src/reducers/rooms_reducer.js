@@ -12,8 +12,9 @@ const RoomsReducer = (state = {}, action) => {
   let newState = cloneDeep(state);
   switch (action.type) {
     case RECEIVE_ROOM:
-      const roomId = action.room.data._id;
-      Object.assign(newState, { [roomId]: action.room.data });
+       
+      const roomId = action.room._id;
+      Object.assign(newState, { [roomId]: action.room });
       return newState;
     case RECEIVE_NEW_MESSAGE:
       let messagesArray = newState[action.message.room].messages;
@@ -50,7 +51,6 @@ const RoomsReducer = (state = {}, action) => {
       });
       return newState;
     case DELETE_ROOM:
-      debugger;
       delete newState[action.room._id];
       return newState;
     case UPDATE_ROOM:

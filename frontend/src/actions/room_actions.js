@@ -41,10 +41,9 @@ export const fetchRoom = (roomId) => dispatch => (
     .catch(err => console.log(err))
 );
 
-export const createRoom = room => dispatch => (
-  createRoomUtil(room)
-    .then(room => dispatch(receiveRoom(room)))
-)
+export const createRoom = room => dispatch => {
+  dispatch(receiveRoom(room))
+}
 
 export const removeRoom = room => dispatch => (
   dispatch(deleteRoom(room))

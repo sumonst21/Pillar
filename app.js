@@ -5,6 +5,7 @@ const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
 const path = require('path');
+const validateRoomInput = require('./validation/room');
 
 
 const server = require("http").createServer(app);
@@ -141,21 +142,36 @@ io.on("connection", socket => {
 
   //DELETE ROOM
   socket.on("delete room", ({room, user}) =>{
-    debugger;
     connect.then(db =>{
       Room.findByIdAndDelete(room._id, (err,room)=>{
         if (err) return res.json({ success: false, err });
         const messages = Message.deleteMany({room: room._id})
           .then(num => console.log(`Messages Deleted: ${num}`));
-        debugger;
+         
         io.emit("room deleted", ({room, user}));
 
       })
     })
   })
 
-
-})
+//  CREATE ROOM
+  socket.on("Create Room", room => {
+    //room already created in database via API call
+     
+    const { errors, isValid } = validateRoomInput(room);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    const newRoom = new Room({
+      title: room.title,
+      admin: room.admin,
+      messages: [],
+      users: room.users,
+    });
+     
+    newRoom.save().then(room => io.emit("room created", newRoom));
+  });
+ });
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`Server is running on port ${port}`));

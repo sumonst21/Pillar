@@ -27,6 +27,7 @@ class DashBoard extends React.Component{
       this.deleteRoom = this.deleteRoom.bind(this);
       this.roomDeleted = this.roomDeleted.bind(this);
       this.ackDelete = this.ackDelete.bind(this);
+      this.roomCreated = this.roomCreated.bind(this);
       
    }
 
@@ -57,6 +58,7 @@ class DashBoard extends React.Component{
       this.socket.on("user left", this.userLeft);
       this.socket.on("user joined", this.userJoined);
       this.socket.on("room deleted", this.roomDeleted);
+      this.socket.on("room created", this.roomCreated);
    }
    
    componentDidUpdate(prevProps){
@@ -88,17 +90,25 @@ class DashBoard extends React.Component{
       };
    }
 
-   userLeft({ user, room }) {     
-      this.props.updateUserList(room);
+   userLeft({ user, room }) { 
+      //check if this user belongs to the room
+      let currentRooms = Object.keys(this.props.rooms);
+
+      if (currentRooms.includes(room._id)) {    
+         this.props.updateUserList(room);
+      }
    }
 
    userJoined({ user, room }) {
-      //update list of current users....change format of newly added user to match state format
-      //remove old format
-      room.users.splice(room.users.length - 1, 1);
-      //add new format
-      room.users.push({username: user.username, _id: user.id})
-      this.props.updateUserList(room);
+      //check if this user belongs to the room
+      let currentRooms = Object.keys(this.props.rooms);
+
+      if (currentRooms.includes(room._id)){
+         //reformat the user object added to the room to match existing users
+         room.users.splice(room.users.length - 1, 1);
+         room.users.push({username: user.username, _id: user.id})
+         this.props.updateUserList(room);
+      }
    }
    
    createNewRoom(e){
@@ -109,14 +119,39 @@ class DashBoard extends React.Component{
          admin: this.props.user.id,
          users: this.props.user.id,
       }
-      this.props.createRoom(room);
+      this.socket.emit("Create Room", room);
       this.setState({
          newTitle: "",
       })
    }
 
-   joinRoom(e){
+   roomCreated(room){
+       
+      let roomsJoined = cloneDeep(this.state.roomsJoined);
+      let roomsAvail = cloneDeep(this.state.roomsAvailable);
+      let allRooms = cloneDeep(this.state.all);
       
+      if (room.admin === this.props.user.id){
+         this.props.createRoom(room);
+         roomsJoined.data.push(room);
+         this.setState({
+            roomsJoined: {data: roomsJoined.data},
+         })
+      } else {
+         roomsAvail.data.push(room);
+         this.setState({
+            roomsAvailable: {data: roomsAvail.data},
+         })
+      }
+       
+      allRooms.push(room);
+      this.setState({
+         all: allRooms,
+      })
+   }
+
+   joinRoom(e){
+      debugger;
       let room = this.state.roomsAvailable.data.filter(room => e.currentTarget.id === room._id ? room : null);
       
       room[0].users.push(this.props.user.id);
@@ -150,11 +185,35 @@ class DashBoard extends React.Component{
    }
 
    roomDeleted({room, user}){
-      debugger;
       this.props.deleteRoom(room);
-      if (this.props.user.id !== room.admin){
+      //check if this user was a member 
+       
+      let roomMembers = room.users;
+      if (this.props.user.id !== room.admin && roomMembers.includes(this.props.user.id)){
          this.setState({deletedRoom: room});
+         
+      } else {
+         //remove from available rooms list
+         let rmsAvail = cloneDeep(this.state.roomsAvailable);
+         let index = null;
+         for (let i = 0; i < rmsAvail.data.length; i++){
+            if(rmsAvail.data[i]._id === room._id){
+               index = i;
+            }
+         }
+
+         if (index) {
+            rmsAvail.data.splice(index, 1);
+         }
+
+         this.setState({
+            roomsAvailable: {data: rmsAvail.data}
+         })
+          
       }
+
+      //remove from joined rooms list?
+
    }
 
    ackDelete(){

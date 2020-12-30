@@ -41,7 +41,7 @@ const MessagesReducer = (state = { }, action) => {
       delete newState[action.message._id];
       return newState;
     case DELETE_ROOM:
-      debugger;
+       
       action.room.messages.forEach(msgId =>{
         delete newState[msgId];
       });
