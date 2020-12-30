@@ -34,3 +34,7 @@
 .chatbox-list{
     display: flex;
 }
+
+.reply{
+    margin-left: 20px;
+}
