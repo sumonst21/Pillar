@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import instance from './shared_data'
 
 const mapStateToProps = (state) => {
 

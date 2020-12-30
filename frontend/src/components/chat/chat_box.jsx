@@ -6,7 +6,6 @@ import './chatbox.css'
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
-import instance from './shared_data'
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -16,7 +15,7 @@ class ChatBox extends React.Component{
       open: true,
       openOrClose: 'close',
       emojiPicker: false,
-      dataFromSearchbar: instance.openOrClose//maybe use directly in the toggle function below
+      // dataFromSearchbar: instance.openOrClose//maybe use directly in the toggle function below
     }
 
     // debugger
