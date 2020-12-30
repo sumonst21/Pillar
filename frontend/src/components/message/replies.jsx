@@ -18,6 +18,7 @@ class Replies extends React.Component {
       this.toggleReplies = this.toggleReplies.bind(this)
       this.openEmoji = this.openEmoji.bind(this);
       this.selectEmoji = this.selectEmoji.bind(this);
+      this.useGiphy = this.useGiphy.bind(this);
    }
 
    handleReply(e) {
@@ -49,8 +50,6 @@ class Replies extends React.Component {
       let reply = this.state.replyText;
       let message = this.props.msg.message
       let id =  this.props.message.id;
-      // room: this.props.message.room,
-      // sender: this.props.message.sender,
       this.props.socket.emit("Edit Message", {
          reply,
          timestamp,
@@ -86,6 +85,32 @@ class Replies extends React.Component {
          this.setState({ emojiPicker: true })
    }
 
+   useGiphy(e) {
+      e.preventDefault();
+      let username = this.props.user.username;
+      let userId = this.props.user.id;
+      let room = this.props.room;
+
+      let timestamp = moment().format('LT');
+      let reply = `${e.target.src}`;
+      let message = this.props.msg.message;
+      let id = this.props.message.id;
+      this.props.socket.emit("Edit Message", {
+         reply,
+         timestamp,
+         username,
+         userId,
+         room,
+         message,
+         id
+      })
+      this.setState({
+         replyText: "",
+         repliesOpen: true,
+      })
+   }
+
+
    render(){
       let msg = this.props.msg
       return(
@@ -95,11 +120,23 @@ class Replies extends React.Component {
 
                   [msg.replies.map(reply => {
                      debugger;
-                     return (
-                        <li className="reply" id={`msg-reply-${reply.reply}`}>
-                           {reply.username} says: {reply.reply}
+                     // return (
+                     if (reply.reply.includes("giphy")){
+                        return (
+                           <li key={reply._id} className="reply" >
+                              {reply.username} says: <img className="chat-img" src={reply.reply} alt="image" />
                         </li>
-                     )
+                        )
+                     }
+                     else{
+                        return (
+                           <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
+                              {reply.username} says: {reply.reply}
+                           </li>
+                        )
+                     }
+
+                     // )
                   }),
 
                   
@@ -127,15 +164,11 @@ class Replies extends React.Component {
                      {this.state.emojiPicker === false ?
                         <button onClick={this.openEmoji} > ☺ </button> :
                         <div onMouseLeave={this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
-
+                     <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
                      {/* <button onClick={this.handleReply}> Cancel</button> */}
                </div>
             )}
-            {this.props.msg.replies ? 
-            this.props.msg.replies.map(reply =>{
-              <li>{reply}</li>
-            })
-            : ""}
+            
          </div>
       )
    }
