@@ -1,6 +1,7 @@
 import React from 'react';
 import {getRoomUsers} from '../../util/room_api_util'
 import SearchBarDropdown from './search_dropdown'
+import instance from './shared_data'
 
 class Sidebar extends React.Component{
     constructor(props){
@@ -22,6 +23,10 @@ class Sidebar extends React.Component{
 
     handleDropDown(){
         this.setState({dropDown: false});
+        // instance.infoFromSearchbar(false);
+        if(instance.infoToChatbox()===false){
+            instance.infoFromSearchbar(true);
+        }
     };
 
     displayRooms(){

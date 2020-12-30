@@ -61,7 +61,9 @@ class DashBoard extends React.Component{
       this.socket.on("user left", this.userLeft);
       this.socket.on("user joined", this.userJoined);
    }
+
    
+
    componentDidUpdate(prevProps){
       let user = this.props.user.username;
       let rooms = this.props.rooms;
@@ -160,7 +162,9 @@ class DashBoard extends React.Component{
       this.setState({
          newTitle: e.currentTarget.value,
       })
-   }
+   };
+
+
 
 
    render(){
@@ -186,7 +190,7 @@ class DashBoard extends React.Component{
                   roomIds.map(id=>
                      {
                         return (
-                           <ChatBox leaveRoom={this.leaveRoom} roomId={id} key={id} socket={this.socket}/>
+                           <ChatBox handleShowroom={this.handleChildState} leaveRoom={this.leaveRoom} roomId={id} key={id} socket={this.socket}/>
                         )
                      }
                   )
