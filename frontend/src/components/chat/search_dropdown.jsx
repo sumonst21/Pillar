@@ -5,7 +5,6 @@ const mapStateToProps = (state) => {
 
     return {
         roomsJoined: state.rooms
-
     };
 };
 
