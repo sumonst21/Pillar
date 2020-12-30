@@ -118,25 +118,6 @@ router.get('/:roomId', (req, res) => {
     .catch(err => res.status(404).json({ noroomfound: 'No room found' }));
 });
 
-
-//find current users in one single room
-// router.get('/:roomId/users', (req,res)=> {
-  
-//   Room.findById(req.params.roomId)
-//     .then((err, room)=>{
-//       if (err) {
-//         res.status(404).json({ noroomsfound: 'No rooms found' });
-//       } else {
-//         let userList = [];
-//         room.users.forEach(user => {
-//           userList.push(User.find({_id: user}));
-//         })
-//         res.json(userList);
-//       }
-//   })
-// })
-
-
 //create room
 router.post('/',
   //passport.authenticate('jwt', { session: false }),
