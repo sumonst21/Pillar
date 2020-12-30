@@ -50,8 +50,8 @@ const RoomsReducer = (state = {}, action) => {
       });
       return newState;
     case DELETE_ROOM:
-      
-      delete newState.rooms[action.roomId];
+      debugger;
+      delete newState[action.room._id];
       return newState;
     case UPDATE_ROOM:
       let id = action.room._id;

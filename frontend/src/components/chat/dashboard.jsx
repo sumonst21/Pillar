@@ -14,7 +14,8 @@ class DashBoard extends React.Component{
          newTitle: "",
          roomsAvailable: [],
          roomsJoined: [],
-         all: []
+         all: [],
+         deletedRoom: null,
       }
 
       this.createNewRoom = this.createNewRoom.bind(this);
@@ -25,6 +26,7 @@ class DashBoard extends React.Component{
       this.userJoined = this.userJoined.bind(this);
       this.deleteRoom = this.deleteRoom.bind(this);
       this.roomDeleted = this.roomDeleted.bind(this);
+      this.ackDelete = this.ackDelete.bind(this);
       
    }
 
@@ -83,15 +85,10 @@ class DashBoard extends React.Component{
                this.setState({all: this.state.roomsAvailable.data.concat(this.state.roomsJoined.data)})
             })
          })
-            //console.log(roomsAvailable);
-            
-         
       };
    }
 
-   userLeft({ user, room }) {
-      //update list of current users....
-       
+   userLeft({ user, room }) {     
       this.props.updateUserList(room);
    }
 
@@ -154,8 +151,14 @@ class DashBoard extends React.Component{
 
    roomDeleted({room, user}){
       debugger;
-      //dispatch delete room
-      //dispatch delete messages (need new action for this)
+      this.props.deleteRoom(room);
+      if (this.props.user.id !== room.admin){
+         this.setState({deletedRoom: room});
+      }
+   }
+
+   ackDelete(){
+      this.setState({deletedRoom: null});
    }
 
    handleChange(e){
@@ -183,6 +186,13 @@ class DashBoard extends React.Component{
                   roomsAvailable={this.state.roomsAvailable}
                   allRooms = {this.state.all}
                />
+               {this.state.deletedRoom ? (
+                  <div className="deleted-room-alert">
+                     <h3>{`"${this.state.deletedRoom.title}" was deleted by the admin.`}</h3>
+                     <button onClick={this.ackDelete}>OK</button>
+                  </div>
+                  ) : (null)            
+               }
             <div className="chatbox-list" >
                {
                   roomIds.map(id=>

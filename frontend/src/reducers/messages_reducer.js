@@ -1,5 +1,5 @@
 import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
-import { RECEIVE_ROOMS } from '../actions/room_actions';
+import { RECEIVE_ROOMS, DELETE_ROOM } from '../actions/room_actions';
 
 const MessagesReducer = (state = { }, action) => {
   Object.freeze(state);
@@ -39,6 +39,12 @@ const MessagesReducer = (state = { }, action) => {
     case REMOVE_MESSAGE:
        
       delete newState[action.message._id];
+      return newState;
+    case DELETE_ROOM:
+      debugger;
+      action.room.messages.forEach(msgId =>{
+        delete newState[msgId];
+      });
       return newState;
     default:
       return state;
