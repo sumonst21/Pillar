@@ -51,6 +51,10 @@ const Room = require("./models/Room");
 io.on("connection", socket => {
   console.log(`connection made from socket id ${socket.id}`);
 
+  socket.on('disconnect', reason =>{
+    console.log("Socket disconnected due to : " + reason);
+  })
+
   socket.on("leave room", package => {
     // 
     io.emit("user left", package);
