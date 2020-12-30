@@ -26,6 +26,7 @@ class SearchBarDropdown extends React.Component {
         this.listedMessages = this.listedMessages.bind(this);
         this.objectifiedMessages = this.objectifiedMessages.bind(this);
         this.filteredRooms = this.filteredRooms.bind(this);
+        this.objectifiedReplies = this.objectifiedReplies.bind(this);
         this.boyer_moore = this.boyer_moore.bind(this);
         this.handleClick = this.handleClick.bind(this);
     };
@@ -42,21 +43,48 @@ class SearchBarDropdown extends React.Component {
     listedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
         const messageArr = [];
         Object.entries(obj).forEach(room => {
-            const title = [room[1].title];
-            const messages = room[1].messages.map(m=>(m.message));
+            const title = [room[1].title]; //put title ar the index 0 in the messageArr
+            const messages = room[1].messages.map(m=>(
+                    m.message
+            ));
             const newArr = title.concat(messages)
             messageArr.push(newArr);
         });
         return messageArr; 
     };
 
-    objectifiedMessages(obj){//get an object with roomJoined's title as the key and each room's messages as values
-        const newObj = {}        
+    listReplies(obj){
+        const repliesArr = [];
         Object.entries(obj).forEach(room => {
+            let allReplies = [];
+            let title = [room[1].title]; 
+            let replies = room[1].messages.filter(m=>{
+                return m.replies.length>0
+            });
+            for(let i=0; i<replies.length; i++){
+                allReplies = allReplies.concat(replies[i].replies.map(r=>(r.reply)));
+            }
+            const newArr = title.concat(allReplies)
+            repliesArr.push(newArr);
+        });
+        return repliesArr; 
+    }
+
+    objectifiedMessages(arr){//get an object with roomJoined's title as the key and each room's messages as values
+        const newObj = {}        
+        Object.entries(arr).forEach(room => {
             newObj[room[1].title]=room[1].messages.map(m=>(m.message));
         });
         return newObj;
     };
+
+    objectifiedReplies(arr){
+        const repObj = {}        
+        arr.forEach(room => {
+            repObj[room[0]]=room.slice(1);
+        });
+        return repObj;
+    }
 
     filteredRooms(sub){//display a list of matching rooms
         const {allRooms} = this.props;
@@ -143,19 +171,27 @@ class SearchBarDropdown extends React.Component {
             allRooms = allRooms.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])) || []; //return an array of all of the room titles ["Dave's Room #1", "sss", "hahaha", "heyheyhey", "lala", "blah", "yoyo", "Cars", "new new new"]
             roomsAvailable = roomsAvailable.data.map(r=>(Object.values(r))).map(roomTitle=>(roomTitle[3])) || []; //return an array of all the rooms available to join
         }
-        const roomArr = this.listedMessages(roomsJoined);  
+        const roomArr = this.listedMessages(roomsJoined); 
+        const repliesArr = this.listReplies(roomsJoined); 
         const roomsDisplayed = roomArr.map(r=>(r[0]));
+
         const availableRoomObj = this.objectifiedMessages(roomsJoined);
+        const searchableReplies = this.objectifiedReplies(repliesArr);
+
         const matchedMessages = this.boyer_moore(roomArr, searchInput).map(m=>{
             return [availableRoomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
         });
         const matchedRooms = this.filteredRooms(searchInput).map(room=>{
             return room[0];
         });
+        const matchedReplies = this.boyer_moore(repliesArr, searchInput).map(m=>{
+            return [searchableReplies[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
+        });
+
         const roomsJoinable = matchedRooms.filter(room=>(roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room=>(roomsDisplayed.includes(room)));
         
-        
+        debugger
         return (
                 <div className='searchbar-dropdown'>
                     <div className='message-results'>
@@ -167,6 +203,21 @@ class SearchBarDropdown extends React.Component {
                                 return(
                                     <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
                                         Message: {m[0]} Room: {m[1]}
+                                    </li>
+                                )
+                            })}
+                        </ul>}
+                    </div>
+                    <p>------------------------------</p>
+                    <div className='replies-results'>
+                        {matchedMessages.length === 0 ? 
+                            <p>No Match Found</p> 
+                        : 
+                        <ul>
+                            {matchedReplies.map(m=>{
+                                return(
+                                    <li onClick={()=>this.handleClick(`msg-${m[1]}-${m[2]}`)}>
+                                        Replies: {m[0]} Room: {m[1]}
                                     </li>
                                 )
                             })}

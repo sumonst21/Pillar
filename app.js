@@ -102,11 +102,21 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
+      debugger;
     connect.then(db => {
       try {
 
         const message = Message.findById(msg.id, (err, message)=>{
-          message.message = msg.message;
+          debugger;
+          if (msg.reply){
+            if (message.replies) {
+              message.replies.push(msg)
+            } 
+            else{
+              message.replies = [{msg}]
+            }
+          }
+          else {message.message = msg.message}
 
           message.save((err, document) => {
             //record error, if any

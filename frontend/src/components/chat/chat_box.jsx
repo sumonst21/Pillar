@@ -37,7 +37,7 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
-    
+    debugger;
       let newMessage = {
         id: msg._id,
         message: msg.message,
@@ -46,6 +46,7 @@ class ChatBox extends React.Component{
         room: msg.room,
         sender: msg.sender,
         username: msg.username,
+        replies: msg.replies
       }
       this.props.afterMessageSent(newMessage);      
     });
@@ -120,11 +121,12 @@ class ChatBox extends React.Component{
   }
 
   render() {
+    
     let messages = this.props.room.messages.map((msg, index) => (<Message socket={this.props.socket} id={`msg-${this.props.room.title}-${index}`} msg={msg}/>)) || [];
       
     let users = this.props.room.users || [];
 
-     
+     debugger;
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
