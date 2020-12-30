@@ -23,8 +23,9 @@ class DashBoard extends React.Component{
       this.leaveRoom = this.leaveRoom.bind(this);
       this.userLeft = this.userLeft.bind(this);
       this.userJoined = this.userJoined.bind(this);
-      // this.userLeft = this.userLeft.bind(this);
-
+      this.deleteRoom = this.deleteRoom.bind(this);
+      this.roomDeleted = this.roomDeleted.bind(this);
+      
    }
 
    
@@ -50,16 +51,10 @@ class DashBoard extends React.Component{
                this.setState({all: this.state.roomsAvailable.data.concat(this.state.roomsJoined.data)})
             })
          })
-      // getAvailableRooms(this.props.user.id) //this pings the database
-      // .then(rooms => {
-         
-      //    this.setState({
-      //       roomsAvailable: rooms,
-      //    })
-      // });
       
       this.socket.on("user left", this.userLeft);
       this.socket.on("user joined", this.userJoined);
+      this.socket.on("room deleted", this.roomDeleted);
    }
    
    componentDidUpdate(prevProps){
@@ -121,7 +116,6 @@ class DashBoard extends React.Component{
       this.setState({
          newTitle: "",
       })
-      
    }
 
    joinRoom(e){
@@ -135,8 +129,6 @@ class DashBoard extends React.Component{
          room: room[0],
          user: this.props.user,
       })
-       
-      
    }
 
    leaveRoom(e){
@@ -154,6 +146,16 @@ class DashBoard extends React.Component{
          room: room,
          user: this.props.user,
       })
+   }
+
+   deleteRoom(room){
+      this.socket.emit('delete room',{room, user: this.props.user});
+   }
+
+   roomDeleted({room, user}){
+      debugger;
+      //dispatch delete room
+      //dispatch delete messages (need new action for this)
    }
 
    handleChange(e){
@@ -186,7 +188,7 @@ class DashBoard extends React.Component{
                   roomIds.map(id=>
                      {
                         return (
-                           <ChatBox leaveRoom={this.leaveRoom} roomId={id} key={id} socket={this.socket}/>
+                           <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
                         )
                      }
                   )

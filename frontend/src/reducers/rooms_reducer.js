@@ -50,7 +50,7 @@ const RoomsReducer = (state = {}, action) => {
       });
       return newState;
     case DELETE_ROOM:
-      ;
+      
       delete newState.rooms[action.roomId];
       return newState;
     case UPDATE_ROOM:

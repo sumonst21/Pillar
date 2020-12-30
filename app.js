@@ -139,6 +139,20 @@ io.on("connection", socket => {
 
   })
 
+  //DELETE ROOM
+  socket.on("delete room", ({room, user}) =>{
+    debugger;
+    connect.then(db =>{
+      Room.findByIdAndDelete(room._id, (err,room)=>{
+        if (err) return res.json({ success: false, err });
+        const messages = Message.deleteMany({room: room._id})
+          .then(num => console.log(`Messages Deleted: ${num}`));
+        debugger;
+        io.emit("room deleted", ({room, user}));
+
+      })
+    })
+  })
 
 
 })
