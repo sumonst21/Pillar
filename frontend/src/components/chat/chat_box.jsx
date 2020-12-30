@@ -116,7 +116,9 @@ class ChatBox extends React.Component{
 
   deleteRoom(){
     let response = window.confirm(`Are you sure you want to delete the room: "${this.props.room.title}"`)
-    this.props.deleteRoom(this.props.room);
+    if(response){
+      this.props.deleteRoom(this.props.room);
+    }
   }
 
   render() {
