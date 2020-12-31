@@ -22,6 +22,10 @@ class Sidebar extends React.Component{
 
     handleDropDown(){
         this.setState({dropDown: false});
+        // instance.infoFromSearchbar(false);
+        // if(instance.infoToChatbox()===false){
+        //     instance.infoFromSearchbar(true);
+        // }
     };
 
     displayRooms(){

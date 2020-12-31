@@ -44,6 +44,7 @@ const RoomsReducer = (state = {}, action) => {
             room: msg.room,
             sender: msg.sender._id,
             username: msg.sender.username,
+            replies: msg.replies
           })
         });
         room.messages = messages;

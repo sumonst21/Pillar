@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 
 const Room = require('../../models/Room');
+const { populate } = require('../../models/User');
 const User = require('../../models/User');
 const validateRoomInput = require('../../validation/room');
 
@@ -52,6 +53,9 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
       populate: {
         path: 'sender',
         model: 'User'
+      },
+      populate: {
+        path: 'replies'
       }
     }).populate({
       path: 'users',
@@ -71,7 +75,7 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
 
 //retrieve all rooms by user
 router.get('/:userId/rooms', (req, res) => {
-
+  debugger;
   Room.find({})
       .populate({
         path: 'messages',
@@ -89,8 +93,9 @@ router.get('/:userId/rooms', (req, res) => {
         if(err){
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
+          debugger;
           let roomList = filterRooms(rooms, req.params.userId);
-           
+           debugger;
            
           res.json(roomList);
         }

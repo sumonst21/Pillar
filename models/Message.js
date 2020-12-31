@@ -18,7 +18,13 @@ const MessageSchema = new Schema({
   room: {
     type: Schema.Types.ObjectId,
     ref: 'Room'
-  }
+  },
+  replies: [{
+    username: String, 
+    userid: String,
+    reply: String, 
+    room: String
+  }],
 }, {
   timestamps: true
 })

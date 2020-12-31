@@ -60,7 +60,9 @@ class DashBoard extends React.Component{
       this.socket.on("room deleted", this.roomDeleted);
       this.socket.on("room created", this.roomCreated);
    }
+
    
+
    componentDidUpdate(prevProps){
       let user = this.props.user.username;
       let rooms = this.props.rooms;
@@ -224,7 +226,9 @@ class DashBoard extends React.Component{
       this.setState({
          newTitle: e.currentTarget.value,
       })
-   }
+   };
+
+
 
 
    render(){
