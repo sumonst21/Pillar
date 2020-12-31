@@ -170,10 +170,10 @@ class SearchBarDropdown extends React.Component {
             roomsAvailable = roomsAvailable.data.map(r => (Object.values(r))).map(roomTitle => (roomTitle[3])) || []; //return an array of all the rooms available to join
         };
 
+        const roomArr = this.listedMessages(roomsJoined);
         const repliesArr = this.listedReplies(roomsJoined);
         const roomsDisplayed = roomArr.map(r => (r[0]));
         
-        const roomArr = this.listedMessages(roomsJoined);
         const availableRoomObj = this.objectifiedMessages(roomsJoined);
         const searchableReplies = this.objectifiedReplies(repliesArr);
 
