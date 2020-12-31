@@ -14,9 +14,9 @@ export const receiveRooms = rooms => ({
   rooms
 });
 
-export const deleteRoom = roomId => ({
+export const deleteRoom = room => ({
   type: DELETE_ROOM,
-  roomId
+  room
 });
 
 export const updateRoom = room => ({
@@ -41,14 +41,12 @@ export const fetchRoom = (roomId) => dispatch => (
     .catch(err => console.log(err))
 );
 
-export const createRoom = room => dispatch => (
-  createRoomUtil(room)
-    .then(room => dispatch(receiveRoom(room)))
-)
+export const createRoom = room => dispatch => {
+  dispatch(receiveRoom(room))
+}
 
-export const removeRoom = roomId => dispatch => (
-  deleteRoomUtil(roomId)
-    .then(roomId => dispatch(deleteRoom(roomId)))
+export const removeRoom = room => dispatch => (
+  dispatch(deleteRoom(room))
   )
 
 export const editRoom = room => dispatch => (

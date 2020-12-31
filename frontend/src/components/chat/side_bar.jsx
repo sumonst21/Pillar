@@ -22,6 +22,10 @@ class Sidebar extends React.Component{
 
     handleDropDown(){
         this.setState({dropDown: false});
+        // instance.infoFromSearchbar(false);
+        // if(instance.infoToChatbox()===false){
+        //     instance.infoFromSearchbar(true);
+        // }
     };
 
     displayRooms(){
@@ -38,7 +42,7 @@ class Sidebar extends React.Component{
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
-
+        //  
         return(
             <div className='sidebar-contaier'>
                 <div className='search-bar-container'>

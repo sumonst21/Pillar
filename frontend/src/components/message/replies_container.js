@@ -1,28 +1,29 @@
 import { connect } from 'react-redux';
-import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
-import ChatBox from './chat_box';
+import Replies from './replies';
+import { afterMessageSent } from '../../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => {
-   debugger
+
+   ;
    return {
       user: state.session.user,
-      room: state.rooms[ownProps.roomId],
-      socket: ownProps.socket,
+      room: state.rooms[ownProps.msg.room],
+      message: state.messages[ownProps.msg.id],
    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-   debugger
    return {
-      getMessages: (roomId) => dispatch(fetchMessages(roomId)),
+
       afterMessageSent: (msg) => {
          dispatch(afterMessageSent(msg));
       },
-      
+
    }
 }
+
 
 export default connect(
    mapStateToProps,
    mapDispatchToProps
-)(ChatBox);
+)(Replies);

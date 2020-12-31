@@ -5,6 +5,7 @@ const db = require('./config/keys').mongoURI;
 const passport = require('passport');
 const mongoose = require('mongoose');
 const path = require('path');
+const validateRoomInput = require('./validation/room');
 
 
 const server = require("http").createServer(app);
@@ -49,6 +50,10 @@ const Room = require("./models/Room");
 
 io.on("connection", socket => {
   console.log(`connection made from socket id ${socket.id}`);
+
+  socket.on('disconnect', reason =>{
+    console.log("Socket disconnected due to : " + reason);
+  })
 
   socket.on("leave room", package => {
     // 
@@ -102,11 +107,21 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
+      debugger;
     connect.then(db => {
       try {
 
         const message = Message.findById(msg.id, (err, message)=>{
-          message.message = msg.message;
+          debugger;
+          if (msg.reply){
+            if (message.replies) {
+              message.replies.push(msg)
+            } 
+            else{
+              message.replies = [{msg}]
+            }
+          }
+          else {message.message = msg.message}
 
           message.save((err, document) => {
             //record error, if any
@@ -139,9 +154,38 @@ io.on("connection", socket => {
 
   })
 
+  //DELETE ROOM
+  socket.on("delete room", ({room, user}) =>{
+    connect.then(db =>{
+      Room.findByIdAndDelete(room._id, (err,room)=>{
+        if (err) return res.json({ success: false, err });
+        const messages = Message.deleteMany({room: room._id})
+          .then(num => console.log(`Messages Deleted: ${num}`));
+         
+        io.emit("room deleted", ({room, user}));
 
+      })
+    })
+  })
 
-})
+//  CREATE ROOM
+  socket.on("Create Room", room => {
+    //room already created in database via API call
+     
+    const { errors, isValid } = validateRoomInput(room);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    const newRoom = new Room({
+      title: room.title,
+      admin: room.admin,
+      messages: [],
+      users: room.users,
+    });
+     
+    newRoom.save().then(room => io.emit("room created", newRoom));
+  });
+ });
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`Server is running on port ${port}`));
