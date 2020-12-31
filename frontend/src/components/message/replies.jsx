@@ -2,6 +2,8 @@ import React from "react"
 import moment from "moment";
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
+import EditMessageForm from './edit_message_form_container.js';
+
 class Replies extends React.Component {
    constructor(props){
       super(props)
@@ -19,10 +21,11 @@ class Replies extends React.Component {
       this.openEmoji = this.openEmoji.bind(this);
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
+      this.deleteGifReply = this.deleteGifReply.bind(this);
    }
 
    handleReply(e) {
-      debugger;
+       
       this.state.replyBox === false ? 
          (this.props.replies  ?
            this.setState({ replyBox: true, repliesOpen: true })
@@ -34,7 +37,7 @@ class Replies extends React.Component {
 
    }
    handleChange(e){
-      debugger
+      // debugger
       this.setState({
          replyText: e.currentTarget.value
       })
@@ -44,6 +47,7 @@ class Replies extends React.Component {
       e.preventDefault();
       let username = this.props.user.username;
       let userId = this.props.user.id;
+       
       let room = this.props.room;
 
       let timestamp = moment().format('LT');
@@ -110,37 +114,46 @@ class Replies extends React.Component {
       })
    }
 
+   deleteGifReply(){
+      let response = window.confirm(`Are you sure you want to delete your Gif?`);
+      if (response) {
+         this.props.socket.emit("Delete Gif Reply", this.props.msg);
+      }
+   }
+
 
    render(){
-      let msg = this.props.msg
+      let msg = this.props.msg;
+
       return(
          <div>
             {msg.replies && this.state.repliesOpen === true ?
                (
 
                   [msg.replies.map(reply => {
-                     debugger;
-                     // return (
                      if (reply.reply.includes("giphy")){
                         return (
                            <li key={reply._id} className="reply" >
                               {reply.username} says: <img className="chat-img" src={reply.reply} alt="image" />
-                        </li>
+                              {reply.userId === this.props.user.id && 
+                                 <button onClick={this.deleteGifReply}>Delete Gif</button>
+                              }
+                           </li>
                         )
                      }
                      else{
                         return (
                            <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
                               {reply.username} says: {reply.reply}
+                              {reply.userId === this.props.user.id &&
+                                 <EditMessageForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
+                              }
                            </li>
                         )
                      }
-
-                     // )
                   }),
 
-                  
-                     <button className="replies-div" onClick={this.toggleReplies}> Close Thread</button> 
+                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Close Thread</button> 
                   ])
                : (msg.replies.length > 0 ? 
                   (msg.replies.length > 1 ?

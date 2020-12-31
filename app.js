@@ -107,12 +107,12 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
-      debugger;
+       
     connect.then(db => {
       try {
 
         const message = Message.findById(msg.id, (err, message)=>{
-          debugger;
+           
           if (msg.reply){
             if (message.replies) {
               message.replies.push(msg)
@@ -122,10 +122,10 @@ io.on("connection", socket => {
             }
           }
           else {message.message = msg.message}
-
+          debugger;
           message.save((err, document) => {
             //record error, if any
-            
+            debugger;
             if (err) return res.json({ success: false, err });
             io.emit("Message Edited", document);
           })
