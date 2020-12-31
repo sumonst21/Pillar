@@ -26,6 +26,7 @@ class ChatBox extends React.Component{
     this.openEmoji = this.openEmoji.bind(this);
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
+    this.deleteRoom = this.deleteRoom.bind(this);
   }
 
 
@@ -119,6 +120,13 @@ class ChatBox extends React.Component{
     })
   }
 
+  deleteRoom(){
+    let response = window.confirm(`Are you sure you want to delete the room: "${this.props.room.title}"`)
+    if(response){
+      this.props.deleteRoom(this.props.room);
+    }
+  }
+
   render() {
     
     let messages = this.props.room.messages.map((msg, index) => (<Message socket={this.props.socket} id={`msg-${this.props.room.title}-${index}`} msg={msg}/>)) || [];
@@ -134,6 +142,13 @@ class ChatBox extends React.Component{
             <h1>{this.props.room.title}</h1>
             <div className='input-container' >
               <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
+              {
+                this.props.user.id === this.props.room.admin ? (
+                  <button onClick={this.deleteRoom}>Delete Room</button>
+                )
+                :              
+                (null)
+              }
               <form onSubmit={this.submitMessage}>
 
                 <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
