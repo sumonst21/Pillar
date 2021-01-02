@@ -189,7 +189,7 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-        debugger
+         
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>

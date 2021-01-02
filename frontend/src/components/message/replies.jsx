@@ -2,7 +2,7 @@ import React from "react"
 import moment from "moment";
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
-import EditMessageForm from './edit_message_form_container.js';
+import EditReplyForm from './edit_reply_form';
 
 class Replies extends React.Component {
    constructor(props){
@@ -37,7 +37,7 @@ class Replies extends React.Component {
 
    }
    handleChange(e){
-      // debugger
+      //  
       this.setState({
          replyText: e.currentTarget.value
       })
@@ -146,7 +146,7 @@ class Replies extends React.Component {
                            <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
                               {reply.username} says: {reply.reply}
                               {reply.userId === this.props.user.id &&
-                                 <EditMessageForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
+                                 <EditReplyForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
                               }
                            </li>
                         )

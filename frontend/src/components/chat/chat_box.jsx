@@ -18,7 +18,7 @@ class ChatBox extends React.Component{
       // dataFromSearchbar: instance.openOrClose//maybe use directly in the toggle function below
     }
 
-    // debugger
+    //  
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -60,7 +60,7 @@ class ChatBox extends React.Component{
     this.setState({
       chatMessage: e.currentTarget.value,
     })
-    debugger
+     
   }
 
   selectEmoji(e, emojiObject){
