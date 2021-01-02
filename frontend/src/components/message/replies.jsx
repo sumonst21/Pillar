@@ -3,6 +3,7 @@ import moment from "moment";
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import EditReplyForm from './edit_reply_form';
+import * as cloneDeep from 'lodash/cloneDeep';
 
 class Replies extends React.Component {
    constructor(props){
@@ -114,10 +115,19 @@ class Replies extends React.Component {
       })
    }
 
-   deleteGifReply(){
+   deleteGifReply(e){
       let response = window.confirm(`Are you sure you want to delete your Gif?`);
       if (response) {
-         this.props.socket.emit("Delete Gif Reply", this.props.msg);
+         let replies = cloneDeep(this.props.msg.replies);
+         let replyId = e.currentTarget.id;
+         debugger;
+         let replyIndex = replies.findIndex(reply => replyId === reply._id);
+         replies.splice(replyIndex, 1);
+
+         this.props.socket.emit("Edit Message Reply", {
+            message: this.props.msg,
+            replies: replies,
+         });
       }
    }
 
@@ -136,7 +146,7 @@ class Replies extends React.Component {
                            <li key={reply._id} className="reply" >
                               {reply.username} says: <img className="chat-img" src={reply.reply} alt="image" />
                               {reply.userId === this.props.user.id && 
-                                 <button onClick={this.deleteGifReply}>Delete Gif</button>
+                                 <button onClick={this.deleteGifReply} id={reply._id}>Delete Gif</button>
                               }
                            </li>
                         )
