@@ -6,6 +6,7 @@ import './chatbox.css'
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
+import {switches} from './data_share'
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -15,10 +16,9 @@ class ChatBox extends React.Component{
       open: true,
       openOrClose: 'close',
       emojiPicker: false,
-      // dataFromSearchbar: instance.openOrClose//maybe use directly in the toggle function below
     }
 
-    // debugger
+    //  
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +37,6 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
-    debugger;
       let newMessage = {
         id: msg._id,
         message: msg.message,
@@ -50,17 +49,23 @@ class ChatBox extends React.Component{
       }
       this.props.afterMessageSent(newMessage);      
     });
-  }
 
-  componentDidUpdate(prevProps, prevState, snapshot){
 
-  }    
+    this.subscription = switches.receiveOpen().subscribe(roomTitle=>{
+      if(roomTitle === this.props.room.title){ //send an array or object with information about the room and open to true
+        this.setState({open: true});//change the open directly but has a logic to determine it is the right room
+      } 
+    })
+  };
+
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
+  };   
 
   handleChange(e){
     this.setState({
       chatMessage: e.currentTarget.value,
     })
-    debugger
   }
 
   selectEmoji(e, emojiObject){
@@ -98,7 +103,7 @@ class ChatBox extends React.Component{
       chatMessage: "",
     })
 
-    const ele = document.getElementById(`charbox-item-${room.title}`);
+    const ele = document.getElementById(`chatbox-item-${room.title}`);
     ele.scrollTop = ele.scrollHeight;
 
 
@@ -130,14 +135,12 @@ class ChatBox extends React.Component{
   render() {
     
     let messages = this.props.room.messages.map((msg, index) => (<Message socket={this.props.socket} id={`msg-${this.props.room.title}-${index}`} msg={msg}/>)) || [];
-      
     let users = this.props.room.users || [];
 
-     debugger;
     return (
-      <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
-        {this.state.open ? (
-          <div className="chatbox-container" id={`charbox-item-${this.props.room.title}`}>
+      <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
+        {(this.state.open ) ? (
+          <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
             <h1>{this.props.room.title}</h1>
             <div className='input-container' >

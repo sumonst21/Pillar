@@ -107,12 +107,12 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
-      debugger;
+       
     connect.then(db => {
       try {
 
         const message = Message.findById(msg.id, (err, message)=>{
-          debugger;
+           
           if (msg.reply){
             if (message.replies) {
               message.replies.push(msg)
@@ -122,10 +122,10 @@ io.on("connection", socket => {
             }
           }
           else {message.message = msg.message}
-
+           
           message.save((err, document) => {
             //record error, if any
-            
+             
             if (err) return res.json({ success: false, err });
             io.emit("Message Edited", document);
           })
@@ -134,7 +134,6 @@ io.on("connection", socket => {
         console.log(error);
       }
     })
-
   })
 
   //DELETE MESSAGE
@@ -151,8 +150,30 @@ io.on("connection", socket => {
         console.log(error);
       }
     })
-
   })
+
+  //Edit Reply
+  socket.on("Edit Message Reply", msg=>{
+    connect.then(db => {
+      try {
+
+        const message = Message.findById(msg.message.id, (err, message) => {
+          message.replies = msg.replies;
+
+           
+          message.save((err, document) => {
+            //record error, if any
+
+            if (err) return res.json({ success: false, err });
+            io.emit("Message Edited", document);
+          })
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })
+
+  });
 
   //DELETE ROOM
   socket.on("delete room", ({room, user}) =>{

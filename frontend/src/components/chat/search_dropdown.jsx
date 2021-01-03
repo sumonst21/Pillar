@@ -1,24 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {switches} from './data_share'
 
 const mapStateToProps = (state) => {
 
     return {
         roomsJoined: state.rooms
     };
-};
 
+};
 
 
 class SearchBarDropdown extends React.Component {
     constructor(props) {
         super(props)
-
-        this.state = {
-            openOrClose: false
-        };
-
-        // instance.infoFromSearchbar(this.state.openOrClose);
 
         this.removeEmojis = this.removeEmojis.bind(this);
         this.listedMessages = this.listedMessages.bind(this);
@@ -26,6 +21,7 @@ class SearchBarDropdown extends React.Component {
         this.filteredRooms = this.filteredRooms.bind(this);
         this.objectifiedReplies = this.objectifiedReplies.bind(this);
         this.boyer_moore = this.boyer_moore.bind(this);
+        this.handleOpen = this.handleOpen.bind(this);
         this.handleClick = this.handleClick.bind(this);
     };
 
@@ -155,12 +151,18 @@ class SearchBarDropdown extends React.Component {
         return filteredMessages; //this returns an array: [room_title, message_index, matching_character_index]
     };
 
+    handleOpen(id){
+        const roomTitle = id.split('-');
+        switches.sendOpen(roomTitle[1]);  
+    };
+
     handleClick(id) {
-        // instance.infoFromSearchbar(true);
-        // this.setState({openOrClose: true});
-        const ele = document.getElementById(id);
-        ele.scrollIntoView();
-        this.props.handleDropDown();
+        this.handleOpen(id);
+        setTimeout(()=>{
+            const ele = document.getElementById(id);
+            ele.scrollIntoView();
+            this.props.handleDropDown();
+        }, 100);
     };
 
     render() {
@@ -168,11 +170,12 @@ class SearchBarDropdown extends React.Component {
         if (allRooms !== undefined && roomsAvailable.data !== undefined) {
             allRooms = allRooms.map(r => (Object.values(r))).map(roomTitle => (roomTitle[3])) || []; //return an array of all of the room titles ["Dave's Room #1", "sss", "hahaha", "heyheyhey", "lala", "blah", "yoyo", "Cars", "new new new"]
             roomsAvailable = roomsAvailable.data.map(r => (Object.values(r))).map(roomTitle => (roomTitle[3])) || []; //return an array of all the rooms available to join
-        }
+        };
+
         const roomArr = this.listedMessages(roomsJoined);
         const repliesArr = this.listedReplies(roomsJoined);
         const roomsDisplayed = roomArr.map(r => (r[0]));
-
+        
         const availableRoomObj = this.objectifiedMessages(roomsJoined);
         const searchableReplies = this.objectifiedReplies(repliesArr);
 
@@ -189,7 +192,7 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-        debugger
+         
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>

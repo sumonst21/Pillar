@@ -4,7 +4,6 @@ import { afterMessageSent, editMessage, deleteMessage } from '../../actions/mess
 
 const mapStateToProps = (state, ownProps) => {
 
-   ;
   return {
     user: state.session.user,
     room: state.rooms[ownProps.msg.room],
