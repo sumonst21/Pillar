@@ -62,8 +62,6 @@ class ChatBox extends React.Component{
     debugger
   };
 
-
-
   componentWillUnmount() {
     this.subscription.unsubscribe();
   };   
@@ -109,7 +107,7 @@ class ChatBox extends React.Component{
       chatMessage: "",
     })
 
-    const ele = document.getElementById(`charbox-item-${room.title}`);
+    const ele = document.getElementById(`chatbox-item-${room.title}`);
     ele.scrollTop = ele.scrollHeight;
 
 
@@ -146,7 +144,7 @@ class ChatBox extends React.Component{
     return (
       <div className={(this.state.open || this.state.commandFromSearchbar !== null) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {(this.state.open || this.state.commandFromSearchbar) ? (
-          <div className="chatbox-container" id={`charbox-item-${this.props.room.title}`}>
+          <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
             <h1>{this.props.room.title}</h1>
             <div className='input-container' >
