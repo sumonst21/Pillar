@@ -160,7 +160,6 @@ class SearchBarDropdown extends React.Component {
         this.handleOpen(id);
         setTimeout(()=>{
             const ele = document.getElementById(id);
-            debugger
             ele.scrollIntoView();
             this.props.handleDropDown();
         }, 100);
