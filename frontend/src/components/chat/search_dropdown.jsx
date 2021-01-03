@@ -15,9 +15,6 @@ class SearchBarDropdown extends React.Component {
     constructor(props) {
         super(props)
 
-
-
-
         this.removeEmojis = this.removeEmojis.bind(this);
         this.listedMessages = this.listedMessages.bind(this);
         this.objectifiedMessages = this.objectifiedMessages.bind(this);
@@ -165,9 +162,8 @@ class SearchBarDropdown extends React.Component {
             const ele = document.getElementById(id);
             debugger
             ele.scrollIntoView();
-            // switches.sendOpen(null)
             this.props.handleDropDown();
-        }, 100)
+        }, 100);
     };
 
     render() {

@@ -52,14 +52,10 @@ class ChatBox extends React.Component{
 
 
     this.subscription = switches.receiveOpen().subscribe(roomTitle=>{
-      if(roomTitle){ //send an array or object with information about the room and open to true
-        this.setState({commandFromSearchbar: roomTitle});//change the open directly but has a logic to determine it is the right room
-        debugger
-      } else {
-        this.setState({commandFromSearchbar: null});
-      }
-    });
-    debugger
+      if(roomTitle === this.props.room.title){ //send an array or object with information about the room and open to true
+        this.setState({open: true});//change the open directly but has a logic to determine it is the right room
+      } 
+    })
   };
 
   componentWillUnmount() {
@@ -142,7 +138,7 @@ class ChatBox extends React.Component{
     let users = this.props.room.users || [];
 
     return (
-      <div className={(this.state.open || this.state.commandFromSearchbar !== null) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
+      <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {(this.state.open || this.state.commandFromSearchbar) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
