@@ -158,7 +158,7 @@ class SearchBarDropdown extends React.Component {
 
     handleClick(id) {
         this.handleOpen(id);
-        setTimeout(()=>{
+        setTimeout(()=>{//open first then search the element
             const ele = document.getElementById(id);
             ele.scrollIntoView();
             this.props.handleDropDown();
