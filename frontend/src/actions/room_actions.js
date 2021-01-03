@@ -7,6 +7,7 @@ export const UPDATE_ROOM = "UPDATE_ROOM";
 export const LEAVE_ROOM = "LEAVE_ROOM";
 //export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 export const RECEIVE_ROOM_USERS = "RECEIVE_ROOM_USERS";
+export const CHAT_ROOM_STATUS = 'CHAT_ROOM_STATUS';
 
 
 export const receiveRooms = rooms => ({
@@ -33,6 +34,15 @@ export const receiveRoom = room => ({
   type: RECEIVE_ROOM,
   room
 })
+
+export const chatRoomStatus = data => ({
+  type: CHAT_ROOM_STATUS,
+  data
+})
+
+export const chatRoomSwitch = data => dispatch => {
+  dispatch(chatRoomStatus(data));
+};
 
 
 export const fetchRoom = (roomId) => dispatch => (
