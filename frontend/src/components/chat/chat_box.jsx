@@ -16,7 +16,6 @@ class ChatBox extends React.Component{
       open: true,
       openOrClose: 'close',
       emojiPicker: false,
-      commandFromSearchbar: null
     }
 
 
@@ -139,7 +138,7 @@ class ChatBox extends React.Component{
 
     return (
       <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
-        {(this.state.open || this.state.commandFromSearchbar) ? (
+        {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
             <h1>{this.props.room.title}</h1>
