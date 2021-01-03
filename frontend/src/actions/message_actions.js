@@ -25,9 +25,12 @@ export const removeMessage = message => ({
   message
 })
 
+
 export const editMessage = message => dispatch => {
   dispatch(updateMessage(message));
 };
+
+
 
 export const deleteMessage = message => dispatch => {
   dispatch(removeMessage(message));

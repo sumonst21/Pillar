@@ -4,7 +4,6 @@ import { afterMessageSent } from '../../actions/message_actions';
 
 const mapStateToProps = (state, ownProps) => {
 
-   ;
    return {
       user: state.session.user,
       room: state.rooms[ownProps.msg.room],

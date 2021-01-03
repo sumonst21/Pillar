@@ -1,21 +1,8 @@
-class SharedData {
-    constructor(){
-        this.openOrClose = [false];
-        this.infoFromSearchbar = (bool) => {
-            this.openOrClose.pop();
-            this.openOrClose.push(bool);
-            console.log(this.openOrClose)
-        }; 
-    };
+import { Subject } from 'rxjs';
 
+const subject = new Subject();
 
-    infoToChatbox(){
-
-        return this.openOrClose
-    };
-
-}
-
-const instance = new SharedData();
-
-export default instance;
+export const switches = {
+    sendOpen: room => subject.next(room ),
+    receiveOpen: () => subject.asObservable()
+};
