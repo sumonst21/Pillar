@@ -43,17 +43,6 @@ export const signup = user => dispatch => (
         dispatch(receiveErrors(err.response.data))
     ))
 );
-    // const { token } = res.data;
-    // localStorage.setItem("jwtToken", token);
-    // APIUtil.setAuthToken(token);
-    // const decoded = jwt_decode(token);
-    // dispatch(receiveCurrentUser(decoded));
-//     dispatch(receiveUserSignIn())
-//   )
-//   .catch(
-//     err => { 
-//       return dispatch(receiveErrors(err.response.data))})
-//   };
 
 // Upon login, set the session token and dispatch the current user. Dispatch errors on failure.
 export const login = user => dispatch => (
