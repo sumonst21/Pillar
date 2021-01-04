@@ -32,9 +32,6 @@ class LoginForm extends React.Component {
     });
   }
 
-
-
-
   handleSubmit(e) {
     e.preventDefault();
 
@@ -44,8 +41,6 @@ class LoginForm extends React.Component {
     };
     
     this.props.login(user);
-
-    
     if(this.props.currentUser){
       this.props.history.push('/pillars')
     }

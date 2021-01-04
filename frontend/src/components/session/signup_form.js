@@ -21,20 +21,17 @@ class SignupForm extends React.Component {
     this.clearedErrors = false;
   }
 
-  componentWillReceiveProps(nextProps) {
-    //  
-    if (nextProps.signedIn === true) {
-      this.props.history.push('/pillar');
-    }
-    //  
-    this.setState({errors: nextProps.errors})
-  }
-
   componentDidUpdate(prevProps){
     //  
     if(this.props.authenticated !== prevProps.authenticated){
       //  
       this.setState({is_authenticated: true})
+    }
+
+    if(this.props.errors !== prevProps.errors){
+      this.setState({
+        errors: this.props.errors,
+      })
     }
   }
 
@@ -54,17 +51,17 @@ class SignupForm extends React.Component {
       password2: this.state.password2
     };
 
-    // this.props.signup(user, this.props.history); 
     this.props.signup(user, this.props.history)
       .then(user => {
-         
-        this.props.login(user)
+        debugger;
+        if (Object.keys(user.errors).length === 0){
+          this.props.login({
+            email: this.state.email,
+            password: this.state.password
+          });
+        }
+          
       })
-    // console.log(this.props)
-    // if(this.props.authenticate){
-    //   // this.props.login(user)
-    //   this.props.history.push('/pillars')
-    // }
 
   }
 
