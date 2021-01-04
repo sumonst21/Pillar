@@ -53,7 +53,7 @@ class SignupForm extends React.Component {
 
     this.props.signup(user, this.props.history)
       .then(user => {
-        debugger;
+        
         if (Object.keys(user.errors).length === 0){
           this.props.login({
             email: this.state.email,

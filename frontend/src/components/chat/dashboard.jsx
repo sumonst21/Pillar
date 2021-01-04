@@ -157,7 +157,7 @@ class DashBoard extends React.Component{
    }
 
    addRoomCreationError({errors, room}){
-      debugger;
+      
       if(room.admin === this.props.user.id){
          this.setState({
             errors: [errors.text],
