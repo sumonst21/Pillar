@@ -65,7 +65,7 @@ export default class EditReplyForm extends Component {
   handleDelete(e){
     let response = 
       window.confirm(`Are you sure you want to delete "${this.state.reply.reply}"?`);
-    debugger;
+     
     if (response) {
       let replies = cloneDeep(this.props.msg.replies);
       let replyIndex = replies.findIndex(reply => reply._id === this.state.reply._id);
