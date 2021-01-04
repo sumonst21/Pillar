@@ -43,9 +43,20 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
     
-    this.props.login(user)
+    this.props.login(user);
+
+    
     if(this.props.currentUser){
       this.props.history.push('/pillars')
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({
+        errors: this.props.errors,
+      });
     }
   }
     
@@ -55,6 +66,7 @@ class LoginForm extends React.Component {
 
   // Render the session errors if there are any
   renderErrors() {
+    
     return(
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
