@@ -45,7 +45,6 @@ class SearchBarDropdown extends React.Component {
             ));
             const newArr = title.concat(messages)
             messageArr.push(newArr);
-            debugger
         });
         return messageArr;
     };
@@ -58,8 +57,10 @@ class SearchBarDropdown extends React.Component {
             ));
             if (messages.includes(reply)){
                 res.push(room[1].title)
+                debugger
             };
         });
+        debugger
         return res;
     }
 
@@ -245,6 +246,7 @@ class SearchBarDropdown extends React.Component {
                         <ul>
                             {matchedReplies.map(m => {
                                 const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
+                                debugger
                                 return (
                                     <li onClick={() => this.handleClickChatroom(`msg-reply-${m[3]}`)}>
                                         Thread Replies: {m[0]} Room: {m[1]}
