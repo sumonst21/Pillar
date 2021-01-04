@@ -194,8 +194,12 @@ io.on("connection", socket => {
     //room already created in database via API call
      
     const { errors, isValid } = validateRoomInput(room);
+    
     if (!isValid) {
-      return res.status(400).json(errors);
+      //return res.status(400).json(errors);
+      io.emit('room creation error', {errors, room});
+      console.log("Error creating room: " + errors.text);
+      return null;
     }
     const newRoom = new Room({
       title: room.title,

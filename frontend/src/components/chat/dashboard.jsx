@@ -16,6 +16,7 @@ class DashBoard extends React.Component{
          roomsJoined: [],
          all: [],
          deletedRoom: null,
+         errors: [],
       }
 
       this.createNewRoom = this.createNewRoom.bind(this);
@@ -28,6 +29,7 @@ class DashBoard extends React.Component{
       this.roomDeleted = this.roomDeleted.bind(this);
       this.ackDelete = this.ackDelete.bind(this);
       this.roomCreated = this.roomCreated.bind(this);
+      this.addRoomCreationError = this.addRoomCreationError.bind(this);
       
    }
 
@@ -59,6 +61,7 @@ class DashBoard extends React.Component{
       this.socket.on("user joined", this.userJoined);
       this.socket.on("room deleted", this.roomDeleted);
       this.socket.on("room created", this.roomCreated);
+      this.socket.on("room creation error", this.addRoomCreationError);
    }
 
    
@@ -124,6 +127,7 @@ class DashBoard extends React.Component{
       this.socket.emit("Create Room", room);
       this.setState({
          newTitle: "",
+         errors: []
       })
    }
 
@@ -150,6 +154,15 @@ class DashBoard extends React.Component{
       this.setState({
          all: allRooms,
       })
+   }
+
+   addRoomCreationError({errors, room}){
+      
+      if(room.admin === this.props.user.id){
+         this.setState({
+            errors: [errors.text],
+         })
+      }
    }
 
    joinRoom(e){
@@ -248,6 +261,7 @@ class DashBoard extends React.Component{
                   joinRoom={this.joinRoom}
                   roomsAvailable={this.state.roomsAvailable}
                   allRooms = {this.state.all}
+                  errors = {this.state.errors}
                />
                {this.state.deletedRoom ? (
                   <div className="deleted-room-alert">
