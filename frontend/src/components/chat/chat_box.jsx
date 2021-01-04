@@ -18,8 +18,6 @@ class ChatBox extends React.Component{
       emojiPicker: false,
     }
 
-    //  
-
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
