@@ -3,7 +3,7 @@ import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
 import ChatBox from './chat_box';
 
 const mapStateToProps = (state, ownProps) => {
-   debugger
+   
    return {
       user: state.session.user,
       room: state.rooms[ownProps.roomId],
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-   debugger
+
    return {
       getMessages: (roomId) => dispatch(fetchMessages(roomId)),
       afterMessageSent: (msg) => {

@@ -22,7 +22,7 @@ class Replies extends React.Component {
    }
 
    handleReply(e) {
-      debugger;
+      
       this.state.replyBox === false ? 
          (this.props.replies  ?
            this.setState({ replyBox: true, repliesOpen: true })
@@ -34,7 +34,7 @@ class Replies extends React.Component {
 
    }
    handleChange(e){
-      debugger
+      
       this.setState({
          replyText: e.currentTarget.value
       })
@@ -119,7 +119,7 @@ class Replies extends React.Component {
                (
 
                   [msg.replies.map(reply => {
-                     debugger;
+                   
                      // return (
                      if (reply.reply.includes("giphy")){
                         return (

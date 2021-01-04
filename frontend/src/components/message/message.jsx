@@ -73,26 +73,10 @@ export default class Message extends Component {
     }
 
    
-      // debugger;
     return (
       <div>
       {message}
-        {/* {msg.replies && this.state.repliesOpen === true ?
-        (
-           
-       [ msg.replies.map(reply =>{
-          debugger;
-          return (
-            <li className="reply">
-              {reply.username} says: {reply.reply}
-            </li>
-          )
-        }),
-           <button className="replies-div" onClick={this.toggleReplies}> Close {msg.replies.length} replies</button> 
-      ])
-          :( msg.replies.length > 0 ?   <button className="replies-div" onClick={this.toggleReplies}> View {msg.replies.length} replies</button>
-          : "")
-        } */}
+        
         <RepliesForm socket={this.props.socket} msg={msg} />
       </div>
    

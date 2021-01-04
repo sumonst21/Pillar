@@ -10,14 +10,16 @@ class DashBoard extends React.Component{
    constructor(props){
       super(props);
       this.socket = io();
+      
       this.state = {
          newTitle: "",
          roomsAvailable: [],
          roomsJoined: [],
          all: [],
          deletedRoom: null,
+         myRooms: this.props.user.rooms
       }
-
+      
       this.createNewRoom = this.createNewRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.joinRoom = this.joinRoom.bind(this);
@@ -233,12 +235,21 @@ class DashBoard extends React.Component{
 
    render(){
       let rooms = this.props.rooms || {};
+      if (rooms.length > 0){
+         // debugger
+      }
       let roomIds = [];
+      //   myRooms = this.state.myRooms;
       console.log("Dashboard rendered");
       Object.keys(rooms).forEach(key => {
+         // debugger;
          roomIds.push(rooms[key]._id);  
       });
-
+      // rooms.forEach(room => {
+      //    debugger;
+      //    roomIds.push(room.roomId);
+      // });
+      // debugger;
       return(
          <div>
                <Sidebar 
@@ -260,9 +271,11 @@ class DashBoard extends React.Component{
                {
                   roomIds.map(id=>
                      {
-                        return (
+                        // debugger;
+                  
+                     return (this.props.rooms[id].closedFor === undefined || this.props.rooms[id].closedFor[this.props.user.username] === undefined ?
                            <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                        )
+                        : "")
                      }
                   )
                }  

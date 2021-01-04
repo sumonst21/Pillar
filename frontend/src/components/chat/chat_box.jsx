@@ -18,7 +18,7 @@ class ChatBox extends React.Component{
       // dataFromSearchbar: instance.openOrClose//maybe use directly in the toggle function below
     }
 
-    // debugger
+    // 
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +37,7 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
-    debugger;
+    // ;
       let newMessage = {
         id: msg._id,
         message: msg.message,
@@ -60,7 +60,7 @@ class ChatBox extends React.Component{
     this.setState({
       chatMessage: e.currentTarget.value,
     })
-    debugger
+    // 
   }
 
   selectEmoji(e, emojiObject){
@@ -133,7 +133,7 @@ class ChatBox extends React.Component{
       
     let users = this.props.room.users || [];
 
-     debugger;
+    //  ;
     return (
       <div className={this.state.open ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
         {this.state.open ? (
