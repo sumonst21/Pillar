@@ -19,10 +19,13 @@ class Replies extends React.Component {
       this.openEmoji = this.openEmoji.bind(this);
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
-   }
+   };
+
+   //componentDidMount(){
+
+   //}
 
    handleReply(e) {
-      debugger;
       this.state.replyBox === false ? 
          (this.props.replies  ?
            this.setState({ replyBox: true, repliesOpen: true })
@@ -34,11 +37,10 @@ class Replies extends React.Component {
 
    }
    handleChange(e){
-      debugger
       this.setState({
          replyText: e.currentTarget.value
       })
-   }
+   };
 
    submitReply(e){
       e.preventDefault();
@@ -63,27 +65,27 @@ class Replies extends React.Component {
          replyText: "",
          repliesOpen: true,
       })
-   }
+   };
 
    toggleReplies() {
       this.state.repliesOpen === true ?
          this.setState({ repliesOpen: false, replyBox: false })
           : 
          this.setState({ repliesOpen: true, replyBox: true })
-   }
+   };
 
    selectEmoji(e, emojiObject) {
       let newMessage = this.state.replyText + emojiObject.emoji;
       this.setState({
          replyText: newMessage
       })
-   }
+   };
 
    openEmoji() {
       this.state.emojiPicker === true ?
          this.setState({ emojiPicker: false }) :
          this.setState({ emojiPicker: true })
-   }
+   };
 
    useGiphy(e) {
       e.preventDefault();
@@ -108,7 +110,7 @@ class Replies extends React.Component {
          replyText: "",
          repliesOpen: true,
       })
-   }
+   };
 
 
    render(){
@@ -119,7 +121,6 @@ class Replies extends React.Component {
                (
 
                   [msg.replies.map(reply => {
-                     debugger;
                      // return (
                      if (reply.reply.includes("giphy")){
                         return (

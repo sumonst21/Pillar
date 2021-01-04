@@ -55,7 +55,7 @@ export default class EditMessageForm extends Component {
     if (response) {
       this.props.socket.emit("Delete Message", this.props.msg);
     }
-  }
+  };
 
 
   render() {

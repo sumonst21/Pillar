@@ -17,12 +17,14 @@ class SearchBarDropdown extends React.Component {
 
         this.removeEmojis = this.removeEmojis.bind(this);
         this.listedMessages = this.listedMessages.bind(this);
+        this.findRepliesMasterMessage = this.findRepliesMasterMessage.bind(this);
         this.objectifiedMessages = this.objectifiedMessages.bind(this);
         this.filteredRooms = this.filteredRooms.bind(this);
         this.objectifiedReplies = this.objectifiedReplies.bind(this);
         this.boyer_moore = this.boyer_moore.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleClickChatroom = this.handleClickChatroom.bind(this);
+        this.handleClickThread = this.handleClickThread.bind(this);
     };
 
 
@@ -43,9 +45,23 @@ class SearchBarDropdown extends React.Component {
             ));
             const newArr = title.concat(messages)
             messageArr.push(newArr);
+            debugger
         });
         return messageArr;
     };
+
+    findRepliesMasterMessage(reply, obj){
+        const res = [];
+        Object.entries(obj).forEach(room => {
+            const messages = room[1].messages.map(m => (
+                m.message
+            ));
+            if (messages.includes(reply)){
+                res.push(room[1].title)
+            };
+        });
+        return res;
+    }
 
     listedReplies(obj) {
         const repliesArr = [];
@@ -62,7 +78,7 @@ class SearchBarDropdown extends React.Component {
             repliesArr.push(newArr);
         });
         return repliesArr;
-    }
+    };
 
     objectifiedMessages(arr) {//get an object with roomJoined's title as the key and each room's messages as values
         const newObj = {}
@@ -73,12 +89,12 @@ class SearchBarDropdown extends React.Component {
     };
 
     objectifiedReplies(arr) {
-        const repObj = {}
+        const repObj = {};
         arr.forEach(room => {
             repObj[room[0]] = room.slice(1);
         });
         return repObj;
-    }
+    };
 
     filteredRooms(sub) {//display a list of matching rooms
         const { allRooms } = this.props;
@@ -142,7 +158,7 @@ class SearchBarDropdown extends React.Component {
                         if (skip === 0) {
                             filteredMessages.push([room[0], r - 1, i]);
                             skip++;
-                        }
+                        };
                     }
                 }
             }
@@ -153,15 +169,26 @@ class SearchBarDropdown extends React.Component {
 
     handleOpen(id){
         const roomTitle = id.split('-');
-        switches.sendOpen(roomTitle[1]);  
+        switches.sendOpen(roomTitle[1]);//tells the chatroom to open
     };
 
-    handleClick(id) {
+    handleClickChatroom(id) {
         this.handleOpen(id);
         setTimeout(()=>{//open first then search the element
             const ele = document.getElementById(id);
             ele.scrollIntoView();
             this.props.handleDropDown();
+        }, 100);
+    };
+
+    handleClickThread(id) {
+        const roomTitle = id.split('-');
+        switches.sendOpen(roomTitle[2]);
+        setTimeout(()=>{
+            //get the master message here and grab its id
+            const ele = document.getElementById(id);
+            ele.scrollIntoView();
+            // this.props.handleDropDown();
         }, 100);
     };
 
@@ -189,9 +216,11 @@ class SearchBarDropdown extends React.Component {
             return [searchableReplies[m[0]][m[1]].slice(m[2]), m[0], m[1], searchableReplies[m[0]][m[1]]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
         });
 
+        //function to find the thread master for the reply using the searchableReplies[m[0]][m[1]] from line 190
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
+        debugger
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>
@@ -201,7 +230,7 @@ class SearchBarDropdown extends React.Component {
                         <ul>
                             {matchedMessages.map(m => {
                                 return (
-                                    <li onClick={() => this.handleClick(`msg-${m[1]}-${m[2]}`)}>
+                                    <li onClick={() => this.handleClickChatroom(`msg-${m[1]}-${m[2]}`)}>
                                         Message: {m[0]} Room: {m[1]}
                                     </li>
                                 )
@@ -215,8 +244,9 @@ class SearchBarDropdown extends React.Component {
                         :
                         <ul>
                             {matchedReplies.map(m => {
+                                const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
                                 return (
-                                    <li onClick={() => this.handleClick(`msg-reply-${m[3]}`)}>
+                                    <li onClick={() => this.handleClickChatroom(`msg-reply-${m[3]}`)}>
                                         Thread Replies: {m[0]} Room: {m[1]}
                                     </li>
                                 )
