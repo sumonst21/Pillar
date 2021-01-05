@@ -18,6 +18,7 @@ class ChatBox extends React.Component{
       emojiPicker: false,
     }
 
+
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
@@ -35,6 +36,7 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
+    // ;
       let newMessage = {
         id: msg._id,
         message: msg.message,

@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
   Message.find()
     .populate('sender')
     .then(messages => { 
+      ;
       res.json(messages);
       //console.log(messages);
     })
@@ -27,6 +28,7 @@ router.get('/:roomId', (req, res) => {
     .populate('sender')
     .populate('replies')
     .then(messages => {
+      ;
       res.json(messages);
       console.log("Room messages");
       console.log(messages);

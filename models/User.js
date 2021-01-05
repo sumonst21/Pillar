@@ -22,9 +22,13 @@ const UserSchema = new Schema({
   },
   // rooms: [Room]
   rooms_subscribe_to: [{
-      type: Schema.Types.ObjectId,
-      ref: "Room"
-    }],
+    roomId: String,
+    isOpen: Boolean
+  }],
+  // rooms_subscribe_to: [{
+  //     type: Schema.Types.ObjectId,
+  //     ref: "Room"
+  //   }],
   rooms_admin_of: [{
       type: Schema.Types.ObjectId,
       ref: "Room"

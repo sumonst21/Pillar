@@ -28,7 +28,7 @@ const filterAvailableRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {
     let include = true;
-    
+    ;
     room.users.forEach(user => {
       
       if (user._id.toString() === userId){
@@ -46,7 +46,7 @@ const filterAvailableRooms = (rooms, userId) =>{
 //get available rooms to join
   //excludes rooms a user already bleongs to
 router.get('/:userId/roomsAvailable', (req,res)=> {
-  
+  debugger
   Room.find({})
     .populate({
       path: 'messages',
@@ -61,7 +61,11 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
     }).populate({
       path: 'users',
       model: 'User'
-    }).exec((err, rooms)=>{
+    })
+    // .populate({
+    //    path: 'closedFor' 
+    //   })
+      .exec((err, rooms)=>{
       if (err) {
         res.status(404).json({ noroomsfound: 'No rooms found' });
       } else {
@@ -88,13 +92,18 @@ router.get('/:userId/rooms', (req, res) => {
         path: 'users',
         model: 'User'
       }) //populate the array of messages
-      .exec((err, rooms)=>{
+      // .populate({
+      //    path: 'closedFor',
+      //   })
+        .exec((err, rooms)=>{
          
         if(err){
           res.status(404).json({ noroomsfound: 'No rooms found' });
         } else {
+          ;
           let roomList = filterRooms(rooms, req.params.userId);
-           
+           ;
+           ;
           res.json(roomList);
         }
 
@@ -120,19 +129,21 @@ router.get('/:roomId', (req, res) => {
 router.post('/',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    ;
     const { errors, isValid } = validateRoomInput(req.body);
+    ;
     
-
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    const newRoom = new Room({
+    let newRoom = new Room({
       title: req.body.title,
       admin: req.body.admin,
       messages: [],
       users: req.body.users,
+      closedFor: ["none"]
     });
-
+    ;
     newRoom.save().then(room => res.json(room));
   }
 );
@@ -160,6 +171,7 @@ router.post('/:roomId',
     if (!isValid) {
       return res.status(400).json(errors);
     }
+    ;
     let updateRoom = Room.findById(req.params.roomId).exec().then(room => {
       room.title = req.body.title;
       room.admin = req.body.admin;
@@ -177,7 +189,11 @@ router.post('/:roomId',
           }).populate({
             path: 'users',
             model: 'User'
-          }).exec().then(room => {
+          })
+          // .populate({ 
+          //   path: 'closedFor' 
+          // })
+          .exec().then(room => {
             res.json(room);
 
           })
@@ -189,5 +205,60 @@ router.post('/:roomId',
     
   }
 );
+
+router.patch('/closedfor', (req, res) => {
+    debugger;
+    REQ = req; 
+    Room.findByIdAndUpdate(req.body.roomId)
+    .exec().then(room => {
+      
+      if (room.closedFor.includes(req.body.email) ){
+      debugger;
+        room.closedFor = room.closedFor.filter(match => (match != req.body.email))
+    }
+    else{
+      debugger
+        room.closedFor.push(req.body.email)
+    }
+
+    // room.ayo = "hi"
+    // room.title = room.title + "hello"
+    debugger
+    room.save().then(saved => {
+      Room.find({})
+        .populate({
+          path: 'messages',
+          model: 'Message',
+          populate: {
+            path: 'sender',
+            model: 'User'
+          }
+        }).populate({
+          path: 'users',
+          model: 'User'
+        }) //populate the array of messages
+        // .populate({
+        //    path: 'closedFor',
+        //   })
+        .exec((err, rooms) => {
+
+          if (err) {
+            debugger;
+            res.status(404).json({ noroomsfound: 'No rooms found' });
+          } else {
+            ;
+            let roomList = filterRooms(rooms, req.body.id);
+            debugger;
+            res.json(roomList);
+          }
+
+        })
+    })
+        // return res.json(room) 
+ 
+    })
+   
+  
+  });
 
 module.exports = router;

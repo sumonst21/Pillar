@@ -1,7 +1,9 @@
 import React from 'react';
 import {getRoomUsers} from '../../util/room_api_util'
 import SearchBarDropdown from './search_dropdown'
-
+import { getAvailableRooms, getRooms } from '../../util/room_api_util';
+import {getUser } from "../../util/session_api_util"
+import { updateRoom } from '../../actions/room_actions';
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
@@ -9,12 +11,17 @@ class Sidebar extends React.Component{
             show_rooms: false,
             searchInput: '',
             dropDown: false,
-            errors: {}
+            errors: {},
+            roomsAvailable: [],
+            roomsJoined: [],
+            all: [],
+            rooms: this.props.rooms
         };
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
+        this.toggleRooms = this.toggleRooms.bind(this);
     }
 
     handleSearchInput(e){
@@ -35,11 +42,54 @@ class Sidebar extends React.Component{
     };
 
 
+    toggleRooms(e){
+        // debugger
+        // let title = e.target.innerText;
+        let user = this.props.user.username;
+        let email = this.props.user.email;
+        let id = this.props.user.id;
+        // e.target.id 
+        this.props.editClosedFor(e.target.id, email,  id)
+        .then(rooms => {
+            debugger;
+            this.setState({rooms: this.props.rooms},this.render)
+        })
+       
+    }
 
+    componentDidMount(props){
+        // debugger;
+        this.setState({ rooms: this.props.rooms })
+    }
+    componentDidUpdate(prevprops, prevState){
+        // debugger;
+        if( this.props.rooms != prevprops.rooms){
+            this.setState({rooms: this.props.rooms}, this.render)
+            // debugger;
+            // this.render()
+        }
+    //    this.setState({ rooms: this.props.rooms })
+        
+        // Object.keys(this.props.rooms).forEach(roomId => {
+        //     debugger;
+        //      console.log(prevprops.rooms[roomId]) 
+
+        //     })
+    }
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
         //  
+        let rooms = this.state.rooms || this.props.rooms
+        // debugger;
+        let roomIds = [];
+        //   myRooms = this.state.myRooms;
+        console.log("Dashboard rendered");
+        Object.keys(rooms).forEach(key => {
+            // ;
+            // debugger
+            roomIds.push(rooms[key]._id)}) 
+        
         return(
             <div className='sidebar-contaier'>
                 <div className='search-bar-container'>
@@ -57,6 +107,7 @@ class Sidebar extends React.Component{
                             searchInput={this.state.searchInput} 
                             allRooms={this.props.allRooms}
                             roomsAvailable={this.props.roomsAvailable}
+                            toggleRooms={this.toggleRooms}
                             />
                         : null
                     }
@@ -90,6 +141,25 @@ class Sidebar extends React.Component{
                         </li>
                      )
                   }) : null}
+                </div>
+
+                <div><h2>My Rooms</h2>
+                    {Object.keys(this.props.rooms).length > 0 ? 
+                  roomIds.map(id =>{
+                    //   debugger;
+                      if (id !== undefined) {
+                        return rooms[id].closedFor.includes(this.props.user.email)
+                        //   [this.props.user.username] 
+                        ? 
+                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
+                            // ,<button onClick= { this.toggleRooms }> Open</button>]
+                            ) :
+                            (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
+                            // <button onClick={this.toggleRooms}> Close</button>]
+                            ) 
+                          }
+                  }) 
+                  : ""}
                 </div>
             </div>
         )
