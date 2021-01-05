@@ -23,6 +23,7 @@ const filterRooms = (rooms, userId) =>{
   });
   return filteredRooms;
 }
+
 const filterAvailableRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {

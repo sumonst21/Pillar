@@ -18,7 +18,6 @@ export default class EditMessageForm extends Component {
 
 
   handleClick(){
-     ;
     if (this.state.displayForm){
       this.setState({
         displayForm: false,
@@ -47,6 +46,7 @@ export default class EditMessageForm extends Component {
       sender: this.props.message.sender,
 
     })
+
     this.handleClick(e);
   }
 
