@@ -8,7 +8,8 @@ class Sidebar extends React.Component{
         this.state = {
             show_rooms: false,
             searchInput: '',
-            dropDown: false
+            dropDown: false,
+            errors: {}
         };
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
@@ -22,10 +23,6 @@ class Sidebar extends React.Component{
 
     handleDropDown(){
         this.setState({dropDown: false});
-        // instance.infoFromSearchbar(false);
-        // if(instance.infoToChatbox()===false){
-        //     instance.infoFromSearchbar(true);
-        // }
     };
 
     displayRooms(){
@@ -70,7 +67,9 @@ class Sidebar extends React.Component{
                         onChange={this.props.handleChange}
                         placeholder="Enter new room title"/>
                     </form>
+
                     <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
+                    <h3>{this.props.errors}</h3>
                 </div>
 
                 <div>

@@ -120,7 +120,7 @@ class Replies extends React.Component {
       if (response) {
          let replies = cloneDeep(this.props.msg.replies);
          let replyId = e.currentTarget.id;
-         debugger;
+          
          let replyIndex = replies.findIndex(reply => replyId === reply._id);
          replies.splice(replyIndex, 1);
 
