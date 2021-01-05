@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {switches} from './data_share'
+import {switches, switcheThread} from './data_share'
 
 const mapStateToProps = (state) => {
 
@@ -52,17 +52,14 @@ class SearchBarDropdown extends React.Component {
     findRepliesMasterMessage(reply, obj){
         const res = [];
         Object.entries(obj).forEach(room => {
-            const messages = room[1].messages.map(m => (
-                m.message
-            ));
-            if (messages.includes(reply)){
-                res.push(room[1].title)
-                debugger
-            };
+            room[1].messages.forEach(m => {
+                if (m.replies.map(m=>(m.reply)).includes(reply)){
+                    return res.push(m.message)
+                };
+            });
         });
-        debugger
         return res;
-    }
+    };
 
     listedReplies(obj) {
         const repliesArr = [];
@@ -182,15 +179,16 @@ class SearchBarDropdown extends React.Component {
         }, 100);
     };
 
-    handleClickThread(id) {
-        const roomTitle = id.split('-');
-        switches.sendOpen(roomTitle[2]);
+    handleClickThread(id, room, msg) {
+        switches.sendOpen(room);
         setTimeout(()=>{
-            //get the master message here and grab its id
-            const ele = document.getElementById(id);
-            ele.scrollIntoView();
-            // this.props.handleDropDown();
+            switcheThread.sendOpenThread(msg);
+            setTimeout(()=>{
+                const ele = document.getElementById(id);
+                ele.scrollIntoView();
+            })
         }, 100);
+        this.props.handleDropDown();
     };
 
     render() {
@@ -221,7 +219,6 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-        debugger
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>
@@ -246,9 +243,8 @@ class SearchBarDropdown extends React.Component {
                         <ul>
                             {matchedReplies.map(m => {
                                 const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
-                                debugger
                                 return (
-                                    <li onClick={() => this.handleClickChatroom(`msg-reply-${m[3]}`)}>
+                                    <li onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1],masterMessage[0])}>
                                         Thread Replies: {m[0]} Room: {m[1]}
                                     </li>
                                 )

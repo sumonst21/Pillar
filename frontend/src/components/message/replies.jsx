@@ -2,6 +2,8 @@ import React from "react"
 import moment from "moment";
 import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
+import {switcheThread} from './../../components/chat/data_share';
+
 class Replies extends React.Component {
    constructor(props){
       super(props)
@@ -21,9 +23,13 @@ class Replies extends React.Component {
       this.useGiphy = this.useGiphy.bind(this);
    };
 
-   //componentDidMount(){
-
-   //}
+   componentDidMount(){
+      this.subscription = switcheThread.receiveOpenThread().subscribe(message=>{
+      if(message === this.props.message.message){
+        this.setState({repliesOpen: true});
+      }; 
+    })
+   };
 
    handleReply(e) {
       this.state.replyBox === false ? 

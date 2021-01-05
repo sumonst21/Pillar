@@ -74,7 +74,6 @@ export default class Message extends Component {
     }
 
    
-      // debugger;
     return (
       <div>
       {message}
@@ -94,7 +93,7 @@ export default class Message extends Component {
           :( msg.replies.length > 0 ?   <button className="replies-div" onClick={this.toggleReplies}> View {msg.replies.length} replies</button>
           : "")
         } */}
-        <RepliesForm socket={this.props.socket} msg={msg} />
+        <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
       </div>
    
     )

@@ -4,5 +4,10 @@ const subject = new Subject();
 
 export const switches = {
     sendOpen: room => subject.next(room),
-    receiveOpen: () => subject.asObservable()
+    receiveOpen: () => subject.asObservable(), 
+    receiveOpenThread: () => subject.asObservable()
+};
+export const switcheThread = {
+    sendOpenThread: message => subject.next(message),
+    receiveOpenThread: () => subject.asObservable()
 };
