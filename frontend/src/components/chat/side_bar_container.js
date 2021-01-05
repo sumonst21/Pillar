@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import Sidebar from './side_bar';
-import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, updateUserList} from '../../actions/room_actions';
+import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, updateUserList, editClosedFor} from '../../actions/room_actions';
 
 
 
 const mapStateToProps = (state) => {
-  // debugger;
+  // debugger
   return {
     user: state.session.user,
     rooms: state.rooms,
@@ -23,6 +23,7 @@ const mapDispatchToProps = (dispatch) => {
     editRoom: (room) => dispatch(editRoom(room)),
     leaveRoom: (room) => dispatch(leaveRoom(room)),
     updateUserList: (room) => dispatch(updateUserList(room)),
+    editClosedFor: (roomId, email, id) => dispatch(editClosedFor(roomId, email, id))
     };
 };
 

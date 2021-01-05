@@ -18,9 +18,10 @@ const RoomSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   }],
-  closedFor: {
-    type: Object,
-  },
+  closedFor: [{
+    type: String,
+  }],
+  
 },
 
  {

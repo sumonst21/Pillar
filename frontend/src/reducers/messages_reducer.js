@@ -1,5 +1,6 @@
+import { debug } from 'request';
 import { RECEIVE_MESSAGES, RECEIVE_NEW_MESSAGE, UPDATE_MESSAGE, REMOVE_MESSAGE } from '../actions/message_actions';
-import { RECEIVE_ROOMS, DELETE_ROOM } from '../actions/room_actions';
+import { RECEIVE_ROOMS, DELETE_ROOM, RECEIVE_ROOM } from '../actions/room_actions';
 
 const MessagesReducer = (state = { }, action) => {
   Object.freeze(state);
@@ -16,6 +17,8 @@ const MessagesReducer = (state = { }, action) => {
     case RECEIVE_ROOMS:
       let messages = {};
       //create messages object
+      // debugger;
+      ;
       action.rooms.data.forEach(room => {
         room.messages.forEach(msg => {
           messages[msg._id] = {
@@ -31,6 +34,10 @@ const MessagesReducer = (state = { }, action) => {
       });
       Object.assign(newState, messages);
       return newState;
+    case RECEIVE_ROOM:
+
+      debugger;
+      return state;
     case UPDATE_MESSAGE:
       action.message.id = action.message._id; //rename the id property key
       delete action.message._id;

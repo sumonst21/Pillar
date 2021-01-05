@@ -32,7 +32,7 @@ const RoomsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_ROOMS:
       action.rooms.data.forEach(room => {
-        // debugger;
+        // ;
         const roomId = room._id;
         //shape the messages for each room
         let messages = [];

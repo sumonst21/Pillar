@@ -181,7 +181,7 @@ io.on("connection", socket => {
       admin: room.admin,
       messages: [],
       users: room.users,
-      closedFor: {none: "none"}
+      closedFor: []
     });
      
     newRoom.save().then(room => io.emit("room created", newRoom));

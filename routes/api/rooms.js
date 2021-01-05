@@ -27,7 +27,7 @@ const filterAvailableRooms = (rooms, userId) =>{
   let filteredRooms = [];
   rooms.forEach(room => {
     let include = true;
-    debugger;
+    ;
     room.users.forEach(user => {
       
       if (user._id.toString() === userId){
@@ -45,7 +45,7 @@ const filterAvailableRooms = (rooms, userId) =>{
 //get available rooms to join
   //excludes rooms a user already bleongs to
 router.get('/:userId/roomsAvailable', (req,res)=> {
-  
+  debugger
   Room.find({})
     .populate({
       path: 'messages',
@@ -79,7 +79,7 @@ router.get('/:userId/roomsAvailable', (req,res)=> {
 
 //retrieve all rooms by user
 router.get('/:userId/rooms', (req, res) => {
-  ;
+  debugger
   Room.find({})
       .populate({
         path: 'messages',
@@ -103,7 +103,7 @@ router.get('/:userId/rooms', (req, res) => {
           ;
           let roomList = filterRooms(rooms, req.params.userId);
            ;
-           debugger;
+           ;
           res.json(roomList);
         }
 
@@ -129,9 +129,9 @@ router.get('/:roomId', (req, res) => {
 router.post('/',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    debugger;
+    ;
     const { errors, isValid } = validateRoomInput(req.body);
-    debugger;
+    ;
     
     if (!isValid) {
       return res.status(400).json(errors);
@@ -141,9 +141,9 @@ router.post('/',
       admin: req.body.admin,
       messages: [],
       users: req.body.users,
-      closedFor: {"lame":"lame"},
+      closedFor: ["none"]
     });
-    newRoom.closedFor = { "lame": "lame" },
+    ;
     newRoom.save().then(room => res.json(room));
   }
 );
@@ -171,7 +171,7 @@ router.post('/:roomId',
     if (!isValid) {
       return res.status(400).json(errors);
     }
-    debugger;
+    ;
     let updateRoom = Room.findById(req.params.roomId).exec().then(room => {
       room.title = req.body.title;
       room.admin = req.body.admin;
@@ -208,40 +208,56 @@ router.post('/:roomId',
 
 router.patch('/closedfor', (req, res) => {
     debugger;
-    // const { errors, isValid } = validateRoomInput(req.body);
-
-    // //  
-    // if (!isValid) {
-    //   return res.status(400).json(errors);
-    // }
-    REQ = req;
-    // debugger;
-    
+    REQ = req; 
     Room.findByIdAndUpdate(req.body.roomId)
     .exec().then(room => {
-      debugger
-      if (room.closedFor[Object.keys(req.body.username)[0]]){
+      
+      if (room.closedFor.includes(req.body.email) ){
       debugger;
-      delete room.closedFor[Object.keys(req.body.username)[0]]
+        room.closedFor = room.closedFor.filter(match => (match != req.body.email))
     }
     else{
-      debugger;
-      room.closedFor[Object.keys(req.body.username)[0]] = { email: req.body.email }
+      debugger
+        room.closedFor.push(req.body.email)
     }
-      // room.title = req.body.title;
-      // room.admin = req.body.admin;
-      // room.users = req.body.users;
-      
-      // Room.findByIdAndUpdate(req.body.roomId, room)
-      // .then(returnedRoom => {
-        debugger
-        // return res.json(room) 
-      // });
-    })
 
-    // room.save().then(room => {res.json(room)})
-    // debugger;
-  // Room.findByIdAndUpdate(req.body.roomId, room)
+    // room.ayo = "hi"
+    // room.title = room.title + "hello"
+    debugger
+    room.save().then(saved => {
+      Room.find({})
+        .populate({
+          path: 'messages',
+          model: 'Message',
+          populate: {
+            path: 'sender',
+            model: 'User'
+          }
+        }).populate({
+          path: 'users',
+          model: 'User'
+        }) //populate the array of messages
+        // .populate({
+        //    path: 'closedFor',
+        //   })
+        .exec((err, rooms) => {
+
+          if (err) {
+            debugger;
+            res.status(404).json({ noroomsfound: 'No rooms found' });
+          } else {
+            ;
+            let roomList = filterRooms(rooms, req.body.id);
+            debugger;
+            res.json(roomList);
+          }
+
+        })
+    })
+        // return res.json(room) 
+ 
+    })
+   
   
   });
 

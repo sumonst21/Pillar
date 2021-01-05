@@ -67,7 +67,7 @@ router.post("/login", (req, res) => {
       errors.email = "This user does not exist";
       return res.status(400).json(errors);
     }
-    debugger;
+    ;
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  // debugger;
+  // ;
   // // User.findOne({ email: req.body.email }).then(user => {
   // //  ROOMS = ["hi"];
   //  JSON = ({
@@ -104,13 +104,13 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   //   .then(user => {
   //     let rooms = []
   //     // user.rooms.forEach(room =>{
-  //     //   debugger;
+  //     //   ;
   //     // })
   //     JSON.rooms = (user.rooms_subscribe_to)
-  //     debugger
+  //     
   //     return res.json(JSON)
   //   })
-  //   debugger;
+  //   ;
   return res.json({
     id: req.user.id,
     username: req.user.username,
@@ -120,12 +120,12 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 })
 router.get('/user', (req, res) => {
-  debugger;
+  ;
  let rooms = [];
   User.findOne({ email: req.body.email })
     .populate({ path: 'rooms_subscribe_to'})
     .exec().then(user => {
-    debugger
+    
   })
   res.json({
     id: req.user.id,
