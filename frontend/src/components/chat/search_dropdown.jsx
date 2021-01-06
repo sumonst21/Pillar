@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {switches, switcheThread} from './data_share'
+import { switches, switcheThread } from './data_share'
 
 const mapStateToProps = (state) => {
 
@@ -49,11 +49,11 @@ class SearchBarDropdown extends React.Component {
         return messageArr;
     };
 
-    findRepliesMasterMessage(reply, obj){
+    findRepliesMasterMessage(reply, obj) {
         const res = [];
         Object.entries(obj).forEach(room => {
             room[1].messages.forEach(m => {
-                if (m.replies.map(m=>(m.reply)).includes(reply)){
+                if (m.replies.map(m => (m.reply)).includes(reply)) {
                     return res.push(m.message)
                 };
             });
@@ -165,55 +165,62 @@ class SearchBarDropdown extends React.Component {
         return filteredMessages; //this returns an array: [room_title, message_index, matching_character_index]
     };
 
-    handleOpen(id){
+    handleOpen(id) {
         const roomTitle = id.split('-');
         let roomsJoined = this.props.roomsJoined
         let email = this.props.user.email;
         let userId = this.props.user.id;
-        debugger;
         for (let i = 0; i < Object.keys(roomsJoined).length; i++) {
-            debugger;
-            if (roomsJoined[Object.keys(roomsJoined)[i]].title === roomTitle[1] && roomsJoined[Object.keys(roomsJoined)[i]].closedFor.includes(email))
-
-            {
+            if (roomsJoined[Object.keys(roomsJoined)[i]].title === roomTitle[1] && roomsJoined[Object.keys(roomsJoined)[i]].closedFor.includes(email)) {
                 let roomId = roomsJoined[Object.keys(roomsJoined)[i]]._id;
                 // let email = this.props.user.email;
                 // let userId = this.props.user.id;
                 this.props.editClosedFor(roomId, email, userId)
-                    .then(rooms =>{
-                        debugger;
+                    .then(rooms => {
+                        debugger
                     })
-
             }
-
-
         }
-
         switches.sendOpen(roomTitle[1]);//tells the chatroom to open
     };
-
-    handleClickChatroom(id) {
-        this.handleOpen(id)
-        debugger;
-        setTimeout(()=>{//open first then search the element
-            debugger
+    handleOpenThread(title) {
+        let roomsJoined = this.props.roomsJoined
+        let email = this.props.user.email;
+        let userId = this.props.user.id;
+        for (let i = 0; i < Object.keys(roomsJoined).length; i++) {
+            if (roomsJoined[Object.keys(roomsJoined)[i]].title === title && roomsJoined[Object.keys(roomsJoined)[i]].closedFor.includes(email)) {
+                let roomId = roomsJoined[Object.keys(roomsJoined)[i]]._id;
+                // let email = this.props.user.email;
+                // let userId = this.props.user.id;
+                this.props.editClosedFor(roomId, email, userId)
+                    .then(rooms => {
+                    })
+            }
+        }
+        switches.sendOpen(title);//tells the chatroom to open
+    };
+    async handleClickChatroom(id) {
+        await this.handleOpen(id)
+        setTimeout(() => {//open first then search the element
             const ele = document.getElementById(id);
             ele.scrollIntoView();
             this.props.handleDropDown();
-        }, 300);
+        }, 250);
     };
-
     handleClickThread(id, room, msg) {
+        this.handleOpenThread(room);
         switches.sendOpen(room);
-        setTimeout(()=>{
+        setTimeout(() => {
             switcheThread.sendOpenThread(msg);
-            setTimeout(()=>{
+            setTimeout(() => {
                 const ele = document.getElementById(id);
                 ele.scrollIntoView();
             })
-        }, 100);
+        }, 500);
         this.props.handleDropDown();
     };
+
+
 
     render() {
         let { roomsJoined, allRooms, roomsAvailable, searchInput } = this.props;
@@ -225,7 +232,7 @@ class SearchBarDropdown extends React.Component {
         const roomArr = this.listedMessages(roomsJoined);
         const repliesArr = this.listedReplies(roomsJoined);
         const roomsDisplayed = roomArr.map(r => (r[0]));
-        
+
         const availableRoomObj = this.objectifiedMessages(roomsJoined);
         const searchableReplies = this.objectifiedReplies(repliesArr);
 
@@ -243,7 +250,7 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-         
+
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>
@@ -269,7 +276,7 @@ class SearchBarDropdown extends React.Component {
                             {matchedReplies.map(m => {
                                 const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
                                 return (
-                                    <li onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1],masterMessage[0])}>
+                                    <li onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1], masterMessage[0])}>
                                         Thread Replies: {m[0]} Room: {m[1]}
                                     </li>
                                 )
