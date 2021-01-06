@@ -1,9 +1,6 @@
 import React from 'react';
-import {getRoomUsers} from '../../util/room_api_util'
 import SearchBarDropdown from './search_dropdown'
-import { getAvailableRooms, getRooms } from '../../util/room_api_util';
-import {getUser } from "../../util/session_api_util"
-import { updateRoom } from '../../actions/room_actions';
+
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
@@ -21,7 +18,6 @@ class Sidebar extends React.Component{
         this.handleDropDown = this.handleDropDown.bind(this);
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
-        // this.toggleRooms = this.toggleRooms.bind(this);
     }
 
     handleSearchInput(e){
@@ -42,37 +38,13 @@ class Sidebar extends React.Component{
     };
 
 
-    // toggleRooms(e){
-    //     //  
-    //     // let title = e.target.innerText;
-    //     let user = this.props.user.username;
-    //     let email = this.props.user.email;
-    //     let id = this.props.user.id;
-    //     // e.target.id 
-    //     this.props.editClosedFor(e.target.id, email,  id)
-    //     .then(rooms => {
-    //          ;
-    //         this.setState({rooms: this.props.rooms},this.render)
-    //     })
-    //     
-    // }
-
     componentDidMount(props){
         this.setState({ rooms: this.props.rooms })
     }
     componentDidUpdate(prevprops, prevState){
         if( this.props.rooms != prevprops.rooms){
             this.setState({rooms: this.props.rooms}, this.render)
-            //  ;
-            // this.render()
         }
-    //    this.setState({ rooms: this.props.rooms })
-        
-        // Object.keys(this.props.rooms).forEach(roomId => {
-        //      ;
-        //      console.log(prevprops.rooms[roomId]) 
-
-        //     })
     }
 
     render(){
@@ -83,10 +55,7 @@ class Sidebar extends React.Component{
         let roomIds = [];
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
-            // ;
-            //  
             roomIds.push(rooms[key]._id)}) 
-        // this.toggleRooms()
         
         return(
             <div className='sidebar-contaier'>
@@ -140,25 +109,6 @@ class Sidebar extends React.Component{
                      )
                   }) : null}
                 </div>
-
-                {/* <div><h2>My Rooms</h2>
-                    {Object.keys(this.props.rooms).length > 0 ? 
-                  roomIds.map(id =>{
-                    //    ;
-                      if (id !== undefined) {
-                        return rooms[id].closedFor.includes(this.props.user.email)
-                        //   [this.props.user.username] 
-                        ? 
-                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
-                            // ,<button onClick= { this.toggleRooms }> Open</button>]
-                            ) :
-                            (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
-                            // <button onClick={this.toggleRooms}> Close</button>]
-                            ) 
-                          }
-                  }) 
-                  : ""}
-                </div> */}
             </div>
         )
     }
