@@ -171,15 +171,16 @@ class SearchBarDropdown extends React.Component {
     };
 
     handleClickChatroom(id) {
-        this.handleOpen(id);
-        setTimeout(()=>{//open first then search the element
-            const ele = document.getElementById(id);
-            ele.scrollIntoView();
-            this.props.handleDropDown();
-        }, 100);
+            this.handleOpen(id);
+            setTimeout(()=>{//open first then search the element
+                const ele = document.getElementById(id);
+                ele.scrollIntoView();
+                this.props.handleDropDown();
+            }, 100);
     };
 
     handleClickThread(id, room, msg) {
+
         switches.sendOpen(room);
         setTimeout(()=>{
             switcheThread.sendOpenThread(msg);

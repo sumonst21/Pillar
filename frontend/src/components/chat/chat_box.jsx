@@ -13,10 +13,11 @@ class ChatBox extends React.Component{
     super(props);
     this.state = {
       chatMessage: "",
-      open: true,
+      open: true, 
       openOrClose: 'close',
       emojiPicker: false,
     }
+
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -48,16 +49,41 @@ class ChatBox extends React.Component{
       this.props.afterMessageSent(newMessage);      
     });
 
-
+    
     this.subscription = switches.receiveOpen().subscribe(roomTitle=>{
       if(roomTitle === this.props.room.title){ //send an array or object with information about the room and open to true
         this.setState({open: true});//change the open directly but has a logic to determine it is the right room
       } 
-    })
+    });
+    
+    if(this.props.room.closedFor.includes(this.props.user.email)){
+      this.setState({open: false})
+    } else {
+      this.setState({open: true})
+    };
+
+    
+    const openOrNot = localStorage.getItem(`roomOpen${this.props.room.title}`) === 'true';
+    this.setState({open: openOrNot})
+    
   };
+
 
   componentWillUnmount() {
     this.subscription.unsubscribe();
+
+    let props = this.props;
+    let email = props.user.email;
+    let id = props.user.id;
+     
+    if(this.state.open === false){
+      props.editClosedFor(props.room._id, email, id);
+    } else {
+      props.editOpenFor(props.room._id, email, id);
+    };
+
+    // localStorage.clear();
+
   };   
 
   handleChange(e){
@@ -108,9 +134,20 @@ class ChatBox extends React.Component{
   }
 
   toggle(){
-    this.state.open ? 
-    this.setState({open: false, openOrClose: 'open'}) : 
-    this.setState({open: true, openOrClose: 'close'});
+
+    if(this.state.open){
+
+      this.setState({open: false, openOrClose: 'open'});
+      const {open} = this.state;
+      localStorage.setItem(`roomOpen${this.props.room.title}`, !open);
+
+    } else {
+
+      this.setState({open: true, openOrClose: 'close'});
+      const {open} = this.state;
+      localStorage.setItem(`roomOpen${this.props.room.title}`, !open);
+
+    }
   }
 
   useGiphy(e){

@@ -10,6 +10,7 @@ class DashBoard extends React.Component{
    constructor(props){
       super(props);
       this.socket = io();
+      
       this.state = {
          newTitle: "",
          roomsAvailable: [],
@@ -17,8 +18,9 @@ class DashBoard extends React.Component{
          all: [],
          deletedRoom: null,
          errors: [],
+         myRooms: this.props.user.rooms
       }
-
+      
       this.createNewRoom = this.createNewRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.joinRoom = this.joinRoom.bind(this);
@@ -62,6 +64,7 @@ class DashBoard extends React.Component{
       this.socket.on("room deleted", this.roomDeleted);
       this.socket.on("room created", this.roomCreated);
       this.socket.on("room creation error", this.addRoomCreationError);
+       
    }
 
    
@@ -93,6 +96,9 @@ class DashBoard extends React.Component{
             })
          })
       };
+      // if (this.props.rooms != prevProps) {
+      //    this.render()
+      // }
    }
 
    userLeft({ user, room }) { 
@@ -246,12 +252,21 @@ class DashBoard extends React.Component{
 
    render(){
       let rooms = this.props.rooms || {};
+      if (rooms.length > 0){
+         // 
+      }
       let roomIds = [];
+      //   myRooms = this.state.myRooms;
       console.log("Dashboard rendered");
       Object.keys(rooms).forEach(key => {
+         // ;
          roomIds.push(rooms[key]._id);  
       });
-
+      // rooms.forEach(room => {
+      //    ;
+      //    roomIds.push(room.roomId);
+      // });
+      // ;
       return(
          <div>
                <Sidebar 
@@ -274,10 +289,15 @@ class DashBoard extends React.Component{
                {
                   roomIds.map(id=>
                      {
-                        return (
-                           <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                        )
-                     }
+                     //    //  ;
+                     //    if (id !== undefined){
+                     // return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
+                     //     "" :  
+                     return (
+
+                        <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
+                     )}
+                     
                   )
                }  
             </div>
