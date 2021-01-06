@@ -5,7 +5,7 @@ import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, upd
 
 
 const mapStateToProps = (state) => {
-  // debugger
+  //  
   return {
     user: state.session.user,
     rooms: state.rooms,

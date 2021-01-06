@@ -17,7 +17,7 @@ const MessagesReducer = (state = { }, action) => {
     case RECEIVE_ROOMS:
       let messages = {};
       //create messages object
-      // debugger;
+      //  ;
       ;
       action.rooms.data.forEach(room => {
         room.messages.forEach(msg => {
@@ -36,7 +36,7 @@ const MessagesReducer = (state = { }, action) => {
       return newState;
     case RECEIVE_ROOM:
 
-      debugger;
+       ;
       return state;
     case UPDATE_MESSAGE:
       action.message.id = action.message._id; //rename the id property key

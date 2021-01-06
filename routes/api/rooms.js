@@ -46,7 +46,7 @@ const filterAvailableRooms = (rooms, userId) =>{
 //get available rooms to join
   //excludes rooms a user already bleongs to
 router.get('/:userId/roomsAvailable', (req,res)=> {
-  debugger
+   
   Room.find({})
     .populate({
       path: 'messages',
@@ -207,23 +207,23 @@ router.post('/:roomId',
 );
 
 router.patch('/closedfor', (req, res) => {
-    debugger;
+     ;
     REQ = req; 
     Room.findByIdAndUpdate(req.body.roomId)
     .exec().then(room => {
       
       if (room.closedFor.includes(req.body.email) ){
-      debugger;
+       ;
         room.closedFor = room.closedFor.filter(match => (match != req.body.email))
     }
     else{
-      debugger
+       
         room.closedFor.push(req.body.email)
     }
 
     // room.ayo = "hi"
     // room.title = room.title + "hello"
-    debugger
+     
     room.save().then(saved => {
       Room.find({})
         .populate({
@@ -243,12 +243,12 @@ router.patch('/closedfor', (req, res) => {
         .exec((err, rooms) => {
 
           if (err) {
-            debugger;
+             ;
             res.status(404).json({ noroomsfound: 'No rooms found' });
           } else {
             ;
             let roomList = filterRooms(rooms, req.body.id);
-            debugger;
+             ;
             res.json(roomList);
           }
 

@@ -83,17 +83,16 @@ export const leaveRoom = room => dispatch => (
 export const fetchRooms = (userId) => dispatch => (
   getRooms(userId)
     .then(rooms => {
-      debugger;
       dispatch(receiveRooms(rooms));
     })
     .catch(err => console.log(err))
 );
 
 export const editClosedFor = (roomId, email, id) => dispatch => {
-  debugger;
+   ;
   return editRoomClosedForUtil(roomId, email, id)
   .then(rooms => {
-    debugger;
+     ;
     // fetchRooms(id)
     dispatch(receiveRooms(rooms));
   })

@@ -13,7 +13,7 @@ class ChatBox extends React.Component{
     super(props);
     this.state = {
       chatMessage: "",
-      open: true,
+      open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
     }
@@ -26,6 +26,7 @@ class ChatBox extends React.Component{
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
     this.deleteRoom = this.deleteRoom.bind(this);
+    this.componentRefresh = this.componentRefresh.bind(this);
   }
 
 
@@ -50,16 +51,41 @@ class ChatBox extends React.Component{
       this.props.afterMessageSent(newMessage);      
     });
 
-
+    
     this.subscription = switches.receiveOpen().subscribe(roomTitle=>{
       if(roomTitle === this.props.room.title){ //send an array or object with information about the room and open to true
         this.setState({open: true});//change the open directly but has a logic to determine it is the right room
       } 
-    })
+    });
+    
+    if(this.props.room.closedFor.includes(this.props.user.email)){
+      this.setState({open: false})
+    } else {
+      this.setState({open: true})
+    }
+
+    window.addEventListener('beforeunload', this.componentRefresh(this.props))
+     
+  };
+
+  componentRefresh(props){
+    // let user = this.props.user.username;
+    let email = props.user.email;
+    let id = props.user.id;
+     
+    if(this.state.open === false){
+       
+      props.editClosedFor(props.room._id, email,  id)
+    }
   };
 
   componentWillUnmount() {
     this.subscription.unsubscribe();
+    const props = this.props;
+    this.componentRefresh(props);
+    window.removeEventListener('beforeunload', this.componentRefresh);
+
+
   };   
 
   handleChange(e){

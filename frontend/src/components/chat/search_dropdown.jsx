@@ -171,18 +171,16 @@ class SearchBarDropdown extends React.Component {
     };
 
     handleClickChatroom(id) {
-        this.props.toggleRooms.then(() => {
             this.handleOpen(id);
             setTimeout(()=>{//open first then search the element
                 const ele = document.getElementById(id);
                 ele.scrollIntoView();
                 this.props.handleDropDown();
             }, 100);
-        })
     };
 
     handleClickThread(id, room, msg) {
-        
+
         switches.sendOpen(room);
         setTimeout(()=>{
             switcheThread.sendOpenThread(msg);
@@ -222,7 +220,7 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-        
+         
         return (
             <div className='searchbar-dropdown'>
                 <div className='message-results'>

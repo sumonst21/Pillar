@@ -31,7 +31,7 @@ export const updateRoomUtil = (room) => {
 
 export const editRoomClosedForUtil = (roomId, email, id) => {
   //  
-  // debugger;
+  //  ;
   return axios.patch(`/api/rooms/closedfor`, {roomId, email, id})
 }
 // /:roomId
