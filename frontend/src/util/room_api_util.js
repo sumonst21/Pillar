@@ -45,3 +45,7 @@ export const editRoomClosedForUtil = (roomId, email, id) => {
 //   // payload is the request body
 //   // Do something
 // )
+
+export const editRoomOpenForUtil = (roomId, email, id) => {
+  return axios.patch(`/api/rooms/openfor`, {roomId, email, id})
+};

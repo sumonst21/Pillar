@@ -26,7 +26,6 @@ class ChatBox extends React.Component{
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
     this.deleteRoom = this.deleteRoom.bind(this);
-    this.componentRefresh = this.componentRefresh.bind(this);
   }
 
 
@@ -37,7 +36,6 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
-    // ;
       let newMessage = {
         id: msg._id,
         message: msg.message,
@@ -62,29 +60,29 @@ class ChatBox extends React.Component{
       this.setState({open: false})
     } else {
       this.setState({open: true})
-    }
+    };
 
-    window.addEventListener('beforeunload', this.componentRefresh(this.props))
-     
+    
+    const openOrNot = localStorage.getItem(`roomOpen${this.props.room.title}`) === 'true';
+    this.setState({open: openOrNot})
+    
   };
 
-  componentRefresh(props){
-    // let user = this.props.user.username;
+
+  componentWillUnmount() {
+    this.subscription.unsubscribe();
+
+    let props = this.props;
     let email = props.user.email;
     let id = props.user.id;
      
     if(this.state.open === false){
-       
-      props.editClosedFor(props.room._id, email,  id)
-    }
-  };
+      props.editClosedFor(props.room._id, email, id);
+    } else {
+      props.editOpenFor(props.room._id, email, id);
+    };
 
-  componentWillUnmount() {
-    this.subscription.unsubscribe();
-    const props = this.props;
-    this.componentRefresh(props);
-    window.removeEventListener('beforeunload', this.componentRefresh);
-
+    // localStorage.clear();
 
   };   
 
@@ -136,9 +134,20 @@ class ChatBox extends React.Component{
   }
 
   toggle(){
-    this.state.open ? 
-    this.setState({open: false, openOrClose: 'open'}) : 
-    this.setState({open: true, openOrClose: 'close'});
+
+    if(this.state.open){
+
+      this.setState({open: false, openOrClose: 'open'});
+      const {open} = this.state;
+      localStorage.setItem(`roomOpen${this.props.room.title}`, !open);
+
+    } else {
+
+      this.setState({open: true, openOrClose: 'close'});
+      const {open} = this.state;
+      localStorage.setItem(`roomOpen${this.props.room.title}`, !open);
+
+    }
   }
 
   useGiphy(e){

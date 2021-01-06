@@ -207,22 +207,18 @@ router.post('/:roomId',
 );
 
 router.patch('/closedfor', (req, res) => {
-     ;
+     
     REQ = req; 
     Room.findByIdAndUpdate(req.body.roomId)
     .exec().then(room => {
       
-      if (room.closedFor.includes(req.body.email) ){
-       ;
-        room.closedFor = room.closedFor.filter(match => (match != req.body.email))
-    }
-    else{
+    if (room.closedFor.includes(req.body.email) ){
        
-        room.closedFor.push(req.body.email)
+      // room.closedFor = room.closedFor.filter(match => (match != req.body.email))
+    } else {
+      room.closedFor.push(req.body.email)
     }
 
-    // room.ayo = "hi"
-    // room.title = room.title + "hello"
      
     room.save().then(saved => {
       Room.find({})
@@ -261,4 +257,52 @@ router.patch('/closedfor', (req, res) => {
   
   });
 
+
+
+  router.patch('/openfor', (req, res) => {
+     
+    REQ = req; 
+    Room.findByIdAndUpdate(req.body.roomId)
+    .exec().then(room => {
+      
+    if (room.closedFor.includes(req.body.email) ){
+      room.closedFor = room.closedFor.filter(match => (match != req.body.email))
+    } else {
+      // room.closedFor.push(req.body.email)
+    }
+
+     
+    room.save().then(saved => {
+      Room.find({})
+        .populate({
+          path: 'messages',
+          model: 'Message',
+          populate: {
+            path: 'sender',
+            model: 'User'
+          }
+        }).populate({
+          path: 'users',
+          model: 'User'
+        }) 
+        .exec((err, rooms) => {
+
+          if (err) {
+             ;
+            res.status(404).json({ noroomsfound: 'No rooms found' });
+          } else {
+            ;
+            let roomList = filterRooms(rooms, req.body.id);
+             ;
+            res.json(roomList);
+          }
+
+        })
+    })
+        // return res.json(room) 
+ 
+    })
+   
+  
+  });
 module.exports = router;

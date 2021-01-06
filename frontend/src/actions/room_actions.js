@@ -1,11 +1,10 @@
-import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil, getRoomUsers, leaveRoomUtil, editRoomClosedForUtil} from '../util/room_api_util';
+import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil, getRoomUsers, leaveRoomUtil, editRoomClosedForUtil, editRoomOpenForUtil} from '../util/room_api_util';
 
 export const RECEIVE_ROOMS = "RECEIVE_ROOMS";
 export const RECEIVE_ROOM = "RECEIVE_ROOM";
 export const DELETE_ROOM = "DELETE_ROOM";
 export const UPDATE_ROOM = "UPDATE_ROOM";
 export const LEAVE_ROOM = "LEAVE_ROOM";
-//export const RECEIVE_NEW_MESSAGE = "RECEIVE_NEW_MESSAGE";
 export const RECEIVE_ROOM_USERS = "RECEIVE_ROOM_USERS";
 export const CHAT_ROOM_STATUS = 'CHAT_ROOM_STATUS';
 
@@ -89,12 +88,15 @@ export const fetchRooms = (userId) => dispatch => (
 );
 
 export const editClosedFor = (roomId, email, id) => dispatch => {
-   ;
   return editRoomClosedForUtil(roomId, email, id)
   .then(rooms => {
-     ;
-    // fetchRooms(id)
+      dispatch(receiveRooms(rooms));
+  })
+};
+
+export const editOpenFor = (roomId, email, id) => dispatch => {  
+  return editRoomOpenForUtil(roomId, email, id)
+  .then(rooms => {
     dispatch(receiveRooms(rooms));
   })
-  // .catch(err => console.log(err))
-}
+};
