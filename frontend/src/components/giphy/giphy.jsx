@@ -46,7 +46,7 @@ class Giphy extends React.Component {
 
    handleSelection(e){
       this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));      
-      const ele = document.getElementById(`charbox-item-${this.props.roomTitle}`);
+      const ele = document.getElementById(`chatbox-item-${this.props.roomTitle}`);
       ele.scrollTop = ele.scrollHeight;
    }
 

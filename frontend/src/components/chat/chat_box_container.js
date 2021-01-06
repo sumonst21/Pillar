@@ -12,7 +12,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-
    return {
       getMessages: (roomId) => dispatch(fetchMessages(roomId)),
       afterMessageSent: (msg) => {

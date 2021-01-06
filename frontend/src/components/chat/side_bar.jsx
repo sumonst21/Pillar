@@ -14,7 +14,8 @@ class Sidebar extends React.Component{
             roomsAvailable: [],
             roomsJoined: [],
             all: [],
-            rooms: this.props.rooms
+            rooms: this.props.rooms,
+            errors: {}
         };
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
@@ -29,10 +30,6 @@ class Sidebar extends React.Component{
 
     handleDropDown(){
         this.setState({dropDown: false});
-        // instance.infoFromSearchbar(false);
-        // if(instance.infoToChatbox()===false){
-        //     instance.infoFromSearchbar(true);
-        // }
     };
 
     displayRooms(){
@@ -110,6 +107,8 @@ class Sidebar extends React.Component{
                             searchInput={this.state.searchInput} 
                             allRooms={this.props.allRooms}
                             roomsAvailable={this.props.roomsAvailable}
+                            user={this.props.user}
+                            editClosedFor= {this.props.editClosedFor}
                             />
                         : null
                     }
@@ -120,7 +119,9 @@ class Sidebar extends React.Component{
                         onChange={this.props.handleChange}
                         placeholder="Enter new room title"/>
                     </form>
+
                     <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
+                    <h3>{this.props.errors}</h3>
                 </div>
 
                 <div>

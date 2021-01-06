@@ -21,7 +21,7 @@ const MessageSchema = new Schema({
   },
   replies: [{
     username: String, 
-    userid: String,
+    userId: String,
     reply: String, 
     room: String
   }],
