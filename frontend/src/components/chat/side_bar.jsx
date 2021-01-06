@@ -144,23 +144,27 @@ class Sidebar extends React.Component{
                   }) : null}
                 </div>
 
-                <div><h2>My Rooms</h2>
+                <div className="myroomsdiv">
+                    {/* <h2>My Rooms</h2> */}
+                    <ul className="myrooms">
                     {Object.keys(this.props.rooms).length > 0 ? 
-                  roomIds.map(id =>{
-                    //   debugger;
-                      if (id !== undefined) {
-                        return rooms[id].closedFor.includes(this.props.user.email)
-                        //   [this.props.user.username] 
-                        ? 
-                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
-                            // ,<button onClick= { this.toggleRooms }> Open</button>]
-                            ) :
-                            (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
-                            // <button onClick={this.toggleRooms}> Close</button>]
-                            ) 
-                          }
-                  }) 
-                  : ""}
+
+                    roomIds.map(id =>{
+                        //   debugger;
+                        if (id !== undefined) {
+                            return rooms[id].closedFor.includes(this.props.user.email)
+                            //   [this.props.user.username] 
+                            ? 
+                            (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
+                                // ,<button onClick= { this.toggleRooms }> Open</button>]
+                                ) :
+                                (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
+                                // <button onClick={this.toggleRooms}> Close</button>]
+                                ) 
+                            }
+                    }) 
+                    : ""}
+                        </ul>
                 </div>
             </div>
         )

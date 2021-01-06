@@ -38,3 +38,24 @@
 .reply{
     margin-left: 20px;
 }
+.myroomsdiv{
+text-align: center;
+    margin: 0 auto;
+}
+
+.myrooms{
+    display: inline-flex;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.myrooms li{
+    list-style: none;
+    margin: 5px;
+    padding: 5px;
+}
+.myrooms li:hover{
+   background-color: lightgray;
+   border-radius: 5px;
+   cursor: pointer;
+}

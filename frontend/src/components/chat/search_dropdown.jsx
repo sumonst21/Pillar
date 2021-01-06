@@ -205,7 +205,7 @@ class SearchBarDropdown extends React.Component {
             const ele = document.getElementById(id);
             ele.scrollIntoView();
             this.props.handleDropDown();
-        }, 250);
+        }, 300);
     };
     handleClickThread(id, room, msg) {
         this.handleOpenThread(room);
@@ -216,7 +216,7 @@ class SearchBarDropdown extends React.Component {
                 const ele = document.getElementById(id);
                 ele.scrollIntoView();
             })
-        }, 500);
+        }, 600);
         this.props.handleDropDown();
     };
 

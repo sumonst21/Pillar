@@ -139,11 +139,13 @@ class ChatBox extends React.Component{
     let users = this.props.room.users || [];
 
     return (
-      <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.open === true ? 'close' : 'open'}</button>
+      <div className={(this.state.open) ? 'open' : 'close'}>
+         {/* <button onClick={this.toggle}>{this.state.open === true ? 'close' : 'open'}</button> */}
+         <h2>{this.props.room.title}</h2>
         {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
-            <h1>{this.props.room.title}</h1>
+            {/* <h1>{this.props.room.title}</h1> */}
             <div className='input-container' >
               <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
               {
