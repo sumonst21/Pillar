@@ -1,0 +1,200 @@
+.session-form-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(252, 248, 248, 0);
+  h1 {
+    margin: 0.5em auto;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+.session-form-subcontainer {
+  background: rgba(255, 255, 255, 0.05);
+  width: 600px;
+  height: 35%;
+  border-radius: 0.2em;
+  position: relative;
+  top: 70px;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+  // &__messages {
+  //   &:nth-of-type(odd) .chatbox__messages__user-message--ind-message {
+  //     float: right;
+  //     &:after {
+  //       content: "";
+  //       position: absolute;
+  //       margin: -1.5em -17.06em;
+  //     }
+  //   }
+  & input {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 1em 0.8em;
+    height: auto;
+    width: 65%;
+    border-radius: 5px;
+    margin: 0.5em 1em;
+    overflow: auto;
+    border: none;
+  }
+  //   &:nth-of-type(even) .chatbox__messages__user-message--ind-message {
+  //     float: left;
+  //     &:after {
+  //       content: "";
+  //       position: absolute;
+  //       margin: -1.5em 1.87em;
+  //     }
+  //   }
+  // }
+  // &__messages__user-message {
+  //   width: 450px;
+  // }
+  // &__messages__user-message--ind-message {
+  // background: rgba(255, 255, 255, 0.2);
+  // padding: 1em 0;
+  // height: auto;
+  // width: 65%;
+  // border-radius: 5px;
+  // margin: 2em 1em;
+  // overflow: auto;
+  // }
+}
+
+// // Placeholder Styling
+// ::-webkit-input-placeholder {
+//   color: rgba(255, 255, 255, 0.9);
+// }
+
+// :-moz-placeholder {
+//   color: rgba(255, 255, 255, 0.9);
+// }
+
+// ::-moz-placeholder {
+//   color: rgba(255, 255, 255, 0.9);
+// }
+
+// :-ms-input-placeholder {
+//   color: rgba(255, 255, 255, 0.9);
+// }
+
+.close-session-form-icon-container {
+  text-align: right;
+  position: relative;
+  right: 2em;
+  top: 0.5em;
+}
+
+::placeholder {
+  font-family: "Nunito Sans", sans-serif;
+  color: white;
+  padding-left: 5px;
+  font-size: large;
+}
+
+.session-form-button-container {
+  background: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border: none;
+  width: 100%;
+  outline: none;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  display: flex;
+  align-items: flex-end;
+}
+
+.session-form-button-container > input {
+  box-sizing: content-box;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: white;
+  align-self: flex-end;
+  margin: 0;
+  margin-right: 0.15em;
+  border-radius: initial;
+}
+
+.session-form-button-container > input:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.switch-form-link {
+  width: 6em;
+  font-family: sans-serif;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0.5em, 1em;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  align-self: center;
+  padding: 1.25em;
+  width: fit-content;
+  font-size: unset;
+  border-radius: initial;
+}
+
+.switch-form-link:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.session-form-button-container h1 {
+  font-family: "Nunito Sans", sans-serif;
+  text-align: left;
+  padding-left: 0.5em;
+  font-size: large;
+  border-left: 0;
+  margin-left: 0;
+  /* margin-bottom: 0; */
+  padding-bottom: 0;
+  box-sizing: content-box;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: 0.15em; /* Adjust as needed */
+  animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 70%;
+  }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: orange;
+  }
+}
+
+input {
+  font-family: "Nunito Sans", sans-serif;
+  color: white;
+  padding-left: 5px;
+  font-size: large;
+  margin: 2em;
+}
+
+input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}

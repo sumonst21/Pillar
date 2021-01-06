@@ -1,0 +1,159 @@
+.splash-container-1 {
+  background: linear-gradient(
+    270deg,
+    #ce6666,
+    #ce7966,
+    #ce8766,
+    #ce9066,
+    #ce9966,
+    #cea766,
+    #ceb566,
+    #cebe66,
+    #cec766,
+    #c7ce66,
+    #bece66,
+    #b0ce66,
+    #9ece66,
+    #90ce66,
+    #82ce66,
+    #79ce66,
+    #6bce66,
+    #66ce6e,
+    #66ce78,
+    #66ce8f,
+    #66ce98,
+    #66ceaa,
+    #66ceb8,
+    #66cec1,
+    #66ceca,
+    #66bfce,
+    #66b2ce,
+    #66a8ce,
+    #669bce,
+    #6688ce,
+    #667fce,
+    #666dce,
+    #6d66ce,
+    #7b66ce,
+    #9266ce,
+    #ad66ce,
+    #c066ce,
+    #ce66c5,
+    #ce66bc,
+    #ce66aa,
+    #ce66a1,
+    #ce6693,
+    #ce6685,
+    #ce6673,
+    #ce6673
+  );
+  background-size: 9000% 9000%;
+
+  -webkit-animation: AnimationName 32s ease infinite;
+  animation: AnimationName 32s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.splash-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.splash-container-1 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.splash-background-container {
+  height: 100vh;
+}
+
+.splash-background {
+  background-image: url("https://d.newsweek.com/en/full/1502445/san-francisco-salifornia.webp")
+    no-repeat center center fixed;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  // position: fixed;
+  top: 0;
+  left: 0;
+  // -webkit-transition: background-image 0.8s ease-in;
+  // transition: background-image 0.8s ease-in;
+  -webkit-animation-name: fadeInOpacity;
+  // -webkit-animation-duration: 5s;
+  // -webkit-animation-iteration-count: infinite;
+  // -webkit-animation-timing-function: ease-in-out;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.logo-button {
+  // border: 2px solid white;
+  width: 100%;
+  height: 200px;
+  // border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
+  // fix this positioning
+  color: white;
+  font-family: "Nunito Sans", sans-serif;
+  letter-spacing: 1px;
+  z-index: 0;
+  position: absolute;
+  border: 1px solid var(--theme-color);
+  border-left: none;
+  border-right: none;
+  // border: 1px solid black;
+  // box-shadow: 0 1px 8px 0 var(--container-color), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.logo-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  background-color: var(--container-color);
+}
+
+.logo-button h1 {
+  font-weight: bolder;
+  font-size: 100px;
+  align-self: center;
+}
