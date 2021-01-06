@@ -20,11 +20,13 @@ class SearchBarDropdown extends React.Component {
         this.findRepliesMasterMessage = this.findRepliesMasterMessage.bind(this);
         this.objectifiedMessages = this.objectifiedMessages.bind(this);
         this.filteredRooms = this.filteredRooms.bind(this);
+        this.gettingSenders = this.gettingSenders.bind(this);
         this.objectifiedReplies = this.objectifiedReplies.bind(this);
         this.boyer_moore = this.boyer_moore.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClickChatroom = this.handleClickChatroom.bind(this);
         this.handleClickThread = this.handleClickThread.bind(this);
+        this.gettingReplySenders = this.gettingReplySenders.bind(this);
     };
 
 
@@ -93,6 +95,30 @@ class SearchBarDropdown extends React.Component {
         });
         return repObj;
     };
+
+    gettingSenders(obj){
+        let res = {};
+        Object.values(obj).map(room=>(room.messages)).map(message=>{
+            for(let i=0; i<message.length; i++){
+                res[message[i].message] = message[i].username;
+            };
+        });
+        return res
+    };
+
+    gettingReplySenders(obj){
+        let res = {};
+        Object.values(obj).map(room=>(room.messages)).map(message=>{
+            for(let i=0; i<message.length; i++){
+                message[i].replies.forEach(rep => {
+                    res[rep.reply]=rep.username;
+                });
+                // res[message[i].message] = message[i].username;
+            };
+        });
+        debugger
+        return res
+    }
 
     filteredRooms(sub) {//display a list of matching rooms
         const { allRooms } = this.props;
@@ -202,12 +228,14 @@ class SearchBarDropdown extends React.Component {
         const roomArr = this.listedMessages(roomsJoined);
         const repliesArr = this.listedReplies(roomsJoined);
         const roomsDisplayed = roomArr.map(r => (r[0]));
+        const senders = this.gettingSenders(roomsJoined);
+        const replySender = this.gettingReplySenders(roomsJoined);
         
         const availableRoomObj = this.objectifiedMessages(roomsJoined);
         const searchableReplies = this.objectifiedReplies(repliesArr);
 
         const matchedMessages = this.boyer_moore(roomArr, searchInput).map(m => {
-            return [availableRoomObj[m[0]][m[1]].slice(m[2]), m[0], m[1]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
+            return [availableRoomObj[m[0]][m[1]].slice(m[2]), m[0], m[1], availableRoomObj[m[0]][m[1]]]; //m[0] is the chatroom title; m[1] is the index number for the matching string in the array; and m[2] is the matching substring
         });
         const matchedRooms = this.filteredRooms(searchInput).map(room => {
             return room[0];
@@ -220,43 +248,46 @@ class SearchBarDropdown extends React.Component {
         const roomsJoinable = matchedRooms.filter(room => (roomsAvailable.includes(room)));
         const roomsOpened = matchedRooms.filter(room => (roomsDisplayed.includes(room)));
 
-         
+
+        debugger
         return (
             <div className='searchbar-dropdown'>
+                <h3>Messages</h3>
                 <div className='message-results'>
                     {matchedMessages.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Messages Found</p>
                         :
                         <ul>
                             {matchedMessages.map(m => {
                                 return (
                                     <li onClick={() => this.handleClickChatroom(`msg-${m[1]}-${m[2]}`)}>
-                                        Message: {m[0]} Room: {m[1]}
+                                        Message: {m[0]} Room: {m[1]} Sender: {senders[m[3]]}
                                     </li>
                                 )
                             })}
                         </ul>}
                 </div>
-                <p>------------------------------</p>
+                <h3>Replies</h3>
                 <div className='replies-results'>
                     {matchedReplies.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Replies Found</p>
                         :
                         <ul>
                             {matchedReplies.map(m => {
                                 const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
                                 return (
                                     <li onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1],masterMessage[0])}>
-                                        Thread Replies: {m[0]} Room: {m[1]}
+                                        Thread Replies: {m[0]} Room: {m[1]} Sender: {replySender[m[3]]}
                                     </li>
                                 )
                             })}
                         </ul>}
                 </div>
                 <p>------------------------------</p>
+                <h3>Chatrooms</h3>
                 <div className='room-results'>
                     {matchedRooms.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Rooms Found</p>
                         :
                         <ul>
                             {roomsJoinable.length === 0 ? null :
