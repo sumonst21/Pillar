@@ -17,8 +17,8 @@ class DashBoard extends React.Component{
          roomsJoined: [],
          all: [],
          deletedRoom: null,
+         myRooms: this.props.user.rooms,
          errors: [],
-         myRooms: this.props.user.rooms
       }
       
       this.createNewRoom = this.createNewRoom.bind(this);
@@ -64,7 +64,6 @@ class DashBoard extends React.Component{
       this.socket.on("room deleted", this.roomDeleted);
       this.socket.on("room created", this.roomCreated);
       this.socket.on("room creation error", this.addRoomCreationError);
-       
    }
 
    
@@ -289,15 +288,12 @@ class DashBoard extends React.Component{
                {
                   roomIds.map(id=>
                      {
-                     //    //  ;
-                     //    if (id !== undefined){
-                     // return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
-                     //     "" :  
-                     return (
-
-                        <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                     )}
-                     
+                        // debugger;
+                        if (id !== undefined){
+                     return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
+                         "" :  <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
+                        )}
+                     }
                   )
                }  
             </div>

@@ -165,30 +165,63 @@ class SearchBarDropdown extends React.Component {
         return filteredMessages; //this returns an array: [room_title, message_index, matching_character_index]
     };
 
-    handleOpen(id){
+    async handleOpen(id){
         const roomTitle = id.split('-');
-        switches.sendOpen(roomTitle[1]);//tells the chatroom to open
+        let roomsJoined = this.props.roomsJoined
+        let email = this.props.user.email;
+        let userId = this.props.user.id;
+        for (let i = 0; i < Object.keys(roomsJoined).length; i++) {
+            if (roomsJoined[Object.keys(roomsJoined)[i]].title === roomTitle[1] && roomsJoined[Object.keys(roomsJoined)[i]].closedFor.includes(email))
+            {
+                let roomId = roomsJoined[Object.keys(roomsJoined)[i]]._id;
+                this.props.editClosedFor(roomId, email, userId)
+                    .then((room) => {
+                        return room
+                })
+            }
+        }
+        // switches.sendOpen(roomTitle[1]);//tells the chatroom to open
+            
     };
 
-    handleClickChatroom(id) {
-            this.handleOpen(id);
-            setTimeout(()=>{//open first then search the element
-                const ele = document.getElementById(id);
-                ele.scrollIntoView();
-                this.props.handleDropDown();
-            }, 100);
+    async handleOpenThread(title){
+        let roomsJoined = this.props.roomsJoined
+        let email = this.props.user.email;
+        let userId = this.props.user.id;
+        for (let i = 0; i < Object.keys(roomsJoined).length; i++) {
+            if (roomsJoined[Object.keys(roomsJoined)[i]].title === title && roomsJoined[Object.keys(roomsJoined)[i]].closedFor.includes(email)){
+                let roomId = roomsJoined[Object.keys(roomsJoined)[i]]._id;
+                await this.props.editClosedFor(roomId, email, userId)
+            }
+        }
+
+        switches.sendOpen(title);//tells the chatroom to open
+    };
+
+    async handleClickChatroom(id) {
+        const roomTitle = id.split('-')
+        this.handleOpen(id).then(()=>{
+            console.log('1111')
+            
+            switches.sendOpen(roomTitle[1]);//tells the chatroom to open
+            const ele = document.getElementById(id);
+            ele.scrollIntoView();
+            this.props.handleDropDown();
+        })
+        
+        // setTimeout(()=>{//open first then search the element
+        // }, 1000);
     };
 
     handleClickThread(id, room, msg) {
-
-        switches.sendOpen(room);
+        this.handleOpenThread(room);
         setTimeout(()=>{
             switcheThread.sendOpenThread(msg);
             setTimeout(()=>{
                 const ele = document.getElementById(id);
                 ele.scrollIntoView();
             })
-        }, 100);
+        }, 2000);
         this.props.handleDropDown();
     };
 
