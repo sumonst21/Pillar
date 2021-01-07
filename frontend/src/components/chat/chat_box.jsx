@@ -16,7 +16,7 @@ class ChatBox extends React.Component{
       open: true, 
       openOrClose: 'close',
       emojiPicker: false,
-    }
+    };
 
 
     this.toggle = this.toggle.bind(this);
@@ -26,7 +26,7 @@ class ChatBox extends React.Component{
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
     this.deleteRoom = this.deleteRoom.bind(this);
-  }
+  };
 
 
   componentDidMount(){

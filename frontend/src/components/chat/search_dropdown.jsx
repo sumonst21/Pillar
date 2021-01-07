@@ -116,7 +116,6 @@ class SearchBarDropdown extends React.Component {
                 // res[message[i].message] = message[i].username;
             };
         });
-        debugger
         return res
     }
 
