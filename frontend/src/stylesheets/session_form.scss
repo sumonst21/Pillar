@@ -15,12 +15,13 @@
 
 .session-form-subcontainer {
   background: rgba(255, 255, 255, 0.05);
-  width: 600px;
+  width: 30%;
   height: 35%;
   border-radius: 0.2em;
   position: relative;
-  top: 70px;
+  top: 5%;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+
   // &__messages {
   //   &:nth-of-type(odd) .chatbox__messages__user-message--ind-message {
   //     float: right;
@@ -81,10 +82,15 @@
 // }
 
 .close-session-form-icon-container {
-  text-align: right;
-  position: relative;
-  right: 2em;
-  top: 0.5em;
+  position: absolute;
+  right: 3%;
+  top: 2.5%;
+}
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 ::placeholder {
@@ -115,7 +121,6 @@
   font-family: sans-serif;
   font-weight: 700;
   color: white;
-  align-self: flex-end;
   margin: 0;
   margin-right: 0.15em;
   border-radius: initial;
@@ -135,7 +140,6 @@
   border-radius: 5px;
   text-align: center;
   vertical-align: middle;
-  align-self: center;
   padding: 1.25em;
   width: fit-content;
   font-size: unset;
@@ -186,12 +190,14 @@
   }
 }
 
-input {
+.session-form-text-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   font-family: "Nunito Sans", sans-serif;
   color: white;
-  padding-left: 5px;
   font-size: large;
-  margin: 2em;
+  margin-top: 2%;
 }
 
 input:focus {

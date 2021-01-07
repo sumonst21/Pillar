@@ -1,3 +1,49 @@
+.closed {
+  width: 35px;
+}
+
+.open {
+  width: 100%;
+  position: relative;
+
+  .toggle-room {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.chatbox-list {
+  position: relative;
+  overflow: scroll;
+  display: flex;
+  margin: 10px;
+}
+
+.chatbox-container {
+  overflow-y: auto;
+  height: 90%;
+  position: relative;
+}
+
+.input-container {
+  position: fixed;
+  bottom: 0;
+}
+
+.chat-img {
+  width: 150px;
+  border-radius: 4px;
+}
+
+.emoji-picker-react {
+  font-size: 5px;
+}
+
+.reply {
+  margin-left: 20px;
+}
+
 .chatbox-container {
   margin-right: 0.8em;
   width: 100%;
@@ -6,8 +52,9 @@
   /* border: 1px solid #fbfbfb; */
   overflow: scroll;
   display: flex;
-  flex-direction: column;
-  /* position: absolute; */
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
   background: rgba(255, 255, 255, 0.05);
   width: 600px;
   border-radius: 0.2em;

@@ -270,18 +270,17 @@ class DashBoard extends React.Component{
                   </div>
                   ) : (null)            
                }
-            <div className="chatbox-list" >
-               {
-                  roomIds.map(id=>
-                     {
-                        return (
-                           <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                        )
-                     }
-                  )
-               }  
-            </div>
-
+               <div className="chatbox-list" >
+                  {
+                     roomIds.map(id=>
+                        {
+                           return (
+                              <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
+                           )
+                        }
+                     )
+                  }  
+               </div>
          </div>
       )
    }

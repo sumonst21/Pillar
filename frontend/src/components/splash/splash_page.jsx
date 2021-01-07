@@ -19,14 +19,8 @@ class SplashPage extends React.Component {
     return (
       <div className="splash-wrapper">
         <div className="splash-container-1">
-          <div className="logo-button">
-            <h1 onClick={this.loginModal}>PILLR</h1>
-          </div>
-            <div>
-                <h1>Pillar</h1>
-                <footer>
-                Copyright &copy; 2020 Pillar
-                </footer>
+            <div className="logo-button">
+                <h1 onClick={this.loginModal}>PILLR</h1>
             </div>
         </div>
       </div>
