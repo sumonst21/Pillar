@@ -11,12 +11,13 @@ import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 
 // The session utility we just created
-import { setAuthToken } from './util/session_api_util';
-
+import { setAuthToken, getUser } from './util/session_api_util';
+import { editRoomClosedForUtil} from './util/room_api_util';
 // We have not created this action yet, but will do so in the next step
 import { logout } from './actions/session_actions';
 
-import {getGiphy} from './util/giphy_api_util'
+import {getGiphy} from './util/giphy_api_util';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create a preconfigured state we can immediately add to our store
     const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
-
+    ;
     store = configureStore(preloadedState);
 
     const currentTime = Date.now() / 1000;
@@ -51,4 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   ReactDOM.render(<Root store={store} />, root);
   window.getGiphy = getGiphy;
+  window.getUser = getUser;
+  window.editRoomClosedForUtil = editRoomClosedForUtil;
 });

@@ -28,6 +28,12 @@ export const updateRoomUtil = (room) => {
   //  
   return axios.post(`/api/rooms/${room._id}`, room)
 }
+
+export const editRoomClosedForUtil = (roomId, email, id) => {
+  //  
+  //  ;
+  return axios.patch(`/api/rooms/closedfor`, {roomId, email, id})
+}
 // /:roomId
 
 // export const writeTweet = data => {
@@ -39,3 +45,7 @@ export const updateRoomUtil = (room) => {
 //   // payload is the request body
 //   // Do something
 // )
+
+export const editRoomOpenForUtil = (roomId, email, id) => {
+  return axios.patch(`/api/rooms/openfor`, {roomId, email, id})
+};
