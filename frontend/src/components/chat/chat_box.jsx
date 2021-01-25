@@ -18,6 +18,7 @@ class ChatBox extends React.Component{
       emojiPicker: false,
     };
 
+    // 
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -177,7 +178,7 @@ class ChatBox extends React.Component{
         {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
-            <h1>{this.props.room.title}</h1>
+            {/* <h1>{this.props.room.title}</h1> */}
             <div className='input-container' >
               <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
               {

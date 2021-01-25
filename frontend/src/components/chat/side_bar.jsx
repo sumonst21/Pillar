@@ -8,16 +8,17 @@ class Sidebar extends React.Component{
             show_rooms: false,
             searchInput: '',
             dropDown: false,
-            errors: {},
             roomsAvailable: [],
             roomsJoined: [],
             all: [],
-            rooms: this.props.rooms
+            rooms: this.props.rooms,
+            errors: {}
         };
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
+        this.toggleRooms = this.toggleRooms.bind(this);
     }
 
     handleSearchInput(e){
@@ -38,21 +39,51 @@ class Sidebar extends React.Component{
     };
 
 
+    toggleRooms(e){
+        //   
+        // let title = e.target.innerText;
+        let user = this.props.user.username;
+        let email = this.props.user.email;
+        let id = this.props.user.id;
+        // e.target.id 
+        this.props.editClosedFor(e.target.id, email,  id)
+        .then(rooms => {
+              ;
+            this.setState({rooms: this.props.rooms},this.render)
+        })
+       
+    }
+
     componentDidMount(props){
+        //   ;
         this.setState({ rooms: this.props.rooms })
     }
     componentDidUpdate(prevprops, prevState){
+        //   ;
         if( this.props.rooms != prevprops.rooms){
             this.setState({rooms: this.props.rooms}, this.render)
+            //   ;
+            // this.render()
         }
+    //    this.setState({ rooms: this.props.rooms })
+        
+        // Object.keys(this.props.rooms).forEach(roomId => {
+        //       ;
+        //      console.log(prevprops.rooms[roomId]) 
+
+        //     })
     }
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
         let rooms = this.state.rooms || this.props.rooms
+        //   ;
         let roomIds = [];
+        //   myRooms = this.state.myRooms;
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
+            // ;
+            //   
             roomIds.push(rooms[key]._id)}) 
         
         return(
@@ -72,7 +103,8 @@ class Sidebar extends React.Component{
                             searchInput={this.state.searchInput} 
                             allRooms={this.props.allRooms}
                             roomsAvailable={this.props.roomsAvailable}
-                            toggleRooms={this.toggleRooms}
+                            user={this.props.user}
+                            editClosedFor= {this.props.editClosedFor}
                             />
                         : null
                     }

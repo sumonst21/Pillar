@@ -107,7 +107,6 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
-      ;
     connect.then(db => {
       try {
 

@@ -17,8 +17,8 @@ class DashBoard extends React.Component{
          roomsJoined: [],
          all: [],
          deletedRoom: null,
+         myRooms: this.props.user.rooms,
          errors: [],
-         myRooms: this.props.user.rooms
       }
       
       this.createNewRoom = this.createNewRoom.bind(this);
@@ -64,7 +64,6 @@ class DashBoard extends React.Component{
       this.socket.on("room deleted", this.roomDeleted);
       this.socket.on("room created", this.roomCreated);
       this.socket.on("room creation error", this.addRoomCreationError);
-       
    }
 
    
