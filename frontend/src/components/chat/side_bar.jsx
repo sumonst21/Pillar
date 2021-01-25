@@ -49,9 +49,7 @@ class Sidebar extends React.Component{
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
-        //  
         let rooms = this.state.rooms || this.props.rooms
-        //  ;
         let roomIds = [];
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
