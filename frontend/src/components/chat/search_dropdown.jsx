@@ -203,10 +203,7 @@ class SearchBarDropdown extends React.Component {
             const ele = document.getElementById(id);
             ele.scrollIntoView();
             this.props.handleDropDown();
-        })
-        
-        // setTimeout(()=>{//open first then search the element
-        // }, 1000);
+        }, 600);
     };
     handleClickThread(id, room, msg) {
         this.handleOpenThread(room);
@@ -217,7 +214,7 @@ class SearchBarDropdown extends React.Component {
                 const ele = document.getElementById(id);
                 ele.scrollIntoView();
             })
-        }, 600);
+        }, 1200);
         this.props.handleDropDown();
     };
 

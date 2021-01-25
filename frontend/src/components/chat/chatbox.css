@@ -33,6 +33,7 @@
 
 .chatbox-list{
     display: flex;
+    justify-content: space-evenly;
 }
 
 .reply{
@@ -58,4 +59,8 @@ text-align: center;
    background-color: lightgray;
    border-radius: 5px;
    cursor: pointer;
+}
+
+li {
+    list-style: none;
 }
