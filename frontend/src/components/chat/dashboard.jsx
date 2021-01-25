@@ -286,10 +286,13 @@ class DashBoard extends React.Component{
                {
                   roomIds.map(id=>
                      {
-                     return (
-                        <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                     )}
-                     
+                        // debugger;
+                        if (id !== undefined){
+                     return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
+                         "" :  <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
+                        )}
+                     }
+
                   )
                }  
             </div>

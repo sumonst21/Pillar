@@ -19,6 +19,7 @@ class Sidebar extends React.Component{
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
         this.toggleRooms = this.toggleRooms.bind(this);
+
     }
 
     handleSearchInput(e){
@@ -54,6 +55,7 @@ class Sidebar extends React.Component{
        
     }
 
+
     componentDidMount(props){
         //   ;
         this.setState({ rooms: this.props.rooms })
@@ -72,18 +74,19 @@ class Sidebar extends React.Component{
         //      console.log(prevprops.rooms[roomId]) 
 
         //     })
+
     }
 
     render(){
         let roomsAvailable = this.props.roomsAvailable.data || [];
+        //  
         let rooms = this.state.rooms || this.props.rooms
         //   ;
         let roomIds = [];
         //   myRooms = this.state.myRooms;
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
-            // ;
-            //   
+
             roomIds.push(rooms[key]._id)}) 
         
         return(
@@ -139,6 +142,30 @@ class Sidebar extends React.Component{
                      )
                   }) : null}
                 </div>
+
+                <div className="myroomsdiv">
+                    {/* <h2>My Rooms</h2> */}
+                    <ul className="myrooms">
+                    {Object.keys(this.props.rooms).length > 0 ? 
+
+                    roomIds.map(id =>{
+                        //   debugger;
+                        if (id !== undefined) {
+                            return rooms[id].closedFor.includes(this.props.user.email)
+                            //   [this.props.user.username] 
+                            ? 
+                            (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
+                                // ,<button onClick= { this.toggleRooms }> Open</button>]
+                                ) :
+                                (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
+                                // <button onClick={this.toggleRooms}> Close</button>]
+                                ) 
+                            }
+                    }) 
+                    : ""}
+                        </ul>
+                </div>
+
             </div>
         )
     }

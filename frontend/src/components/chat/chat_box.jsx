@@ -16,7 +16,7 @@ class ChatBox extends React.Component{
       open: true, 
       openOrClose: 'close',
       emojiPicker: false,
-    };
+    }
 
     // 
 
@@ -27,7 +27,7 @@ class ChatBox extends React.Component{
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
     this.deleteRoom = this.deleteRoom.bind(this);
-  };
+  }
 
 
   componentDidMount(){
@@ -174,7 +174,10 @@ class ChatBox extends React.Component{
     let users = this.props.room.users || [];
 
     return (
-      <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.open === true ? 'close' : `${this.props.room.title}`}</button>
+      <div className={(this.state.open) ? 'open' : 'close'}>
+         {/* <button onClick={this.toggle}>{this.state.open === true ? 'close' : 'open'}</button> */}
+         <h2>{this.props.room.title}</h2>
+
         {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
 
