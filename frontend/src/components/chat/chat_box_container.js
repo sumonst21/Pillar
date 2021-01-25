@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchMessages, afterMessageSent } from '../../actions/message_actions';
 import ChatBox from './chat_box';
-import { editOpenFor, editClosedFor} from '../../actions/room_actions';
+import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, updateUserList, editClosedFor} from '../../actions/room_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,9 +16,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
    return {
       getMessages: (roomId) => dispatch(fetchMessages(roomId)),
-      afterMessageSent: (msg) => {dispatch(afterMessageSent(msg))},
-      editClosedFor: (roomId, email, id) => dispatch(editClosedFor(roomId, email, id)),
-      editOpenFor: (roomId, email, id) => dispatch(editOpenFor(roomId, email, id))
+      afterMessageSent: (msg) => {
+         dispatch(afterMessageSent(msg));
+      },
+      editClosedFor: (roomId, email, id) => dispatch(editClosedFor(roomId, email, id))
    }
 }
 

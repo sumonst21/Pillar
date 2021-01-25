@@ -95,7 +95,9 @@ class DashBoard extends React.Component{
             })
          })
       };
-
+      // if (this.props.rooms != prevProps) {
+      //    this.render()
+      // }
    }
 
    userLeft({ user, room }) { 
@@ -292,7 +294,6 @@ class DashBoard extends React.Component{
                          "" :  <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
                         )}
                      }
-
                   )
                }  
             </div>

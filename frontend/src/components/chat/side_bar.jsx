@@ -1,6 +1,9 @@
 import React from 'react';
+import {getRoomUsers} from '../../util/room_api_util'
 import SearchBarDropdown from './search_dropdown'
-
+import { getAvailableRooms, getRooms } from '../../util/room_api_util';
+import {getUser } from "../../util/session_api_util"
+import { updateRoom } from '../../actions/room_actions';
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
@@ -19,7 +22,6 @@ class Sidebar extends React.Component{
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
         this.toggleRooms = this.toggleRooms.bind(this);
-
     }
 
     handleSearchInput(e){
@@ -55,7 +57,6 @@ class Sidebar extends React.Component{
        
     }
 
-
     componentDidMount(props){
         //   ;
         this.setState({ rooms: this.props.rooms })
@@ -74,7 +75,6 @@ class Sidebar extends React.Component{
         //      console.log(prevprops.rooms[roomId]) 
 
         //     })
-
     }
 
     render(){
@@ -86,7 +86,8 @@ class Sidebar extends React.Component{
         //   myRooms = this.state.myRooms;
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
-
+            // ;
+            //   
             roomIds.push(rooms[key]._id)}) 
         
         return(
@@ -165,7 +166,6 @@ class Sidebar extends React.Component{
                     : ""}
                         </ul>
                 </div>
-
             </div>
         )
     }
