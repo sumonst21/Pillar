@@ -4,6 +4,8 @@ import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import EditReplyForm from './edit_reply_form';
 import * as cloneDeep from 'lodash/cloneDeep';
+import {switcheThread} from './../../components/chat/data_share';
+
 
 class Replies extends React.Component {
    constructor(props){
@@ -23,10 +25,18 @@ class Replies extends React.Component {
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
       this.deleteGifReply = this.deleteGifReply.bind(this);
-   }
+
+   };
+
+   componentDidMount(){
+      this.subscription = switcheThread.receiveOpenThread().subscribe(message=>{
+      if(message === this.props.message.message){
+        this.setState({repliesOpen: true});
+      }; 
+    })
+   };
 
    handleReply(e) {
-       
       this.state.replyBox === false ? 
          (this.props.replies  ?
            this.setState({ replyBox: true, repliesOpen: true })
@@ -38,11 +48,10 @@ class Replies extends React.Component {
 
    }
    handleChange(e){
-      //  
       this.setState({
          replyText: e.currentTarget.value
       })
-   }
+   };
 
    submitReply(e){
       e.preventDefault();
@@ -68,27 +77,27 @@ class Replies extends React.Component {
          replyText: "",
          repliesOpen: true,
       })
-   }
+   };
 
    toggleReplies() {
       this.state.repliesOpen === true ?
          this.setState({ repliesOpen: false, replyBox: false })
           : 
          this.setState({ repliesOpen: true, replyBox: true })
-   }
+   };
 
    selectEmoji(e, emojiObject) {
       let newMessage = this.state.replyText + emojiObject.emoji;
       this.setState({
          replyText: newMessage
       })
-   }
+   };
 
    openEmoji() {
       this.state.emojiPicker === true ?
          this.setState({ emojiPicker: false }) :
          this.setState({ emojiPicker: true })
-   }
+   };
 
    useGiphy(e) {
       e.preventDefault();
@@ -113,7 +122,7 @@ class Replies extends React.Component {
          replyText: "",
          repliesOpen: true,
       })
-   }
+   };
 
    deleteGifReply(e){
       let response = window.confirm(`Are you sure you want to delete your Gif?`);
@@ -141,6 +150,7 @@ class Replies extends React.Component {
                (
 
                   [msg.replies.map(reply => {
+                     // return (
                      if (reply.reply.includes("giphy")){
                         return (
                            <li key={reply._id} className="reply" >
