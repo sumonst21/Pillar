@@ -6,7 +6,6 @@ import MainPage from './main/main_page';
 import ChatBox from './chat/chat_box_container';
 import DashBoard from './chat/dashboard_container';
 import SplashPageContainer from './splash/splash_page_container';
-import NavBar from './nav/navbar_container';
 import "../stylesheets/index.scss";
 
 const App = () => (
