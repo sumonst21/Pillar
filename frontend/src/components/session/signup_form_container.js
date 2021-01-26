@@ -1,28 +1,25 @@
 import { connect } from 'react-redux';
 import { signup, login } from '../../actions/session_actions';
-import SignupForm from './signup_form';
-import {withRouter} from 'react-router-dom'
-
+import SessionForm from './session_form';
+import { openModal, closeModal } from '../../actions/modal_actions';
 
 const mapStateToProps = (state) => {
-    
   return {
     errors: state.errors.session,
-    authenticated: state.session.isAuthenticated,
-    signedIn: state.session
+    signedIn: state.session.isSignedIn,
+    formType: 'Sign up'
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-   
   return {
-    signup: user => dispatch(signup(user)),
-    login: user => dispatch(login(user))
+    processForm: user => dispatch(signup(user)),
+    switchForm: () => dispatch(openModal('login')),
+    closeModal: () => dispatch(closeModal()),
+  };
+};
 
-  }
-}
-
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignupForm));
+)(SessionForm);
