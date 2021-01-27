@@ -119,7 +119,34 @@
 }
 
 .logo-button h1 {
+  position: relative;
   font-weight: bolder;
   font-size: 100px;
   align-self: center;
+}
+
+.main-title.animated{
+  animation: MoveToBottom 5s normal forwards;
+}
+
+@keyframes MoveToBottom {
+  0% {
+    top: 0px;
+  }
+  100%{
+    top: 100px;
+  }
+}
+
+.main-title.unanimated{
+  animation: MoveBack 5s normal forwards;
+}
+
+@keyframes MoveBack {
+  0% {
+    top: 100px;
+  }
+  100%{
+    top: 0px;
+  }
 }

@@ -31,8 +31,12 @@ li.session-error-li {
     font-size: 15px;
 }
 
-@media only screen and (max-height: 909px) {
-    .logo-button h1 {
-        display: none;
-    }
+// @media only screen and (max-height: 909px) {
+//     .logo-button h1 {
+//         display: none;
+//     }
+// }
+
+body {
+  min-height: 900px;
 }

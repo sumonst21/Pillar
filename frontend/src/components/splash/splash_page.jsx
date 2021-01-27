@@ -12,6 +12,7 @@ class SplashPage extends React.Component {
   loginModal(e) {
     e.preventDefault();
     this.props.clearErrors();
+    document.getElementsByClassName("main-title")[0].classList.add('animated');
     this.props.openModal("login");
   }
 
@@ -21,7 +22,7 @@ class SplashPage extends React.Component {
       <div className="splash-wrapper">
         <div className="splash-container-1">
             <div className="logo-button">
-                <h1 onClick={this.loginModal}>PILLR</h1>
+                <h1 onClick={this.loginModal} className="main-title">PILLR</h1>
             </div>
         </div>
       </div>
