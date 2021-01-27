@@ -33,6 +33,7 @@ class SessionForm extends React.Component {
     };
     
     let user = (this.props.formType === 'Sign up') ? newUser : existingUser;
+    user.email = user.email.toLowerCase();
     
     this.props.processForm(user)
       .then(this.props.closeModal)
