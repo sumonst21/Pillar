@@ -4,21 +4,24 @@
     bottom: 0;
     right: 0;
     left: 0;
-    // background: rgba(0, 0, 0, 0.7);
     z-index: 10;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
 }
 
 .modal-child {
     position: relative;
     top: 8vh;
-    left: 32vw;
     width: 450px;
     min-width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media only screen and (max-height: 909px) {
+    .logo-button h1 {
+        display: none;
+    }
 }
