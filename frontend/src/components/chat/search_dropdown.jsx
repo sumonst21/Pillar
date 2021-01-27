@@ -175,7 +175,7 @@ class SearchBarDropdown extends React.Component {
                 let roomId = roomsJoined[Object.keys(roomsJoined)[i]]._id;
                 this.props.editClosedFor(roomId, email, userId)
                     .then(rooms => {
-                        debugger
+                        
                     })
             }
         }

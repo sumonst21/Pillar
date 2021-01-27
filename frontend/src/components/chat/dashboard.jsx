@@ -39,6 +39,7 @@ class DashBoard extends React.Component{
    //component did mount
    componentDidMount(){
       
+      this.props.closeModal();
       this.props.getRooms(this.props.user.id); //this pings the database
       
       getRooms(this.props.user.id)
