@@ -10,13 +10,25 @@ export default function UserList(props) {
     )
   });
    
+  debugger;
+  if (props.UserList === 'open' ){
+      return (
+        <div>
+          <p>List of current users in this room</p>
+          
+            <ul>
+              {currentMembers}
+            </ul>
+            
+          
+        </div>
+      )}
 
-  return (
-    <div>
-      <p>List of current users in this room</p>
-      <ul>
-        {currentMembers}
-      </ul>
-    </div>
-  )
+  else{
+    return (
+      <div>
+      
+      </div>
+    )
+  }
 }

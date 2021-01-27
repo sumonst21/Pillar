@@ -7,6 +7,7 @@ import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
 import {switches} from './data_share'
+import ClickOutHandler from 'react-onclickout';
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -16,11 +17,14 @@ class ChatBox extends React.Component{
       open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
+      userList: "close"
     }
 
     // 
 
     this.toggle = this.toggle.bind(this);
+    this.openUserList = this.openUserList.bind(this);
+    this.closeUserList = this.closeUserList.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
     this.openEmoji = this.openEmoji.bind(this);
@@ -142,6 +146,14 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
+  openUserList() {
+      this.setState({ userList: 'open' }) 
+  }
+
+  closeUserList() {
+      this.setState({ userList: 'close' })
+  }
+
   useGiphy(e){
     this.props.socket.emit("Create Message", {
       message: `${e.target.src}`,
@@ -165,38 +177,57 @@ class ChatBox extends React.Component{
     let users = this.props.room.users || [];
 
     return (
-      <div className={(this.state.open) ? 'open' : 'close'}>
-         {/* <button onClick={this.toggle}>{this.state.open === true ? 'close' : 'open'}</button> */}
-         <h2>{this.props.room.title}</h2>
+      <div className={(this.state.open) ? 'open' : 'close'}> 
         {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
+            <h1>{this.props.room.title}</h1>
+            <div className="message-area">
+              <div className='input-container' >
+                <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
+                {
+                  this.props.user.id === this.props.room.admin ? (
+                    <button onClick={this.deleteRoom}>Delete Room</button>
+                  )
+                  :              
+                  (null)
+                }
+                <form onSubmit={this.submitMessage}>
 
-            {/* <h1>{this.props.room.title}</h1> */}
-            <div className='input-container' >
-              <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
-              {
-                this.props.user.id === this.props.room.admin ? (
-                  <button onClick={this.deleteRoom}>Delete Room</button>
-                )
-                :              
-                (null)
-              }
-              <form onSubmit={this.submitMessage}>
+                  <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
+                </form>
+                  {this.state.emojiPicker === false ? 
+                  <button onClick={this.openEmoji} > ☺ </button> : 
+                  <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
 
-                <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-              </form>
-                {this.state.emojiPicker === false ? 
-                <button onClick={this.openEmoji} > ☺ </button> : 
-              <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
-
-              <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
+                <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
+              </div>
+              <ul>
+                  {messages}
+              </ul>
             </div>
-            <ul>
-                {messages}
-            </ul>
-            <UserList users={users}/>
+            <ClickOutHandler onClickOut={this.closeUserList}> 
+              {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}
+              
+              <div className="chatboxUsers" >
+                <p  onClick={this.openUserList} >List of current users in this room</p>
+                
+                { this.state.userList === "open" ?
+                <ul className="chatboxUl"> 
+                  {users.map(user => {
+                  return (
+                   <li>
+                    {user.username}
+                  </li>
+                  )})}
+                </ul>
+
+                  : ""}
+              </div>
+              {/* <UserList users={users} userList = {this.state.userList}/> */}
+            </ClickOutHandler>
           </div>
         ) : null}
+        <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
       </div>
     )
   }

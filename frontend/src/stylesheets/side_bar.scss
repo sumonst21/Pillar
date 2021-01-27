@@ -1,0 +1,77 @@
+.sidebar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 3px;
+  height: 70px;
+}
+
+.sidebar-left {
+  position: fixed;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+
+  & h1 {
+    margin-right: 2px;
+  }
+}
+
+.new-room-bar {
+  display: flex;
+}
+
+.myroomsdiv{
+  text-align: center;
+  margin: 0 auto;
+ 
+}
+
+.myrooms {
+  display: flex;
+
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.myrooms li {
+  padding: 5px;
+  margin: 5px;
+
+}
+.myrooms li:hover {
+  background-color: rgb(9, 173, 94);
+  border-radius: 10px;
+}
+
+li{
+  list-style: none;
+}
+
+.searchbar-dropdown{
+  z-index: 1;
+  background-color: rgb(71, 62, 62);
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.allrooms{
+   z-index: 1;
+  
+  
+}
+
+.allroomsul{
+  
+    border-radius: 5px;
+    padding-bottom: 5px;
+}
+
+.allroomsul li{
+   background-color: rgb(71, 62, 62);
+   font-size: smaller;
+   text-align: center;
+   margin: 0 auto;
+   color: white;
+   padding-bottom: 3px;
+}
