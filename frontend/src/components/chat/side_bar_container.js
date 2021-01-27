@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
 import Sidebar from './side_bar';
-import { fetchRoom } from '../../actions/room_actions';
+import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, updateUserList, editClosedFor } from '../../actions/room_actions';
 import { logout } from '../../actions/session_actions';
 
 const mapStateToProps = (state) => {
   //  
   return {
     user: state.session.user,
+    rooms: state.rooms,
+    messages: state.messages,
     loggedIn: state.session.isAuthenticated
     // errors: state.errors.session
   };
