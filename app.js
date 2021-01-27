@@ -107,12 +107,10 @@ io.on("connection", socket => {
 
   //EDIT MESSAGE
   socket.on("Edit Message", msg => {
-       
     connect.then(db => {
       try {
 
         const message = Message.findById(msg.id, (err, message)=>{
-           
           if (msg.reply){
             if (message.replies) {
               message.replies.push(msg)
@@ -206,6 +204,7 @@ io.on("connection", socket => {
       admin: room.admin,
       messages: [],
       users: room.users,
+      closedFor: []
     });
      
     newRoom.save().then(room => io.emit("room created", newRoom));

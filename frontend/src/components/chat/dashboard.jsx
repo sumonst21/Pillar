@@ -10,15 +10,17 @@ class DashBoard extends React.Component{
    constructor(props){
       super(props);
       this.socket = io();
+      
       this.state = {
          newTitle: "",
          roomsAvailable: [],
          roomsJoined: [],
          all: [],
          deletedRoom: null,
+         myRooms: this.props.user.rooms,
          errors: [],
       }
-
+      
       this.createNewRoom = this.createNewRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.joinRoom = this.joinRoom.bind(this);
@@ -93,6 +95,9 @@ class DashBoard extends React.Component{
             })
          })
       };
+      // if (this.props.rooms != prevProps) {
+      //    this.render()
+      // }
    }
 
    userLeft({ user, room }) { 
@@ -246,37 +251,48 @@ class DashBoard extends React.Component{
 
    render(){
       let rooms = this.props.rooms || {};
+      if (rooms.length > 0){
+         // 
+      }
       let roomIds = [];
+      //   myRooms = this.state.myRooms;
       console.log("Dashboard rendered");
       Object.keys(rooms).forEach(key => {
+         // ;
          roomIds.push(rooms[key]._id);  
       });
-
+      // rooms.forEach(room => {
+      //    ;
+      //    roomIds.push(room.roomId);
+      // });
+      // ;
       return(
-         <div>
-               <Sidebar 
-                  createNewRoom = {this.createNewRoom}
-                  newTitle={this.state.newTitle}
-                  handleChange={this.handleChange}
-                  joinRoom={this.joinRoom}
-                  roomsAvailable={this.state.roomsAvailable}
-                  allRooms = {this.state.all}
-                  errors = {this.state.errors}
-               />
-               {this.state.deletedRoom ? (
-                  <div className="deleted-room-alert">
-                     <h3>{`"${this.state.deletedRoom.title}" was deleted by the admin.`}</h3>
-                     <button onClick={this.ackDelete}>OK</button>
-                  </div>
-                  ) : (null)            
-               }
+         <div className="dashboard">
+            <Sidebar 
+               createNewRoom = {this.createNewRoom}
+               newTitle={this.state.newTitle}
+               handleChange={this.handleChange}
+               joinRoom={this.joinRoom}
+               roomsAvailable={this.state.roomsAvailable}
+               allRooms = {this.state.all}
+               errors = {this.state.errors}
+            />
+            {this.state.deletedRoom ? (
+               <div className="deleted-room-alert">
+                  <h3>{`"${this.state.deletedRoom.title}" was deleted by the admin.`}</h3>
+                  <button onClick={this.ackDelete}>OK</button>
+               </div>
+               ) : (null)            
+            }
             <div className="chatbox-list" >
                {
                   roomIds.map(id=>
                      {
-                        return (
-                           <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
-                        )
+                        // debugger;
+                        if (id !== undefined){
+                     return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
+                         "" :  <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>
+                        )}
                      }
                   )
                }  

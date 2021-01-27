@@ -35,8 +35,9 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => {
+              
               const payload = { id: user.id, username: user.username };
-
+              ;
               jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
                 res.json({
                   success: true,
@@ -66,10 +67,11 @@ router.post("/login", (req, res) => {
       errors.email = "This user does not exist";
       return res.status(400).json(errors);
     }
+    ;
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: user.id, username: user.username };
+        const payload = { id: user.id, username: user.username, email: user.email, rooms: user.rooms_subscribe_to };
 
         jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
           res.json({
@@ -86,11 +88,50 @@ router.post("/login", (req, res) => {
 });
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  // ;
+  // // User.findOne({ email: req.body.email }).then(user => {
+  // //  ROOMS = ["hi"];
+  //  JSON = ({
+  //   id: req.user.id,
+  //   username: req.user.username,
+  //   email: req.user.email,
+    
+
+  // });
+
+  // User.findById(req.user.id )
+  //   .populate({ path: 'rooms_subscribe_to' })
+  //   .then(user => {
+  //     let rooms = []
+  //     // user.rooms.forEach(room =>{
+  //     //   ;
+  //     // })
+  //     JSON.rooms = (user.rooms_subscribe_to)
+  //     
+  //     return res.json(JSON)
+  //   })
+  //   ;
+  return res.json({
+    id: req.user.id,
+    username: req.user.username,
+    email: req.user.email,
+    rooms: ROOMS
+
+  });
+})
+router.get('/user', (req, res) => {
+  ;
+ let rooms = [];
+  User.findOne({ email: req.body.email })
+    .populate({ path: 'rooms_subscribe_to'})
+    .exec().then(user => {
+    
+  })
   res.json({
     id: req.user.id,
     username: req.user.username,
-    email: req.user.email
+    email: req.user.email,
+    rooms: req.user.rooms_subscribe_to
   });
 })
-
 module.exports = router;

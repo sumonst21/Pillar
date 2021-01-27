@@ -17,8 +17,14 @@ const RoomSchema = new Schema({
   users:[{
     type: Schema.Types.ObjectId,
     ref: "User"
-  }]
-}, {
+  }],
+  closedFor: [{
+    type: String,
+  }],
+  
+},
+
+ {
   timestamps: true
 })
 

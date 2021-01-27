@@ -13,10 +13,12 @@ class ChatBox extends React.Component{
     super(props);
     this.state = {
       chatMessage: "",
-      open: true,
+      open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
     }
+
+    // 
 
     this.toggle = this.toggle.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +27,7 @@ class ChatBox extends React.Component{
     this.selectEmoji = this.selectEmoji.bind(this);
     this.useGiphy = this.useGiphy.bind(this);
     this.deleteRoom = this.deleteRoom.bind(this);
+    this.componentRefresh = this.componentRefresh.bind(this);
   }
 
 
@@ -35,6 +38,7 @@ class ChatBox extends React.Component{
        //this message has been saved to the database, now need to update redux and components
       console.log(msg);
        
+    // ;
       let newMessage = {
         id: msg._id,
         message: msg.message,
@@ -48,16 +52,41 @@ class ChatBox extends React.Component{
       this.props.afterMessageSent(newMessage);      
     });
 
-
+    
     this.subscription = switches.receiveOpen().subscribe(roomTitle=>{
       if(roomTitle === this.props.room.title){ //send an array or object with information about the room and open to true
         this.setState({open: true});//change the open directly but has a logic to determine it is the right room
       } 
-    })
+    });
+    
+    if(this.props.room.closedFor.includes(this.props.user.email)){
+      this.setState({open: false})
+    } else {
+      this.setState({open: true})
+    }
+
+    window.addEventListener('beforeunload', this.componentRefresh(this.props))
+     
+  };
+
+  componentRefresh(props){
+    // let user = this.props.user.username;
+    let email = props.user.email;
+    let id = props.user.id;
+     
+    if(this.state.open === false){
+       
+      props.editClosedFor(props.room._id, email,  id)
+    }
   };
 
   componentWillUnmount() {
     this.subscription.unsubscribe();
+    const props = this.props;
+    this.componentRefresh(props);
+    window.removeEventListener('beforeunload', this.componentRefresh);
+
+
   };   
 
   handleChange(e){
@@ -136,36 +165,38 @@ class ChatBox extends React.Component{
     let users = this.props.room.users || [];
 
     return (
-      <div className={(this.state.open) ? 'open' : 'close'}> <button onClick={this.toggle}>{this.state.openOrClose}</button>
+      <div className={(this.state.open) ? 'open' : 'close'}> 
         {(this.state.open ) ? (
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
-
             <h1>{this.props.room.title}</h1>
-            <div className='input-container' >
-              <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
-              {
-                this.props.user.id === this.props.room.admin ? (
-                  <button onClick={this.deleteRoom}>Delete Room</button>
-                )
-                :              
-                (null)
-              }
-              <form onSubmit={this.submitMessage}>
+            <div className="message-area">
+              <div className='input-container' >
+                <button onClick={this.props.leaveRoom} id={this.props.roomId}>Leave Room</button>
+                {
+                  this.props.user.id === this.props.room.admin ? (
+                    <button onClick={this.deleteRoom}>Delete Room</button>
+                  )
+                  :              
+                  (null)
+                }
+                <form onSubmit={this.submitMessage}>
 
-                <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-              </form>
-                {this.state.emojiPicker === false ? 
-                <button onClick={this.openEmoji} > ☺ </button> : 
-              <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
+                  <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
+                </form>
+                  {this.state.emojiPicker === false ? 
+                  <button onClick={this.openEmoji} > ☺ </button> : 
+                  <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
 
-              <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
+                <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
+              </div>
+              <ul>
+                  {messages}
+              </ul>
             </div>
-            <ul>
-                {messages}
-            </ul>
             <UserList users={users}/>
           </div>
         ) : null}
+        <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
       </div>
     )
   }

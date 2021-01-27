@@ -1,4 +1,4 @@
-import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil, getRoomUsers, leaveRoomUtil } from '../util/room_api_util';
+import { getRoom, getRooms, deleteRoomUtil, updateRoomUtil, createRoomUtil, getRoomUsers, leaveRoomUtil, editRoomClosedForUtil} from '../util/room_api_util';
 
 export const RECEIVE_ROOMS = "RECEIVE_ROOMS";
 export const RECEIVE_ROOM = "RECEIVE_ROOM";
@@ -88,3 +88,13 @@ export const fetchRooms = (userId) => dispatch => (
     .catch(err => console.log(err))
 );
 
+export const editClosedFor = (roomId, email, id) => dispatch => {
+   ;
+  return editRoomClosedForUtil(roomId, email, id)
+  .then(rooms => {
+     ;
+    // fetchRooms(id)
+    dispatch(receiveRooms(rooms));
+  })
+  // .catch(err => console.log(err))
+}
