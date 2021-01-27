@@ -11,6 +11,7 @@ class SplashPage extends React.Component {
 
   loginModal(e) {
     e.preventDefault();
+    this.props.clearErrors();
     this.props.openModal("login");
   }
 

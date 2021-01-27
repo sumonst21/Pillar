@@ -34,17 +34,16 @@ class SessionForm extends React.Component {
     
     let user = (this.props.formType === 'Sign up') ? newUser : existingUser;
     user.email = user.email.toLowerCase();
-    
-    this.props.processForm(user)
-      .then(this.props.closeModal)
+
+    this.props.processForm(user);
   }
     
   renderErrors() {
     return(
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
+      <ul className="session-errors">
+        {Object.keys(this.props.errors).map((error, i) => (
+          <li key={`error-${i}`} className="session-error-li">
+            {this.props.errors[error]}
           </li>
         ))}
       </ul>
@@ -108,13 +107,18 @@ class SessionForm extends React.Component {
                 {this.renderErrors()}
               </div>
             <div className="session-form-button-container">
-              
+              {formType === "Sign up" ? (
+                <span className="session-form-spacer">{switchFormLink}</span>
+              ) : null}
+
                 <input type="submit"
                   className="session-form-button-input"
                   id="form-action"
                   value={formType}
                 />
-                <span className="session-form-spacer">{switchFormLink}</span>
+                {formType === "Log in" ? (
+                  <span className="session-form-spacer">{switchFormLink}</span>
+                ):null}
                 
             </div>
             

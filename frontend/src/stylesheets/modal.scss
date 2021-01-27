@@ -20,6 +20,17 @@
     transform: translateX(-50%);
 }
 
+ul.session-errors {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+li.session-error-li {
+    line-height: 22px;
+    font-size: 15px;
+}
+
 @media only screen and (max-height: 909px) {
     .logo-button h1 {
         display: none;
