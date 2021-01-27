@@ -18,13 +18,20 @@ class SplashPage extends React.Component {
 
   render() {
 
+    let demoUser = { email: "demo_user@gmail.com", password: "password" };
+
     return (
-      <div className="splash-wrapper">
-        <div className="splash-container-1">
-            <div className="logo-button">
-                <h1 onClick={this.loginModal} className="main-title">PILLR</h1>
-            </div>
+      <div>
+        <div className="splash-wrapper">
+          <div className="splash-container-1">
+              <div className="logo-button">
+                  <h1 onClick={this.loginModal} className="main-title">PILLR</h1>
+              </div>
+          </div>
         </div>
+          <div className='demo-user-container'>
+            <div className="switch-form-link" onClick={()=> this.props.login(demoUser)}>Demo User</div>
+          </div>
       </div>
     );
   }

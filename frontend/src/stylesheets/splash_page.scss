@@ -112,7 +112,7 @@
   // box-shadow: 0 1px 8px 0 var(--container-color), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.logo-button:hover {
+.logo-button h1:hover {
   opacity: 0.5;
   cursor: pointer;
   background-color: var(--container-color);
@@ -149,4 +149,14 @@
   100%{
     top: 0px;
   }
+}
+
+
+.demo-user-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -58px;
+    height: 0px;
+    color: white;
 }
