@@ -7,6 +7,7 @@ import Picker from 'emoji-picker-react';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
 import {switches} from './data_share'
+import ClickOutHandler from 'react-onclickout';
 
 class ChatBox extends React.Component{
   constructor(props) {
@@ -16,11 +17,14 @@ class ChatBox extends React.Component{
       open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
+      userList: "close"
     }
 
     // 
 
     this.toggle = this.toggle.bind(this);
+    this.openUserList = this.openUserList.bind(this);
+    this.closeUserList = this.closeUserList.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submitMessage = this.submitMessage.bind(this);
     this.openEmoji = this.openEmoji.bind(this);
@@ -142,6 +146,14 @@ class ChatBox extends React.Component{
     this.setState({open: true, openOrClose: 'close'});
   }
 
+  openUserList() {
+      this.setState({ userList: 'open' }) 
+  }
+
+  closeUserList() {
+      this.setState({ userList: 'close' })
+  }
+
   useGiphy(e){
     this.props.socket.emit("Create Message", {
       message: `${e.target.src}`,
@@ -193,7 +205,26 @@ class ChatBox extends React.Component{
                   {messages}
               </ul>
             </div>
-            <UserList users={users}/>
+            <ClickOutHandler onClickOut={this.closeUserList}> 
+              {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}
+              
+              <div className="chatboxUsers" >
+                <p  onClick={this.openUserList} >List of current users in this room</p>
+                
+                { this.state.userList === "open" ?
+                <ul className="chatboxUl"> 
+                  {users.map(user => {
+                  return (
+                   <li>
+                    {user.username}
+                  </li>
+                  )})}
+                </ul>
+
+                  : ""}
+              </div>
+              {/* <UserList users={users} userList = {this.state.userList}/> */}
+            </ClickOutHandler>
           </div>
         ) : null}
         <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
