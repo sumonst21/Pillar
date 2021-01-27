@@ -97,6 +97,7 @@ class Sidebar extends React.Component{
             roomIds.push(rooms[key]._id)}) 
         
         return(
+            <div>
             <div className='sidebar-container'>
                 <div className="sidebar-left">
                     <h1>Pillr</h1>
@@ -127,59 +128,64 @@ class Sidebar extends React.Component{
                         <input type="text" value={this.props.newTitle} 
                         onChange={this.props.handleChange}
                         placeholder="Enter new room title"/>
+                        <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
                     </form>
 
-                    <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
+                   
                     <h3>{this.props.errors}</h3>
                 </div>
 
-                <div>
+                <div className="allrooms">
                     <button onClick={()=>this.displayRooms()}>Display All Joinable Chatrooms</button>
+                
+                    <div className="allroomsul" onMouseLeave={this.hideRooms}>
+                        {this.state && this.state.show_rooms === true ? 
+                        roomsAvailable.map(room => {
+                        return (
+                            <li id={room._id} key={room._id}>
+                            <p>
+                                Title: {room.title}
+                            </p>
+                            <p>
+                                Number of current users: {room.users.length}
+                            </p>
+                            <button id={room._id} onClick={this.props.joinRoom}>Join Room</button>
+                            </li>
+                        )
+                    }) : null}
+                    </div>
                 </div>
-                <div onMouseLeave={this.hideRooms}>
-                    {this.state && this.state.show_rooms === true ? 
-                    roomsAvailable.map(room => {
-                     return (
-                        <li id={room._id} key={room._id}>
-                        <p>
-                            Title: {room.title}
-                        </p>
-                        <p>
-                            Number of current users: {room.users.length}
-                        </p>
-                        <button id={room._id} onClick={this.props.joinRoom}>Join Room</button>
-                        </li>
-                     )
-                  }) : null}
-                </div>
-
-                <div className="myroomsdiv">
-                    {/* <h2>My Rooms</h2> */}
-                    <ul className="myrooms">
-                    {Object.keys(this.props.rooms).length > 0 ? 
-
-                    roomIds.map(id =>{
-                        //   debugger;
-                        if (id !== undefined) {
-                            return rooms[id].closedFor.includes(this.props.user.email)
-                            //   [this.props.user.username] 
-                            ? 
-                            (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
-                                // ,<button onClick= { this.toggleRooms }> Open</button>]
-                                ) :
-                                (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
-                                // <button onClick={this.toggleRooms}> Close</button>]
-                                ) 
-                            }
-                    }) 
-                    : ""}
-                        </ul>
-                </div>
+               
                 
                 <div>
                     <button onClick={this.logoutUser}>Logout</button>
                 </div>
+                  <br/>
+                
             </div>
+            <div className="myroomsdiv">
+                    {/* <h2>My Rooms</h2> */}
+                    <ul className="myrooms">
+                        {Object.keys(this.props.rooms).length > 0 ?
+
+                            roomIds.map(id => {
+                                //   debugger;
+                                if (id !== undefined) {
+                                    return rooms[id].closedFor.includes(this.props.user.email)
+                                        //   [this.props.user.username] 
+                                        ?
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Open {rooms[id].title}</li>
+                                            // ,<button onClick= { this.toggleRooms }> Open</button>]
+                                        ) :
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}> Close {rooms[id].title}</li>
+                                            // <button onClick={this.toggleRooms}> Close</button>]
+                                        )
+                                }
+                            })
+                            : ""}
+                    </ul>
+                </div>
+        </div >
         )
     }
 };

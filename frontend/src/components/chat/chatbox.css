@@ -22,10 +22,7 @@
     bottom: 0;
 }
 
-.chat-img{
-    width: 150px;
-     border-radius: 4px;
-}
+
 
 .emoji-picker-react{
     font-size: 5px;
@@ -39,3 +36,8 @@
 .reply{
     margin-left: 20px;
 } */
+
+.chat-img{
+    width: 200px;
+     border-radius: 4px;
+}
