@@ -4,6 +4,7 @@ import SearchBarDropdown from './search_dropdown'
 import { getAvailableRooms, getRooms } from '../../util/room_api_util';
 import {getUser } from "../../util/session_api_util"
 import { updateRoom } from '../../actions/room_actions';
+import ClickOutHandler from 'react-onclickout';
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
@@ -111,6 +112,7 @@ class Sidebar extends React.Component{
                             placeholder='type here to search'
                         />
                         {this.state.dropDown && this.state.searchInput.length !== 0 ? 
+                        <ClickOutHandler onClickOut={this.handleDropDown}> 
                             <SearchBarDropdown className='search-bar-dropdown-container'
                                 handleDropDown={this.handleDropDown}
                                 searchInput={this.state.searchInput} 
@@ -119,6 +121,7 @@ class Sidebar extends React.Component{
                                 user={this.props.user}
                                 editClosedFor= {this.props.editClosedFor}
                                 />
+                        </ClickOutHandler>
                             : null
                         }
                     </div>
