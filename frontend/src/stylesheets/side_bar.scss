@@ -1,0 +1,20 @@
+.sidebar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 3px;
+}
+
+.sidebar-left {
+  position: fixed;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+
+  & h1 {
+    margin-right: 2px;
+  }
+}
+
+.new-room-bar {
+  display: flex;
+}

@@ -267,23 +267,23 @@ class DashBoard extends React.Component{
       // });
       // ;
       return(
-         <div>
-               <Sidebar 
-                  createNewRoom = {this.createNewRoom}
-                  newTitle={this.state.newTitle}
-                  handleChange={this.handleChange}
-                  joinRoom={this.joinRoom}
-                  roomsAvailable={this.state.roomsAvailable}
-                  allRooms = {this.state.all}
-                  errors = {this.state.errors}
-               />
-               {this.state.deletedRoom ? (
-                  <div className="deleted-room-alert">
-                     <h3>{`"${this.state.deletedRoom.title}" was deleted by the admin.`}</h3>
-                     <button onClick={this.ackDelete}>OK</button>
-                  </div>
-                  ) : (null)            
-               }
+         <div className="dashboard">
+            <Sidebar 
+               createNewRoom = {this.createNewRoom}
+               newTitle={this.state.newTitle}
+               handleChange={this.handleChange}
+               joinRoom={this.joinRoom}
+               roomsAvailable={this.state.roomsAvailable}
+               allRooms = {this.state.all}
+               errors = {this.state.errors}
+            />
+            {this.state.deletedRoom ? (
+               <div className="deleted-room-alert">
+                  <h3>{`"${this.state.deletedRoom.title}" was deleted by the admin.`}</h3>
+                  <button onClick={this.ackDelete}>OK</button>
+               </div>
+               ) : (null)            
+            }
             <div className="chatbox-list" >
                {
                   roomIds.map(id=>

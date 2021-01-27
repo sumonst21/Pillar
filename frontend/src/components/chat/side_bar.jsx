@@ -17,11 +17,17 @@ class Sidebar extends React.Component{
             rooms: this.props.rooms,
             errors: {}
         };
+        this.logoutUser = this.logoutUser.bind(this);
         this.handleSearchInput = this.handleSearchInput.bind(this);
         this.handleDropDown = this.handleDropDown.bind(this);
         this.displayRooms = this.displayRooms.bind(this);
         this.hideRooms = this.hideRooms.bind(this);
         this.toggleRooms = this.toggleRooms.bind(this);
+    }
+
+    logoutUser(e) {
+        e.preventDefault();
+        this.props.logout();
     }
 
     handleSearchInput(e){
@@ -91,29 +97,32 @@ class Sidebar extends React.Component{
             roomIds.push(rooms[key]._id)}) 
         
         return(
-            <div className='sidebar-contaier'>
-                <div className='search-bar-container'>
-                    <input 
-                        className='search-bar' 
-                        type='text'
-                        onChange={this.handleSearchInput}
-                        onKeyDown={this.handleDropDown}
-                        value={this.state.searchInput}
-                        placeholder='type here to search'
-                    />
-                    {this.state.dropDown && this.state.searchInput.length !== 0 ? 
-                        <SearchBarDropdown className='search-bar-dropdown-container'
-                            handleDropDown={this.handleDropDown}
-                            searchInput={this.state.searchInput} 
-                            allRooms={this.props.allRooms}
-                            roomsAvailable={this.props.roomsAvailable}
-                            user={this.props.user}
-                            editClosedFor= {this.props.editClosedFor}
-                            />
-                        : null
-                    }
+            <div className='sidebar-container'>
+                <div className="sidebar-left">
+                    <h1>Pillr</h1>
+                    <div className='search-bar-container'>
+                        <input 
+                            className='search-bar' 
+                            type='text'
+                            onChange={this.handleSearchInput}
+                            onKeyDown={this.handleDropDown}
+                            value={this.state.searchInput}
+                            placeholder='type here to search'
+                        />
+                        {this.state.dropDown && this.state.searchInput.length !== 0 ? 
+                            <SearchBarDropdown className='search-bar-dropdown-container'
+                                handleDropDown={this.handleDropDown}
+                                searchInput={this.state.searchInput} 
+                                allRooms={this.props.allRooms}
+                                roomsAvailable={this.props.roomsAvailable}
+                                user={this.props.user}
+                                editClosedFor= {this.props.editClosedFor}
+                                />
+                            : null
+                        }
+                    </div>
                 </div>
-                <div>
+                <div className="new-room-bar">
                     <form onSubmit={this.props.createNewRoom}>
                         <input type="text" value={this.props.newTitle} 
                         onChange={this.props.handleChange}
@@ -165,6 +174,10 @@ class Sidebar extends React.Component{
                     }) 
                     : ""}
                         </ul>
+                </div>
+                
+                <div>
+                    <button onClick={this.logoutUser}>Logout</button>
                 </div>
             </div>
         )

@@ -1,0 +1,55 @@
+#root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background: linear-gradient(120deg, rgb(120, 235, 145), rgb(120, 206, 255));
+}
+
+// .dash-container-wrapper {
+//   justify-content: space-between;
+//   //   background: linear-gradient(
+//   //     120deg,
+//   //     rgb(41, 211, 208),
+//   //     rgba(240, 166, 202, 1)
+//   //   );
+//   overflow: hidden;
+// }
+
+// .dash-container {
+//   display: flex;
+//   height: 60%;
+//   margin-top: 10em;
+//   margin-left: 2em;
+//   margin-right: 2em;
+// }
+
+// #new-room-button {
+//   font-family: "Nunito Sans", sans-serif;
+//   color: white;
+//   background: rgba(255, 255, 255, 0.2);
+//   border: none;
+//   border-radius: 3px;
+//   font-size: larger;
+//   font-weight: bold;
+// }
+
+// #new-room-button:hover {
+//   cursor: pointer;
+//   background-color: rgba(255, 255, 255, 0.5);
+// }
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chatbox-list {
+  // position: relative;
+  overflow: scroll;
+  display: flex;
+  margin: 10px;
+}
