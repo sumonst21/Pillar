@@ -182,8 +182,10 @@ class ChatBox extends React.Component{
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
               <div className="chatbox-header-icons">
-                <i className="fas fa-times" id={this.props.roomId}  onClick={this.props.leaveRoom}></i>
-                <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
+                <div onClick={this.props.leaveRoom} id={this.props.roomId}>
+                  <i className="fas fa-times" ></i>
+                  <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
+                </div>
               </div>
             </div>
             <div className="message-ul">
