@@ -191,7 +191,7 @@ class ChatBox extends React.Component{
                 <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>
               }
               <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
-              <form onSubmit={this.submitMessage}>
+              <form className="message-input" onSubmit={this.submitMessage}>
                 <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
                 <button type="submit">Send</button>
               </form>
