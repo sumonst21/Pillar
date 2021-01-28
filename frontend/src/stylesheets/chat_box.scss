@@ -142,3 +142,25 @@
 .open {
   padding-right: 10px;
 }
+
+.chatbox-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatbox-header-icons {
+  display: flex;
+}
+
+.message-ul {
+  display: flex;
+}
+
+.input-container {
+  display: flex;
+}
