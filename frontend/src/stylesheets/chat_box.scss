@@ -169,3 +169,21 @@
   display: flex;
   flex-wrap: nowrap;
 }
+
+.chatboxUsers{
+  background-color: rgb(37, 31, 31);
+   font-size: smaller;
+   text-align: center;
+  //  display: inline;
+   color: white;
+   padding: 5px 5px;
+  margin: 5px 0;
+  border-radius: 3px;
+}
+
+.chatboxUl{
+  background-color: rgb(37, 31, 31);
+  margin: 5px 0;
+  //  display: inline;
+   color: white;
+}

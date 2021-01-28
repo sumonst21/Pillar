@@ -1,26 +1,28 @@
 .session-form-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(252, 248, 248, 0);
-  h1 {
-    margin: 0.5em auto;
-    color: #fff;
-    text-align: center;
-  }
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(252, 248, 248, 0);
+    justify-content: space-around;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    min-height: 240px;
 }
 
 .session-form-subcontainer {
-  background: rgba(255, 255, 255, 0.05);
-  width: 30%;
-  height: 35%;
-  border-radius: 0.2em;
-  position: relative;
-  top: 5%;
-  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+    /* background: rgba(255, 255, 255, 0.05); */
+    /* width: 30%; */
+    height: 100%;
+    /* border-radius: 0.2em; */
+    /* position: relative; */
+    /* top: 5%; */
+    /* box-shadow: 1px 1px 12px rgb(0 0 0 / 10%); */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
 
   // &__messages {
   //   &:nth-of-type(odd) .chatbox__messages__user-message--ind-message {
@@ -35,11 +37,12 @@
     background: rgba(255, 255, 255, 0.2);
     padding: 1em 0.8em;
     height: auto;
-    width: 65%;
+    width: 100%;
     border-radius: 5px;
     margin: 0.5em 1em;
     overflow: auto;
     border: none;
+    font-size: 13px;
   }
   //   &:nth-of-type(even) .chatbox__messages__user-message--ind-message {
   //     float: left;
@@ -81,17 +84,21 @@
 //   color: rgba(255, 255, 255, 0.9);
 // }
 
+#close-session-form-icon {
+    color: white;
+}
+#close-session-form-icon:hover {
+    cursor: pointer;  
+    color: rgb(209, 205, 205);
+}
+
 .close-session-form-icon-container {
   position: absolute;
-  right: 3%;
+  right: 2%;
   top: 2.5%;
 }
 
-.session-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+
 
 ::placeholder {
   font-family: "Nunito Sans", sans-serif;
@@ -101,29 +108,21 @@
 }
 
 .session-form-button-container {
-  background: rgba(255, 255, 255, 0.2);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  border: none;
-  width: 100%;
-  outline: none;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 300;
-  display: flex;
-  align-items: flex-end;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-direction: row;
 }
 
 .session-form-button-container > input {
-  box-sizing: content-box;
-  width: -moz-fit-content;
-  width: fit-content;
-  font-family: sans-serif;
-  font-weight: 700;
-  color: white;
-  margin: 0;
-  margin-right: 0.15em;
-  border-radius: initial;
+    width: 100px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: white;
+    height: 40px;
 }
 
 .session-form-button-container > input:hover {
@@ -131,19 +130,21 @@
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
+.session-form-button-input {
+  height: 25px;
+}
+
 .switch-form-link {
-  width: 6em;
-  font-family: sans-serif;
-  font-weight: bold;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 0.5em, 1em;
-  border-radius: 5px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 1.25em;
-  width: fit-content;
-  font-size: unset;
-  border-radius: initial;
+    font-family: sans-serif;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .switch-form-link:hover {
@@ -151,22 +152,19 @@
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.session-form-button-container h1 {
-  font-family: "Nunito Sans", sans-serif;
-  text-align: left;
-  padding-left: 0.5em;
-  font-size: large;
-  border-left: 0;
-  margin-left: 0;
-  /* margin-bottom: 0; */
-  padding-bottom: 0;
-  box-sizing: content-box;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: 0.15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: 0.15em; /* Adjust as needed */
-  animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite;
+h1.typing-h1 {
+    color: white;
+    font-family: "Nunito Sans", sans-serif;
+    text-align: left;
+    font-size: large;
+    margin-bottom: 11px;
+    padding-bottom: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-right: 0.15em solid orange;
+    white-space: nowrap;
+    letter-spacing: 0.15em;
+    animation: typing 2.5s steps(30, end), blink-caret 0.75s step-end infinite;
 }
 
 /* The typing effect */
@@ -175,7 +173,7 @@
     width: 0;
   }
   to {
-    width: 70%;
+    width: 100%;
   }
 }
 
@@ -191,13 +189,15 @@
 }
 
 .session-form-text-inputs {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: "Nunito Sans", sans-serif;
-  color: white;
-  font-size: large;
-  margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: "Nunito Sans", sans-serif;
+    color: white;
+    font-size: large;
+    align-items: center;
+    margin-top: 23px;
+    margin-bottom: 10px;
 }
 
 input:focus {
