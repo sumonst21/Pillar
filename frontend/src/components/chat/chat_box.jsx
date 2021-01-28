@@ -170,7 +170,7 @@ class ChatBox extends React.Component{
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
               <div className="chatbox-header-icons">
-                <i className="fa fa-times-circle" id={this.props.roomId}  onClick={this.props.leaveRoom}></i>
+                <button id={this.props.roomId}  onClick={this.props.leaveRoom}>Leave</button>
                 <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button>
               </div>
             </div>
