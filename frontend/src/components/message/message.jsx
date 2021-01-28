@@ -66,7 +66,7 @@ export default class Message extends Component {
         }
       </li>
     } else {
-      message = <li key={msg.id} id={this.props.id}>{msg.username} says: {msg.message}
+      message = <li className="message-li" key={msg.id} id={this.props.id}>{msg.username} says: {msg.message}
         {author &&
           <EditMessageForm socket={this.props.socket} msg={msg}/> 
         }
@@ -76,7 +76,7 @@ export default class Message extends Component {
 
    
     return (
-      <div>
+      <div className="message-container">
       {message}
 
         <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
