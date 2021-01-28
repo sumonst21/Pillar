@@ -1,0 +1,42 @@
+.modal-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.modal-child {
+    position: relative;
+    top: 8vh;
+    width: 450px;
+    min-width: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+ul.session-errors {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+li.session-error-li {
+    line-height: 22px;
+    font-size: 15px;
+}
+
+// @media only screen and (max-height: 909px) {
+//     .logo-button h1 {
+//         display: none;
+//     }
+// }
+
+body {
+  min-height: 900px;
+}

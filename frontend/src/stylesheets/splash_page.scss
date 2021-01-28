@@ -112,14 +112,51 @@
   // box-shadow: 0 1px 8px 0 var(--container-color), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.logo-button:hover {
+.logo-button h1:hover {
   opacity: 0.5;
   cursor: pointer;
   background-color: var(--container-color);
 }
 
 .logo-button h1 {
+  position: relative;
   font-weight: bolder;
   font-size: 100px;
   align-self: center;
+}
+
+.main-title.animated{
+  animation: MoveToBottom 5s normal forwards;
+}
+
+@keyframes MoveToBottom {
+  0% {
+    top: 0px;
+  }
+  100%{
+    top: 100px;
+  }
+}
+
+.main-title.unanimated{
+  animation: MoveBack 5s normal forwards;
+}
+
+@keyframes MoveBack {
+  0% {
+    top: 100px;
+  }
+  100%{
+    top: 0px;
+  }
+}
+
+
+.demo-user-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -58px;
+    height: 0px;
+    color: white;
 }
