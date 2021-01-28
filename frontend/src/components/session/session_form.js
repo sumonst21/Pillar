@@ -33,17 +33,17 @@ class SessionForm extends React.Component {
     };
     
     let user = (this.props.formType === 'Sign up') ? newUser : existingUser;
-    
-    this.props.processForm(user)
-      .then(this.props.closeModal)
+    user.email = user.email.toLowerCase();
+
+    this.props.processForm(user);
   }
     
   renderErrors() {
     return(
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
+      <ul className="session-errors">
+        {Object.keys(this.props.errors).map((error, i) => (
+          <li key={`error-${i}`} className="session-error-li">
+            {this.props.errors[error]}
           </li>
         ))}
       </ul>
@@ -98,8 +98,8 @@ class SessionForm extends React.Component {
     return (
       <div className="session-form-container">
         <div className="session-form-subcontainer" >
-          <div className="close-session-form-icon-container" >
-            <i className="fas fa-times" id="close-session-form-icon"  onClick={closeModal}></i>
+          <div className="close-session-form-icon-container" onClick={closeModal}>
+            <i className="fas fa-times" id="close-session-form-icon" ></i>
           </div>
           <form className="session-form" onSubmit={this.handleSubmit}>
               <div className="session-form-inputs">
@@ -107,17 +107,24 @@ class SessionForm extends React.Component {
                 {this.renderErrors()}
               </div>
             <div className="session-form-button-container">
-              <h1>Communication Made Better by PILLR</h1>
+              {formType === "Sign up" ? (
+                <span className="session-form-spacer">{switchFormLink}</span>
+              ) : null}
+
                 <input type="submit"
                   className="session-form-button-input"
                   id="form-action"
                   value={formType}
                 />
-                <span className="session-form-spacer">{switchFormLink}</span>
+                {formType === "Log in" ? (
+                  <span className="session-form-spacer">{switchFormLink}</span>
+                ):null}
                 
             </div>
             
           </form>
+          <h1 className="typing-h1">Communication Made Better by PILLR</h1>
+
         </div>
       </div>
     );
