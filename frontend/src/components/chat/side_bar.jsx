@@ -131,7 +131,7 @@ class Sidebar extends React.Component{
                         <input type="text" value={this.props.newTitle} 
                         onChange={this.props.handleChange}
                         placeholder="Enter new room title"/>
-                        <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
+                        <button onClick={this.props.createNewRoom}>New Room</button>
                     </form>
 
                    
@@ -139,7 +139,7 @@ class Sidebar extends React.Component{
                 </div>
 
                 <div className="allrooms">
-                    <button onClick={()=>this.displayRooms()}>Display All Joinable Chatrooms</button>
+                    <button onClick={()=>this.displayRooms()}>All Rooms</button>
                 
                     <div className="allroomsul" onMouseLeave={this.hideRooms}>
                         {this.state && this.state.show_rooms === true ? 
@@ -147,12 +147,12 @@ class Sidebar extends React.Component{
                         return (
                             <li id={room._id} key={room._id}>
                             <p>
-                                Title: {room.title}
+                                Room: {room.title}
                             </p>
                             <p>
-                                Number of current users: {room.users.length}
+                                {room.users.length} Members
                             </p>
-                            <button id={room._id} onClick={this.props.joinRoom}>Join Room</button>
+                            <button id={room._id} onClick={this.props.joinRoom}>Join</button>
                             </li>
                         )
                     }) : null}

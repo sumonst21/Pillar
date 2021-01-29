@@ -146,11 +146,23 @@
 .chatbox-container {
   display: flex;
   flex-direction: column;
+  overflow: scroll;
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 1.8%;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+
+  h1 {
+    font-size: x-large;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 700;
+  }
 }
 
 .chatbox-header {
   display: flex;
   justify-content: space-between;
+  padding: 3%;
 }
 
 .chatbox-header-icons {
@@ -159,10 +171,12 @@
 
 .message-ul {
   display: flex;
+  padding: 3%;
 }
 
 .input-container {
   display: flex;
+  padding: 2%;
 }
 
 .message-input {
@@ -170,27 +184,32 @@
   flex-wrap: nowrap;
 }
 
-.chatboxUsers{
+.chatboxUsers {
   background-color: rgb(37, 31, 31);
-   font-size: smaller;
-   text-align: center;
+  font-size: smaller;
+  text-align: center;
   //  display: inline;
-   color: white;
-   padding: 5px 5px;
+  color: white;
+  padding: 5px 5px;
   margin: 5px 0;
   border-radius: 3px;
+  cursor: pointer;
 }
 
-.chatboxUl{
+.chatboxUl {
   background-color: rgb(37, 31, 31);
   margin: 5px 0;
   //  display: inline;
-   color: white;
+  color: white;
 }
 
-
-.chat-img{
+.chat-img {
   width: 260px;
   border-radius: 7px;
   padding: 3px 0;
+}
+
+button,
+.leave-room-icon {
+  cursor: pointer;
 }
