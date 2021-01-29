@@ -5,6 +5,8 @@ import { getAvailableRooms, getRooms } from '../../util/room_api_util';
 import {getUser } from "../../util/session_api_util"
 import { updateRoom } from '../../actions/room_actions';
 import ClickOutHandler from 'react-onclickout';
+import NewRoomForm from './new_room_form/new_room_form_container';
+
 class Sidebar extends React.Component{
     constructor(props){
         super(props);
@@ -93,15 +95,18 @@ class Sidebar extends React.Component{
         //   myRooms = this.state.myRooms;
         console.log("Dashboard rendered");
         Object.keys(rooms).forEach(key => {
-            // ;
-            //   
-            roomIds.push(rooms[key]._id)}) 
+            roomIds.push(rooms[key]._id)})
+            
+        let extras = {
+            createNewRoom: this.props.createNewRoom,
+            socket: this.props.socket,
+        }
         
         return(
             <div>
             <div className='sidebar-container'>
                 <div className="sidebar-left">
-                    <h1>Pillr</h1>
+                    <h1>PILLAR</h1>
                     <div className='search-bar-container'>
                         <input 
                             className='search-bar' 
@@ -126,20 +131,31 @@ class Sidebar extends React.Component{
                         }
                     </div>
                 </div>
-                <div className="new-room-bar">
+                    <div className="logout-button create-room" 
+                        onClick={() => this.props.openModal({
+                            modal: 'create room',
+                            extras: extras
+                        })}>
+                    <div>Create New Room</div>
+                </div>
+                {/* <NewRoomForm createNewRoom={this.props.createNewRoom} 
+                            errors={this.props.errors}
+                            handleChange={this.props.handleChange}
+                            newTitle={this.props.newTitle}/> */}
+                {/* <div className="new-room-bar">
                     <form onSubmit={this.props.createNewRoom}>
                         <input type="text" value={this.props.newTitle} 
                         onChange={this.props.handleChange}
                         placeholder="Enter new room title"/>
-                        <button onClick={this.props.createNewRoom}>Create a New Chat Room</button>
+                        <div className="logout-button create-room" onClick={this.props.createNewRoom}>Create New Room</div>
                     </form>
 
                    
                     <h3>{this.props.errors}</h3>
-                </div>
+                </div> */}
 
                 <div className="allrooms">
-                    <button onClick={()=>this.displayRooms()}>Display All Joinable Chatrooms</button>
+                    <div className="logout-button available-chatrooms" onClick={()=>this.displayRooms()}>Available Rooms</div>
                 
                     <div className="allroomsul" onMouseLeave={this.hideRooms}>
                         {this.state && this.state.show_rooms === true ? 
@@ -160,8 +176,8 @@ class Sidebar extends React.Component{
                 </div>
                
                 
-                <div>
-                    <button onClick={this.logoutUser}>Logout</button>
+                <div className="logout-button" >
+                    <div onClick={this.logoutUser}>Logout</div>
                 </div>
                   <br/>
                 
