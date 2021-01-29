@@ -143,6 +143,33 @@
   padding-right: 10px;
 }
 
+.chatbox-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatbox-header-icons {
+  display: flex;
+}
+
+.message-ul {
+  display: flex;
+}
+
+.input-container {
+  display: flex;
+}
+
+.message-input {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .chatboxUsers{
   background-color: rgb(37, 31, 31);
    font-size: smaller;
@@ -159,4 +186,11 @@
   margin: 5px 0;
   //  display: inline;
    color: white;
+}
+
+
+.chat-img{
+  width: 260px;
+  border-radius: 7px;
+  padding: 3px 0;
 }

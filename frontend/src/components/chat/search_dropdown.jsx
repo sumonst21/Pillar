@@ -253,7 +253,7 @@ class SearchBarDropdown extends React.Component {
             <div className='searchbar-dropdown'>
                 <div className='message-results'>
                     {matchedMessages.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Messages Found</p>
                         :
                         <ul>
                             {matchedMessages.map(m => {
@@ -268,7 +268,7 @@ class SearchBarDropdown extends React.Component {
                 <p>------------------------------</p>
                 <div className='replies-results'>
                     {matchedReplies.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Replies Found</p>
                         :
                         <ul>
                             {matchedReplies.map(m => {
@@ -284,7 +284,7 @@ class SearchBarDropdown extends React.Component {
                 <p>------------------------------</p>
                 <div className='room-results'>
                     {matchedRooms.length === 0 ?
-                        <p>No Match Found</p>
+                        <p>No Rooms Found</p>
                         :
                         <ul>
                             {roomsJoinable.length === 0 ? null :

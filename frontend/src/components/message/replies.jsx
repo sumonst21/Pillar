@@ -146,6 +146,8 @@ class Replies extends React.Component {
 
       return(
          <div>
+           
+           
             {msg.replies && this.state.repliesOpen === true ?
                (
 
