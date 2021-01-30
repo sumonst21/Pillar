@@ -175,15 +175,15 @@ class Replies extends React.Component {
                      }
                   }),
 
-                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Close Thread</button> 
+                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Cancel</button> 
                   ])
                : (msg.replies.length > 0 ? 
                   (msg.replies.length > 1 ?
-                      <button className="replies-div" onClick={this.toggleReplies}> View {msg.replies.length} replies</button>
+                      <button className="replies-div" onClick={this.toggleReplies}> {msg.replies.length} replies</button>
                       :
-                     <button className="replies-div" onClick={this.toggleReplies}> View {msg.replies.length} reply</button>
+                     <button className="replies-div" onClick={this.toggleReplies}> {msg.replies.length} reply</button>
                   )
-                  : <button className="replies-div" onClick={this.toggleReplies}> Start Thread</button>)
+                  : <button className="replies-div" onClick={this.toggleReplies}> Reply</button>)
             }
             {this.state.replyBox === false ?
             // (<button onClick={this.handleReply}> Add Reply</button>)
