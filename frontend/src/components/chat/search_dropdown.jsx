@@ -258,7 +258,7 @@ class SearchBarDropdown extends React.Component {
                         <ul>
                             {matchedMessages.map(m => {
                                 return (
-                                    <li onClick={() => this.handleClickChatroom(`msg-${m[1]}-${m[2]}`)}>
+                                    <li className="click-search" onClick={() => this.handleClickChatroom(`msg-${m[1]}-${m[2]}`)}>
                                         Message: {m[0]} Room: {m[1]}
                                     </li>
                                 )
@@ -274,7 +274,7 @@ class SearchBarDropdown extends React.Component {
                             {matchedReplies.map(m => {
                                 const masterMessage = this.findRepliesMasterMessage(m[3], roomsJoined)//this should return a list of master messages
                                 return (
-                                    <li onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1], masterMessage[0])}>
+                                    <li className="click-search" onClick={() => this.handleClickThread(`msg-reply-${m[3]}`, m[1], masterMessage[0])}>
                                         Thread Replies: {m[0]} Room: {m[1]}
                                     </li>
                                 )

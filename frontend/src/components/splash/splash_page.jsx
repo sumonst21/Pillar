@@ -13,7 +13,7 @@ class SplashPage extends React.Component {
     e.preventDefault();
     this.props.clearErrors();
     document.getElementsByClassName("main-title")[0].classList.add('animated');
-    this.props.openModal("login");
+    this.props.openModal({modal: "login"});
   }
 
   render() {
