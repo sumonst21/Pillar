@@ -31,10 +31,10 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
 ## Design execution
 
 * Single page dashboard
-        ** logic and code (maybe use a diagram for illustration)
+        * logic and code (maybe use a diagram for illustration)
 * chartooms operations
-        ** logic and code (emphsize backend heavy design for message-chatroom assignments and why we favor it over frontend heavy: b/c as number of messages grow, frontend heavy design will delay chatroom load time as it takes longer to process data from backend)
+        * logic and code (emphsize backend heavy design for message-chatroom assignments and why we favor it over frontend heavy: b/c as number of messages grow, frontend heavy design will delay chatroom load time as it takes longer to process data from backend)
 * cross device state preservation
-        ** logic and code (discuss thought process and why this feature is important)
+        * logic and code (discuss thought process and why this feature is important)
 * algortithmic solution for searchbar
-        ** logic and code (compare search time between Pillar and slack using gif)
+        * logic and code (compare search time between Pillar and slack using gif)
