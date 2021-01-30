@@ -140,7 +140,6 @@ class Sidebar extends React.Component{
                             })}>
                         <div>Create New Room</div>
                     </div>
-
                     <div className="allrooms">
                         <div className="logout-button available-chatrooms" onClick={()=>this.displayRooms()}>Available Rooms</div>
                     
@@ -165,8 +164,8 @@ class Sidebar extends React.Component{
                     </div>
                 
                     
-                    <div className="logout-button" >
-                        <div onClick={this.logoutUser}>Logout</div>
+                        <div className="logout-button" onClick={this.logoutUser}>
+                        <div >Logout</div>
                     </div>
                     <br/>
                     
