@@ -41,4 +41,4 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
 * cross device state preservation
   * logic and code (discuss thought process and why this feature is important)
 * algortithmic solution for searchbar
-  * logic and code (compare search time between Pillar and slack using gif)
+  * logic and code (compare search time between Pillr and slack using gif)
