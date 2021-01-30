@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Sidebar from './side_bar';
 import { fetchRoom, fetchRooms, createRoom, removeRoom, editRoom, leaveRoom, updateUserList, editClosedFor } from '../../actions/room_actions';
 import { logout } from '../../actions/session_actions';
+import { openModal, closeModal } from '../../actions/modal_actions';
 
 const mapStateToProps = (state) => {
   //  
@@ -16,6 +17,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    openModal: (modal) => dispatch(openModal(modal)),
+    closeModal: () => dispatch(closeModal()),
     getRooms: (userId) => dispatch(fetchRooms(userId)),
     getRoom: (roomId) => dispatch(fetchRoom(roomId)),
     createRoom: (room) => dispatch(createRoom(room)),
