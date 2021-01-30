@@ -2,7 +2,7 @@
 
 Communication Made Better by PILLR [Live](pillrz.herokuapp.com)
 
-## Mission Statement 
+### Mission Statement 
 
 Pillr was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communication. Slack is all fine and dandy(despite having a sluggish searchbar) until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
 
@@ -12,7 +12,7 @@ In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack 
 
 (insert gif here)
 
-## Tech Stack
+### Tech Stack
 
 * [MongoDB](https://www.mongodb.com/)
 * [Express](https://expressjs.com/)
@@ -21,7 +21,7 @@ In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack 
 * [Socket.io](https://socket.io/)
 * [RxJS](https://rxjs-dev.firebaseapp.com/)
 
-## Design roadmap
+### Design roadmap
 
 To enhance user experience, we sketched out a design to **optimize the efficiency for ease of use**, which includes: 
 * a single page dashboard that provides accessibility to all of Pillr's features; (insert screenshot here);
@@ -29,7 +29,7 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
 * cross device state preservation for chatroom display; (insert screenshots) 
 * algorithmic solution(Boyer-Moore) for fast seach result lookup. (insert gifs)
 
-## Design execution
+### Design execution
 
 * Single page dashboard
   * logic and code (maybe use a diagram for illustration)
