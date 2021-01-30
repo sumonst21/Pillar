@@ -20,7 +20,7 @@ In short, you can think of Pillar as our attempt to create a 'dashboarded' Slack
 * [Socket.io](https://socket.io/)
 * [RxJS](https://rxjs-dev.firebaseapp.com/)
 
-## Our design roadmap
+## Design roadmap
 
 To enhance user experience, we sketched out a design to **optimize the efficiency for ease of use**, which includes: 
 * a single page dashboard that provides accessibility to all of Pillar's features; (insert screenshot here);
