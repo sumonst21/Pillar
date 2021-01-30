@@ -6,7 +6,7 @@ Communication Made Better by PILLR [Live](pillrz.herokuapp.com)
 
 (insert splash page gif here)
 
-Pillr was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communication. Slack is all fine and dandy(despite having a sluggish searchbar) until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
+Pillr was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communications. Slack is all fine and dandy(despite having a sluggish searchbar) until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
 
 As software developers, we work in groups, thus having an integrated UI for multi-channeled display comes in extremely handy when coordinating with different personel. To achieve this goal, we took inspiration from [TweetDeck](https://tweetdeck.twitter.com/), a dashboard application that is capable of receving multiple streams of tweets per user's customization. 
 
