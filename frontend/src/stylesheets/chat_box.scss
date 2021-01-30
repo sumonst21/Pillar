@@ -138,6 +138,12 @@
 //   font-weight: 600;
 //   margin: 0;
 // }
+.chatbox-list {
+  overflow: scroll;
+  display: flex;
+  margin: 10px;
+  height: 800px;
+}
 
 .open {
   padding-right: 10px;
@@ -146,11 +152,14 @@
 .chatbox-container {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  justify-content: space-between;
   position: relative;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 1.8%;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 5px;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
+  height: 780px;
+  width: 300px;
 
   h1 {
     font-size: x-large;
@@ -172,6 +181,11 @@
 .message-ul {
   display: flex;
   padding: 3%;
+  overflow: scroll;
+  height: 650px;
+  ul {
+    width: 100%;
+  }
 }
 
 .input-container {
@@ -212,4 +226,6 @@
 button,
 .leave-room-icon {
   cursor: pointer;
+  margin-right: 2px;
+  margin-bottom: 1px;
 }
