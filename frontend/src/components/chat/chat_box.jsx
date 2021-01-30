@@ -182,7 +182,7 @@ class ChatBox extends React.Component{
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
               <div className="chatbox-header-icons">
-                <div onClick={this.props.leaveRoom} id={this.props.roomId}>
+                <div className="leave-room-icon" onClick={this.props.leaveRoom} id={this.props.roomId}>
                   <i className="fas fa-times" ></i>
                   {/* <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button> */}
                 </div>
@@ -214,7 +214,7 @@ class ChatBox extends React.Component{
               {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}
               
               <div className="chatboxUsers" >
-                <p  onClick={this.openUserList} >List of current users in this room</p>
+                <p  onClick={this.openUserList} >Members</p>
                 
                 { this.state.userList === "open" ?
                 <ul className="chatboxUl"> 
@@ -228,7 +228,6 @@ class ChatBox extends React.Component{
 
                   : ""}
               </div>
-              {/* <UserList users={users} userList = {this.state.userList}/> */}
             </ClickOutHandler>
           </div>
         ) : null}

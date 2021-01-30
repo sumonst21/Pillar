@@ -69,9 +69,9 @@ export default class EditMessageForm extends Component {
           </form>
          ) 
         :
-        (<div>
-          <button onClick={this.handleClick}>Edit Message</button>
-          <button onClick={this.handleDelete}>Delete Message</button>
+        (<div className="message-li-buttons-change">
+          <button onClick={this.handleClick}>Edit</button>
+          <button onClick={this.handleDelete}>Delete</button>
           </div>
         )}
       </div>
