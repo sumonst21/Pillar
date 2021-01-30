@@ -178,6 +178,11 @@
   display: flex;
 }
 
+.chatbox-header-icons:hover {
+    cursor: pointer;
+    color: rgb(156, 154, 154);
+}
+
 .message-ul {
   display: flex;
   padding: 3%;
