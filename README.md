@@ -17,8 +17,11 @@ In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack 
 * [MongoDB](https://www.mongodb.com/)
 * [Express](https://expressjs.com/)
 * [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
 * [Node.js](https://nodejs.org/en/)
 * [Socket.io](https://socket.io/)
+* [Node-sass](https://www.npmjs.com/package/node-sass)
+* [Emoji-picker-react](https://www.npmjs.com/package/emoji-picker-react)
 * [RxJS](https://rxjs-dev.firebaseapp.com/)
 
 ### Design roadmap
