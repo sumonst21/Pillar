@@ -103,12 +103,14 @@ class Sidebar extends React.Component{
         }
         
         return(
-            <div>
+            <div className="sidebar-parent">
             <div className='sidebar-container'>
                 <div className="sidebar-left">
                     <h1>PILLAR</h1>
+                    
                 </div>
-            
+
+                    
                 <div className="sidebar-right">
                         <div className='search-bar-container'>
                             <input 
@@ -163,10 +165,16 @@ class Sidebar extends React.Component{
                         }) : null}
                         </div>
                     </div>
-                
+                        <div className="logout-button create-room"
+                            onClick={() => this.props.openModal({
+                                modal: 'team',
+                                extras: extras
+                            })}>Our Team
+                        </div>
                     
                         <div className="logout-button" onClick={this.logoutUser}>
                         <div >Logout</div>
+                        
                     </div>
                     <br/>
                     
