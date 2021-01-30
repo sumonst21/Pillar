@@ -107,80 +107,70 @@ class Sidebar extends React.Component{
             <div className='sidebar-container'>
                 <div className="sidebar-left">
                     <h1>PILLAR</h1>
-                    <div className='search-bar-container'>
-                        <input 
-                            className='search-bar' 
-                            type='text'
-                            onChange={this.handleSearchInput}
-                            onKeyDown={this.handleDropDown}
-                            value={this.state.searchInput}
-                            placeholder='type here to search'
-                        />
-                        {this.state.dropDown && this.state.searchInput.length !== 0 ? 
-                        <ClickOutHandler onClickOut={this.handleDropDown}> 
-                            <SearchBarDropdown className='search-bar-dropdown-container'
-                                handleDropDown={this.handleDropDown}
-                                searchInput={this.state.searchInput} 
-                                allRooms={this.props.allRooms}
-                                roomsAvailable={this.props.roomsAvailable}
-                                user={this.props.user}
-                                editClosedFor= {this.props.editClosedFor}
-                                />
-                        </ClickOutHandler>
-                            : null
-                        }
+                </div>
+            
+                <div className="sidebar-right">
+                        <div className='search-bar-container'>
+                            <input 
+                                className='search-bar' 
+                                type='text'
+                                onChange={this.handleSearchInput}
+                                onKeyDown={this.handleDropDown}
+                                value={this.state.searchInput}
+                                placeholder='Search'
+                            />
+                            {this.state.dropDown && this.state.searchInput.length !== 0 ? 
+                            <ClickOutHandler onClickOut={this.handleDropDown}> 
+                                <SearchBarDropdown className='search-bar-dropdown-container'
+                                    handleDropDown={this.handleDropDown}
+                                    searchInput={this.state.searchInput} 
+                                    allRooms={this.props.allRooms}
+                                    roomsAvailable={this.props.roomsAvailable}
+                                    user={this.props.user}
+                                    editClosedFor= {this.props.editClosedFor}
+                                    />
+                            </ClickOutHandler>
+                                : null
+                            }
+                        </div>
+                        <div className="logout-button create-room" 
+                            onClick={() => this.props.openModal({
+                                modal: 'create room',
+                                extras: extras
+                            })}>
+                        <div>Create New Room</div>
                     </div>
-                </div>
-                    <div className="logout-button create-room" 
-                        onClick={() => this.props.openModal({
-                            modal: 'create room',
-                            extras: extras
-                        })}>
-                    <div>Create New Room</div>
-                </div>
-                {/* <NewRoomForm createNewRoom={this.props.createNewRoom} 
-                            errors={this.props.errors}
-                            handleChange={this.props.handleChange}
-                            newTitle={this.props.newTitle}/> */}
-                {/* <div className="new-room-bar">
-                    <form onSubmit={this.props.createNewRoom}>
-                        <input type="text" value={this.props.newTitle} 
-                        onChange={this.props.handleChange}
-                        placeholder="Enter new room title"/>
-                        <div className="logout-button create-room" onClick={this.props.createNewRoom}>Create New Room</div>
-                    </form>
 
-                   
-                    <h3>{this.props.errors}</h3>
-                </div> */}
-
-                <div className="allrooms">
-                    <div className="logout-button available-chatrooms" onClick={()=>this.displayRooms()}>Available Rooms</div>
-                
-                    <div className="allroomsul" onMouseLeave={this.hideRooms}>
-                        {this.state && this.state.show_rooms === true ? 
-                        roomsAvailable.map(room => {
-                        return (
-                            <li id={room._id} key={room._id}>
-                            <p>
-                                Title: {room.title}
-                            </p>
-                            <p>
-                                Number of current users: {room.users.length}
-                            </p>
-                            <button id={room._id} onClick={this.props.joinRoom}>Join Room</button>
-                            </li>
-                        )
-                    }) : null}
+                    <div className="allrooms">
+                        <div className="logout-button available-chatrooms" onClick={()=>this.displayRooms()}>Available Rooms</div>
+                    
+                        <div className="allroomsul" onMouseLeave={this.hideRooms}>
+                            {this.state && this.state.show_rooms === true ? 
+                            roomsAvailable.map(room => {
+                            return (
+                                <li className="room-list" id={room._id} key={room._id}>
+                                    <p>
+                                        Title: {room.title}
+                                    </p>
+                                    <p>
+                                        Number of current users: {room.users.length}
+                                    </p>
+                                    <div className="join-room-button-div">
+                                        <button className="join-room-button" id={room._id} onClick={this.props.joinRoom}>Join Room</button>
+                                    </div>
+                                </li>
+                            )
+                        }) : null}
+                        </div>
                     </div>
-                </div>
-               
                 
-                <div className="logout-button" >
-                    <div onClick={this.logoutUser}>Logout</div>
+                    
+                    <div className="logout-button" >
+                        <div onClick={this.logoutUser}>Logout</div>
+                    </div>
+                    <br/>
+                    
                 </div>
-                  <br/>
-                
             </div>
             <div className="myroomsdiv">
                     {/* <h2>My Rooms</h2> */}
