@@ -10,7 +10,7 @@ Pillr was born out of our frustration with using [Slack](https://slack.com/intl/
 
 As software developers, we work in groups, thus having an integrated UI for multi-channeled display comes in extremely handy when coordinating with different personel. To achieve this goal, we took inspiration from [TweetDeck](https://tweetdeck.twitter.com/), a dashboard application that is capable of receving multiple streams of tweets per user's customization. 
 
-In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack that displays multiple channels to better facilitate real time group communications. 
+**In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack that displays multiple channels to better facilitate real time group communications.** 
 
 
 ### Tech Stack
