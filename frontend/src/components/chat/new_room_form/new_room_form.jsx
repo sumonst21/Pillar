@@ -39,7 +39,7 @@ class NewRoomForm extends React.Component {
       admin: this.props.user.id,
       users: this.props.user.id,
     }
-    debugger;
+    
     return (
       <div className="new-room-bar">
         <form className="new-room-form" onSubmit={() => createNewRoom(room)}>

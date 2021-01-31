@@ -7,19 +7,24 @@
   padding: 3%;
   margin-left: 0%;
   flex-direction: column;
+  word-break: break-word;
   p {
-    background: rgba(255, 255, 255, 0.2);
+    
     border-radius: 5px;
-    width: fit-content;
-    padding: 3%;
-    padding-left: 2%;
-    margin-bottom: 2%;
+    width: 100%;
     line-height: normal;
   }
   h6 {
     font-size: small;
     padding-bottom: 2%;
+    color: #667fce;
+    font-weight: 700;
   }
+}
+
+.message-container {
+    background: rgba(255, 255, 255, 0.2);
+    margin-bottom: 2px;
 }
 
 .message-li-buttons {

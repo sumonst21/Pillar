@@ -1,21 +1,30 @@
+.giphy-search-input{
+}
+
 .giphy-ul{
-   display: inline-flex;
+   display: flex;
    border: 1px solid gray;
    background-color: black;
      padding: 4px;
-     height: 50px;
-  
+     position: relative;
+     right: 30px;
+     bottom: 90px;
+     height: 40px;
+     width: 275px;
+     overflow: hidden;
+   
 }
 .giphy-ul:first-child {
    
 }
 
 .giphy-li-img{
-   height: 41px;
+   width: 93%;
+   
  
 }
 .giphy-li-img:hover{
-   height: 45px;
+    width: 100%;
    cursor: pointer;
   
 }
