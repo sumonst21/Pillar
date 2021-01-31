@@ -263,6 +263,10 @@ button,
   margin-bottom: 1px;
 }
 
+button.text-input-button {
+    height: 100%;
+}
+
 aside.emoji-picker-react {
     background: #fff;
     display: flex;
