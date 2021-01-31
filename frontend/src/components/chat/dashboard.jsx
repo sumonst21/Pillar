@@ -119,7 +119,7 @@ class DashBoard extends React.Component{
    }
    
    createNewRoom(newRoom){
-      debugger;
+      
       this.socket.emit("Create Room", newRoom);
       this.setState({
          newTitle: "",
