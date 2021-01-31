@@ -195,9 +195,25 @@
   }
 }
 
+.message-text-input{
+  margin-right: 6px;
+
+}
+
 .input-container {
   display: flex;
   padding: 2%;
+  justify-content: space-between;
+  border-top: 2px solid white;
+  height: 25px;
+}
+
+input.message-text-input::placeholder {
+    color: #f5f0f069;
+}
+
+button.text-input-button:hover {
+    background-color: #7a65cd;
 }
 
 .message-input {
@@ -225,7 +241,7 @@
 }
 
 .chat-img {
-  width: 260px;
+  width: 281px;
   border-radius: 7px;
   padding: 3px 0;
 }
@@ -235,4 +251,21 @@ button,
   cursor: pointer;
   margin-right: 2px;
   margin-bottom: 1px;
+}
+
+aside.emoji-picker-react {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 320px;
+    width: 280px;
+    font-family: sans-serif;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0px 0px #efefef; 
+    overflow: hidden;
+    position: absolute;
+    bottom: 100px;
+    right: 9px;
 }

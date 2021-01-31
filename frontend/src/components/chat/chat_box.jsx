@@ -194,20 +194,20 @@ class ChatBox extends React.Component{
             <div className='input-container' >
               {
                 this.props.user.id === this.props.room.admin ? (
-                  <button onClick={this.deleteRoom}>Delete Room</button>
+                  <button className="text-input-button" onClick={this.deleteRoom}>Delete Room</button>
                 )
                 :              
                 (null)
               }
               {
                 this.state.emojiPicker === false ? 
-                <button onClick={this.openEmoji} > ☺ </button> : 
+                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
                 <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>
               }
               <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
               <form className="message-input" onSubmit={this.submitMessage}>
-                <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-                <button type="submit">Send</button>
+                <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                <button className="text-input-button" type="submit">Send</button>
               </form>
             </div>
             <ClickOutHandler onClickOut={this.closeUserList}> 

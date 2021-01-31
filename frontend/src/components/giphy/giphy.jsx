@@ -58,7 +58,7 @@ class Giphy extends React.Component {
       if(this.state.giphyBoxOpen === true){
          return(   
             <div>
-                  <button id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+               <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
                   <input type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Search Giphy" />
                   
                   {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
@@ -82,7 +82,7 @@ class Giphy extends React.Component {
          )
       }else{
          return(
-            <button id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+            <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
          )
       }
    }
