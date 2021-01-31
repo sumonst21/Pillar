@@ -1,5 +1,7 @@
 .sidebar-parent{
     position: fixed;
+    width: 100%;
+    z-index: 2;
 }
 
 .sidebar-container {
@@ -207,7 +209,9 @@ li{
 }
 
 .create-room-button:hover {
-  cursor: pointer;
+    cursor: pointer;
+    background-color: #64b546;
+    color: #6d66cefa;
 }
 
 label.new-room-label {
@@ -215,7 +219,7 @@ label.new-room-label {
 }
 
 ::placeholder {
-    color: gray;
+    color: white;
     font-size: 14px;
     padding: 0px 2px 0px 2px;
 }
