@@ -9,7 +9,6 @@
   flex-direction: column;
   word-break: break-word;
   p {
-    
     border-radius: 5px;
     width: 100%;
     line-height: normal;
@@ -23,23 +22,16 @@
 }
 
 .message-container {
-    background: rgba(255, 255, 255, 0.2);
-    margin-bottom: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin-bottom: 2px;
 }
 
 .message-li-buttons {
-  display: none;
   // margin-left: 2%;
   width: max-content;
 }
 
 .message-li-buttons-change {
-  display: flex;
-  flex-direction: column;
-}
-
-.message-li-text:hover + .message-li-buttons,
-.message-li-buttons:hover {
   display: flex;
   flex-direction: column;
 }
