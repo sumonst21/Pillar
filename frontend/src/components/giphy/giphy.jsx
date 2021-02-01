@@ -57,11 +57,11 @@ class Giphy extends React.Component {
    render(){
       if(this.state.giphyBoxOpen === true){
          return(   
-            <div className="giphydiv">
+            <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
                <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
-               <div className="giphy-search">
+               <div className={this.props.case ? "giphy-search" : "reply-giphy-search"}>
                   
-                  <ul className="giphy-ul">
+                  <ul className={this.props.case ? "giphy-ul" : "reply-giphy-ul"}>
                      {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
                         this.state.giphys.map(gifs => {                      
                                  return(
@@ -79,7 +79,7 @@ class Giphy extends React.Component {
          )
       }else{
          return(
-            <div className="giphydiv">
+            <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
                <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
                <div className="giphy-search"></div>
             </div>
