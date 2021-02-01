@@ -8,6 +8,18 @@
     flex-direction: column;
     align-items: center;
 }
+.reply-giphy-search{
+     background-color: #6684ce;
+    width: 280px;
+    right: 4px;
+    position: relative;
+    margin: 3px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
 
 .giphy-ul {
     display: flex;
@@ -22,6 +34,24 @@
 .giphy-ul:first-child {
    
 }
+.reply-giphydiv{
+    
+}
+
+.reply-giphy-ul {
+    display: flex;
+    padding: 4px;
+    right: 30px;
+    bottom: 90px;
+    height: 57px;
+    width: 285px;
+    overflow: hidden;
+    top: -125px;
+}
+.reply-giphy-ul:first-child {
+   
+}
+
 
 .giphy-li-img{
    width: 93%;
