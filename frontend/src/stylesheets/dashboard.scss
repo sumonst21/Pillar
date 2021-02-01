@@ -13,3 +13,11 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.chatbox-list {
+  // position: relative;
+  overflow: scroll;
+  display: flex;
+  margin: 10px;
+  margin-top: 150px;
+}

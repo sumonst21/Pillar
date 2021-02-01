@@ -60,11 +60,13 @@ export default class Message extends Component {
     
     let message;
     if (msg.message.includes('giphy')){
-      message = <li key={msg.id}>{msg.username} says: <img className="chat-img" src={msg.message} alt="image" />
-        {author && 
-          <button onClick={this.deleteGif}>Delete Gif</button>
-        }
-      </li>
+      message = <li className="message-li" key={msg.id}>
+                    <h6>{msg.username}: </h6>
+                    <img className="chat-img" src={msg.message} alt="image" />
+                  {author && 
+                    <button onClick={this.deleteGif}>Delete Gif</button>
+                  }
+                </li>         
     } else {
       message = 
       
