@@ -201,9 +201,9 @@
   display: flex;
 }
 
-span.chatbox-ellipsis:hover {
-  cursor: pointer;
-  color: rgb(156, 154, 154);
+.chatbox-header-icons:hover {
+    cursor: pointer;
+    color: rgb(156, 154, 154);
 }
 
 .message-ul {
@@ -215,7 +215,7 @@ span.chatbox-ellipsis:hover {
   }
 }
 
-.message-text-input {
+.message-text-input{
   margin-right: 6px;
   color: white;
 }
@@ -224,15 +224,16 @@ span.chatbox-ellipsis:hover {
   display: flex;
   padding: 2%;
   justify-content: space-between;
+  border-top: 2px solid white;
   height: 25px;
 }
 
 input.message-text-input::placeholder {
-  color: #f5f0f069;
+    color: #f5f0f069;
 }
 
 button.text-input-button:hover {
-  background-color: #7a65cd;
+    background-color: #7a65cd;
 }
 
 button.delete-input-button {
@@ -241,11 +242,8 @@ button.delete-input-button {
   padding-bottom: 3px;
 }
 
-button.delete-input-button:hover {
+button.delete-input-button:hover{
   background-color: #7a65cd;
-}
-button.delete-input-button:focus {
-  outline: none;
 }
 .message-input {
   display: flex;
@@ -253,13 +251,13 @@ button.delete-input-button:focus {
 }
 
 .chatboxUsers {
-  background-color: rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
   font-size: smaller;
   text-align: center;
   //  display: inline;
   color: white;
   padding: 5px 5px;
-  margin: 5px 0;
+  margin: 5px 0 0 0;
   border-radius: 3px;
   cursor: pointer;
   font-weight: bold;
@@ -267,7 +265,7 @@ button.delete-input-button:focus {
 }
 
 .chatboxUl {
-  margin: 5px 0;
+  margin: 5px 0 0 0;
   //  display: inline;
   color: white;
 }
@@ -281,36 +279,42 @@ button.delete-input-button:focus {
 button,
 .leave-room-icon {
   cursor: pointer;
-}
-
-button.text-input-button {
-  height: 100%;
-}
-
-button.text-input-button-invalid {
-  height: 100%;
-  color: #f5f0f069;
-}
-
-button.text-input-button-invalid:hover {
-  cursor: not-allowed;
+  margin-right: 2px;
+  margin-bottom: 1px;
 }
 
 aside.emoji-picker-react {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 320px;
+    width: 280px;
+    font-family: sans-serif;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0px 0px #efefef; 
+    overflow: hidden;
+    position: absolute;
+    bottom: 100px;
+    right: 17px;
+}
+
+aside.emoji-picker2{
   background: #fff;
-  display: flex;
-  flex-direction: column;
-  height: 320px;
-  width: 280px;
-  font-family: sans-serif;
-  border: 1px solid #efefef;
-  border-radius: 5px;
-  box-sizing: border-box;
-  box-shadow: 0 0px 0px #efefef;
-  overflow: hidden;
-  position: absolute;
-  bottom: 100px;
-  right: 9px;
+    display: flex;
+    flex-direction: column;
+    height: 320px;
+    width: 280px;
+    font-family: sans-serif;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0px 0px #efefef; 
+    overflow: hidden;
+    // position: absolute;
+    bottom: 100px;
+    right: 9px;
 }
 
 span.chatbox-ellipsis {

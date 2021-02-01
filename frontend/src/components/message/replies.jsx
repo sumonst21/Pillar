@@ -5,7 +5,7 @@ import Giphy from "../giphy/giphy";
 import EditReplyForm from './edit_reply_form';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {switcheThread} from './../../components/chat/data_share';
-
+import ClickOutHandler from 'react-onclickout';
 
 class Replies extends React.Component {
    constructor(props){
@@ -156,7 +156,7 @@ class Replies extends React.Component {
                      if (reply.reply.includes("giphy")){
                         return (
                            <li key={reply._id} className="reply" >
-                              {reply.username} says: <img className="chat-img" src={reply.reply} alt="image" />
+                              <h6>{reply.username}:</h6>  <img className="chat-img" src={reply.reply} alt="image" />
                               {reply.userId === this.props.user.id && 
                                  <button onClick={this.deleteGifReply} id={reply._id}>Delete Gif</button>
                               }
@@ -166,7 +166,7 @@ class Replies extends React.Component {
                      else{
                         return (
                            <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
-                              {reply.username} says: {reply.reply}
+                              <h6>{reply.username}:</h6>  {reply.reply}
                               {reply.userId === this.props.user.id &&
                                  <EditReplyForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
                               }
@@ -198,7 +198,13 @@ class Replies extends React.Component {
                   </form>
                      {this.state.emojiPicker === false ?
                         <button onClick={this.openEmoji} > ☺ </button> :
-                        <div onMouseLeave={this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>}
+                        <div onClick={this.openEmoji}>
+                           <ClickOutHandler onClickOut={this.openEmoji} >
+                              <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
+
+                              <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                           </ClickOutHandler>
+                        </div>}
                      <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
                      {/* <button onClick={this.handleReply}> Cancel</button> */}
                </div>
