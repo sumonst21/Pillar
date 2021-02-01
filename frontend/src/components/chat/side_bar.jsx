@@ -58,6 +58,7 @@ class Sidebar extends React.Component{
         let email = this.props.user.email;
         let id = this.props.user.id;
         // e.target.id 
+        // debugger
         this.props.editClosedFor(e.target.id, email,  id)
         .then(rooms => {
               ;
