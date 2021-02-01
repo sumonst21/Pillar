@@ -279,11 +279,12 @@ aside.emoji-picker-react {
     box-sizing: border-box;
     box-shadow: 0 0px 0px #efefef; 
     overflow: hidden;
-    bottom: 340px;
-    right: 3px;
+    position: absolute;
+    bottom: 100px;
+    right: 17px;
 }
 
-.emoji-picker2{
+aside.emoji-picker2{
   background: #fff;
     display: flex;
     flex-direction: column;
@@ -295,6 +296,7 @@ aside.emoji-picker-react {
     box-sizing: border-box;
     box-shadow: 0 0px 0px #efefef; 
     overflow: hidden;
+    // position: absolute;
     bottom: 100px;
     right: 9px;
 }
