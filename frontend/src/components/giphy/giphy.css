@@ -87,6 +87,9 @@
     height: 25px;
 }
 
+.text-input-button{
+    height: 100%;
+}
 .text-input-button:focus {
    outline: none;
 }
