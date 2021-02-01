@@ -58,7 +58,7 @@ class Sidebar extends React.Component{
         let email = this.props.user.email;
         let id = this.props.user.id;
         // e.target.id 
-        // debugger
+        debugger
         this.props.editClosedFor(e.target.id, email,  id)
         .then(rooms => {
               ;
@@ -191,10 +191,10 @@ class Sidebar extends React.Component{
                                     return rooms[id].closedFor.includes(this.props.user.email)
                                         //   [this.props.user.username] 
                                         ?
-                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Show <span className="room-name">{rooms[id].title}</span></li>
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Show {rooms[id].title}</li>
                                             // ,<button onClick= { this.toggleRooms }> Open</button>]
                                         ) :
-                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}> Hide <span className="room-name">{rooms[id].title}</span></li>
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}> Hide {rooms[id].title}</li>
                                             // <button onClick={this.toggleRooms}> Close</button>]
                                         )
                                 }
