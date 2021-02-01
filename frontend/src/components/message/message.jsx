@@ -66,6 +66,8 @@ export default class Message extends Component {
                   {author && 
                     <button onClick={this.deleteGif}>Delete Gif</button>
                   }
+
+                 <RepliesForm socket={this.props.socket} msg={msg} message={msg.message} />
                 </li>         
     } else {
       message = 
