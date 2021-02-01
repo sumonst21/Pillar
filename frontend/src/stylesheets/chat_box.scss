@@ -161,44 +161,13 @@
   width: 300px;
 
   h1 {
-<<<<<<< HEAD
-    display: inline;
-    white-space: nowrap;
-    overflow: hidden;
-=======
     font-size: x-large;
     font-family: "Nunito Sans", sans-serif;
     font-weight: 700;
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
   }
 }
 
 .chatbox-header {
-<<<<<<< HEAD
-  display: flex;
-  justify-content: space-between;
-  padding: 3%;
-  background-color: #6684ce;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  max-height: 36px;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-.chatbox-header-menu {
-  position: absolute;
-  top: 39px;
-  width: 110px;
-  left: 176px;
-  background-color: #6684ce;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  border-radius: 9px;
-  align-items: center;
-=======
     display: flex;
     justify-content: space-between;
     padding: 3%;
@@ -206,7 +175,6 @@
     background-color: #6684ce;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
 }
 
 .chatbox-header h1 {
@@ -233,11 +201,6 @@
 
 .message-text-input{
   margin-right: 6px;
-<<<<<<< HEAD
-  color: white;
-=======
-
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
 }
 
 .input-container {
@@ -256,18 +219,11 @@ button.text-input-button:hover {
     background-color: #7a65cd;
 }
 
-<<<<<<< HEAD
-button.delete-input-button {
-  margin: 3px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-=======
 button.delete-input-button{
   margin-left: 110px;
   position: relative;
   bottom: 1px;
   font-size: small;
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
 }
 
 button.delete-input-button:hover{
@@ -288,11 +244,6 @@ button.delete-input-button:hover{
   margin: 5px 0;
   border-radius: 3px;
   cursor: pointer;
-<<<<<<< HEAD
-  font-weight: bold;
-  line-height: normal;
-=======
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
 }
 
 .chatboxUl {
@@ -348,10 +299,3 @@ aside.emoji-picker2{
     right: 9px;
 }
 
-<<<<<<< HEAD
-span.chatbox-ellipsis {
-  margin: 3px;
-  padding: 3px;
-}
-=======
->>>>>>> c2f1066eca03749c8a68f1de85ff5fcc9da63b97
