@@ -1,6 +1,6 @@
 # Pillar
 
-Communication Made Better by Pillar [Live](Pillarz.herokuapp.com)
+Communication Made Better by Pillar [Live](https://pillrz.herokuapp.com/#/)
 
 ### Mission Statement 
 
