@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ClickOutHandler from 'react-onclickout';
 
 export default class ChatBoxHeaderOptions extends Component {
   constructor(props){
@@ -7,12 +8,19 @@ export default class ChatBoxHeaderOptions extends Component {
       menuOpen: false,
     }
     this.handleClick= this.handleClick.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
   handleClick(e){
     e.stopPropagation();
     this.state.menuOpen === true ? this.setState({menuOpen: false}) :
       this.setState({menuOpen: true});
+  }
+
+  closeMenu(){
+    this.setState({
+      menuOpen: false,
+    })
   }
 
 
@@ -30,15 +38,17 @@ export default class ChatBoxHeaderOptions extends Component {
         </span>
         {
           this.state.menuOpen ? (
-            <div className="chatbox-header-menu">
-              {deleteRoom}
-              <div className="leave-room-icon" >
-                <button className="delete-input-button" 
-                        onClick={this.props.leaveRoom} 
-                        id={this.props.roomId}>Leave Room
-                </button>
+            <ClickOutHandler onClickOut={this.closeMenu}>
+              <div className="chatbox-header-menu">
+                {deleteRoom}
+                <div className="leave-room-icon" >
+                  <button className="delete-input-button" 
+                          onClick={this.props.leaveRoom} 
+                          id={this.props.roomId}>Leave Room
+                  </button>
+                </div>
               </div>
-            </div>
+            </ClickOutHandler>
           ) : (null)
         }
 
