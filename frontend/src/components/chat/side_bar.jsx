@@ -152,10 +152,10 @@ class Sidebar extends React.Component{
                             return (
                                 <li className="room-list" id={room._id} key={room._id}>
                                     <p>
-                                        Title: {room.title}
+                                        Room: {room.title}
                                     </p>
                                     <p>
-                                        Number of current users: {room.users.length}
+                                        Members: {room.users.length}
                                     </p>
                                     <div className="join-room-button-div">
                                         <button className="join-room-button" id={room._id} onClick={this.props.joinRoom}>Join Room</button>
