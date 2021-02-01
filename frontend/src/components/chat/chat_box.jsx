@@ -16,7 +16,8 @@ class ChatBox extends React.Component{
       open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
-      userList: "close"
+      userList: "close",
+      send: false,
     }
 
     // 
