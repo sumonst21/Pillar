@@ -105,7 +105,7 @@ input.new-room-input {
   cursor: pointer;
 }
 .myrooms li:hover {
-  background-color: rgb(144, 144, 144);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 3px;
   cursor: pointer;
 }
@@ -131,7 +131,7 @@ li {
 
 .allroomsul {
   border-radius: 5px;
-  background-color: #6d66ce;
+  background-color: rgba(255, 255, 255, 0.75);
   position: absolute;
   top: 57px;
   display: flex;
@@ -141,7 +141,7 @@ li {
 }
 
 .allroomsul li {
-  background-color: rgba(189, 95, 233, 0.5);
+  background-color: #6684ce;
   font-size: smaller;
   text-align: center;
   color: white;
@@ -159,14 +159,14 @@ li {
 }
 .join-room-button {
   width: 80px;
-  background-color: rgba(216, 128, 236, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 5px;
   color: white;
   padding: 5px;
 }
 .join-room-button:hover {
-  background-color: rgba(200, 139, 214, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
 }
