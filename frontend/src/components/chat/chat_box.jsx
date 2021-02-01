@@ -212,12 +212,12 @@ class ChatBox extends React.Component{
                 </div>
               }
               <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
-              { document.getElementById(roomGiphy) !== null ? "" :
-            (<form className="message-input" onSubmit={this.submitMessage}>
+             
+              <form className="message-input" onSubmit={this.submitMessage}>
                 <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
                 <button className="text-input-button" type="submit">Send</button>
-              </form>)
-              }
+              </form>
+              
             </div>
             <ClickOutHandler onClickOut={this.closeUserList}> 
               {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}

@@ -59,30 +59,30 @@ class Giphy extends React.Component {
          return(   
             <div className="giphydiv">
                <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
-               <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Search Giphy" />
-               <ul className="giphy-ul">
-                  {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
-                     // <div> 
-                        
-                           this.state.giphys.map(gifs => {
-                              
-
-                              return(
-                              <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.handleSelection}>
-                                 <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
-                              </li>      
-                              )
-                              
-                           })
-                       
-                     // </div>
-                  ) : ""} 
-               </ul>
+               <div className="giphy-search">
+                  
+                  <ul className="giphy-ul">
+                     {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
+                        this.state.giphys.map(gifs => {                      
+                                 return(
+                                 <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.handleSelection}>
+                                    <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
+                                 </li>      
+                                 )
+                                 
+                              })
+                     ) : ""} 
+                  </ul>
+                  <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Enter a search term to find a Giphy" />
+               </div>
             </div>
          )
       }else{
          return(
-            <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+            <div className="giphydiv">
+               <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+               <div className="giphy-search"></div>
+            </div>
          )
       }
    }
