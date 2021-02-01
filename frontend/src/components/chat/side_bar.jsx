@@ -190,10 +190,10 @@ class Sidebar extends React.Component{
                                     return rooms[id].closedFor.includes(this.props.user.email)
                                         //   [this.props.user.username] 
                                         ?
-                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Show {rooms[id].title}</li>
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}>Show <span className="room-name">{rooms[id].title}</span></li>
                                             // ,<button onClick= { this.toggleRooms }> Open</button>]
                                         ) :
-                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}> Hide {rooms[id].title}</li>
+                                        (<li id={rooms[id]._id} onClick={this.toggleRooms}> Hide <span className="room-name">{rooms[id].title}</span></li>
                                             // <button onClick={this.toggleRooms}> Close</button>]
                                         )
                                 }
