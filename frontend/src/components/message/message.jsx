@@ -60,26 +60,36 @@ export default class Message extends Component {
     
     let message;
     if (msg.message.includes('giphy')){
-      message = <li key={msg.id}>{msg.username} says: <img className="chat-img" src={msg.message} alt="image" />
-        {author && 
-          <button onClick={this.deleteGif}>Delete Gif</button>
-        }
-      </li>
+      message = <li className="message-li" key={msg.id}>
+                    <h6>{msg.username}: </h6>
+                    <img className="chat-img" src={msg.message} alt="image" />
+                  {author && 
+                    <button onClick={this.deleteGif}>Delete Gif</button>
+                  }
+
+                 <RepliesForm socket={this.props.socket} msg={msg} message={msg.message} />
+                </li>         
     } else {
-      message = <li className="message-li" key={msg.id} id={this.props.id}>{msg.username} says: {msg.message}
-        {author &&
-          <EditMessageForm socket={this.props.socket} msg={msg}/> 
-        }
-       
+      message = 
+      
+      <li className="message-li" key={msg.id} id={this.props.id}>
+        <div className="message-li-text">
+          <h6>{msg.username}:</h6>
+          <p>{msg.message}</p>
+        </div>
+        <div className="message-li-buttons">
+          {
+            author && <EditMessageForm socket={this.props.socket} msg={msg}/> 
+          }       
+          <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
+        </div>
       </li>
     }
 
    
     return (
       <div className="message-container">
-      {message}
-
-        <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
+        {message}
       </div>
    
     )

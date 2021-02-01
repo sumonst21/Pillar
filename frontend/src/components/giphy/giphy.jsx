@@ -57,32 +57,32 @@ class Giphy extends React.Component {
    render(){
       if(this.state.giphyBoxOpen === true){
          return(   
-            <div>
-                  <button id="toggler" onClick={this.toggleGiphy}> Giphy </button>
-                  <input type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Search Giphy" />
+            <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
+               <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+               <div className={this.props.case ? "giphy-search" : "reply-giphy-search"}>
                   
-                  {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
-                     <div> 
-                        <ul className="giphy-ul">
-                           {this.state.giphys.map(gifs => {
-                              
-
-                              return(
-                              <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.handleSelection}>
-                                 <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
-                              </li>      
-                              )
-                              
-                           })}
-                        </ul>
-                     </div>
-                  ) : ""} 
-                  
+                  <ul className={this.props.case ? "giphy-ul" : "reply-giphy-ul"}>
+                     {this.state.giphys.length > 0 && this.state.keyword.length > 1 ? (
+                        this.state.giphys.map(gifs => {                      
+                                 return(
+                                 <li className="giphy-li" key={gifs.images.downsized.url} onClick={this.handleSelection}>
+                                    <img src={gifs.images.downsized.url} alt="" className="giphy-li-img" />
+                                 </li>      
+                                 )
+                                 
+                              })
+                     ) : ""} 
+                  </ul>
+                  <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Enter a search term to find a Giphy" />
+               </div>
             </div>
          )
       }else{
          return(
-            <button id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+            <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
+               <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Giphy </button>
+               <div className="giphy-search"></div>
+            </div>
          )
       }
    }

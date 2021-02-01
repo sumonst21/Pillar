@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import moment from "moment";
 import UserList  from './user_list.js';
 import Picker from 'emoji-picker-react';
+import ChatBoxHeaderOptions from './chatbox_header_options';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
 import {switches} from './data_share'
@@ -16,7 +17,8 @@ class ChatBox extends React.Component{
       open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
-      userList: "close"
+      userList: "close",
+      send: false,
     }
 
     // 
@@ -93,9 +95,17 @@ class ChatBox extends React.Component{
   };   
 
   handleChange(e){
+    let send;
+    
+    if (e.currentTarget.value.trim().length > 0){
+      send = true;
+    } else {
+      send = false;
+    }
     this.setState({
       chatMessage: e.currentTarget.value,
-    })
+      send: send,
+    });
   }
 
   selectEmoji(e, emojiObject){
@@ -131,6 +141,7 @@ class ChatBox extends React.Component{
 
     this.setState({
       chatMessage: "",
+      send: false,
     })
 
     const ele = document.getElementById(`chatbox-item-${room.title}`);
@@ -174,6 +185,7 @@ class ChatBox extends React.Component{
     
     let messages = this.props.room.messages.map((msg, index) => (<Message socket={this.props.socket} id={`msg-${this.props.room.title}-${index}`} msg={msg}/>)) || [];
     let users = this.props.room.users || [];
+    let roomGiphy = `${this.props.room.title}-giphysearch`
 
     return (
       <div className={(this.state.open) ? 'open' : 'close'}> 
@@ -181,40 +193,51 @@ class ChatBox extends React.Component{
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
-              <div className="chatbox-header-icons">
-                <div onClick={this.props.leaveRoom} id={this.props.roomId}>
-                  <i className="fas fa-times" ></i>
-                  {/* <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button> */}
-                </div>
-              </div>
+              <ChatBoxHeaderOptions user={this.props.user} 
+                                    room={this.props.room}
+                                    deleteRoom={this.deleteRoom}
+                                    leaveRoom={this.props.leaveRoom}
+                                    roomId={this.props.roomId}/>
+              
             </div>
             <div className="message-ul">
               <ul>{messages}</ul>
             </div>
             <div className='input-container' >
-              {
-                this.props.user.id === this.props.room.admin ? (
-                  <button onClick={this.deleteRoom}>Delete Room</button>
-                )
-                :              
-                (null)
-              }
+              
               {
                 this.state.emojiPicker === false ? 
-                <button onClick={this.openEmoji} > ☺ </button> : 
-                <div onMouseLeave= {this.openEmoji}> <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> </div>
+                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
+                
+                  <div onClick={this.openEmoji}>
+                  <ClickOutHandler onClickOut={this.openEmoji} >
+                    <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                
+                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                </ClickOutHandler>
+                </div>
               }
-              <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
-              <form className="message-input" onSubmit={this.submitMessage}>
-                <input type="text" value={this.state.chatMessage} onChange={this.handleChange} />
-                <button type="submit">Send</button>
+              <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
+             
+              {this.state.send === true ? (
+                <form className="message-input" onSubmit={this.submitMessage}>
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                  <button className="text-input-button" type="submit">Send</button>
+                </form>
+              ) : (
+                <form className="message-input">
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                <button className="text-input-button-invalid" type="submit">Send</button>
               </form>
+              )}
+
+              
             </div>
             <ClickOutHandler onClickOut={this.closeUserList}> 
               {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}
               
               <div className="chatboxUsers" >
-                <p  onClick={this.openUserList} >List of current users in this room</p>
+                <p  onClick={this.openUserList} >Members</p>
                 
                 { this.state.userList === "open" ?
                 <ul className="chatboxUl"> 
@@ -228,7 +251,6 @@ class ChatBox extends React.Component{
 
                   : ""}
               </div>
-              {/* <UserList users={users} userList = {this.state.userList}/> */}
             </ClickOutHandler>
           </div>
         ) : null}

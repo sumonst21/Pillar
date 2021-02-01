@@ -123,7 +123,7 @@ class SessionForm extends React.Component {
             </div>
             
           </form>
-          <h1 className="typing-h1">Communication Made Better by PILLR</h1>
+          <h1 className="typing-h1">Communication Made Better by PILLAR</h1>
 
         </div>
       </div>

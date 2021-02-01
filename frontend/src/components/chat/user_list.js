@@ -10,7 +10,7 @@ export default function UserList(props) {
     )
   });
    
-  debugger;
+  
   if (props.UserList === 'open' ){
       return (
         <div>
