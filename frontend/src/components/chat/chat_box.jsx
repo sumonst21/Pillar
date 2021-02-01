@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import moment from "moment";
 import UserList  from './user_list.js';
 import Picker from 'emoji-picker-react';
+import ChatBoxHeaderOptions from './chatbox_header_options';
 import Giphy from "../giphy/giphy";
 import Message from '../message/message_container';
 import {switches} from './data_share'
@@ -16,7 +17,8 @@ class ChatBox extends React.Component{
       open: true, //null
       openOrClose: 'close',
       emojiPicker: false,
-      userList: "close"
+      userList: "close",
+      send: false,
     }
 
     // 
@@ -93,9 +95,17 @@ class ChatBox extends React.Component{
   };   
 
   handleChange(e){
+    let send;
+    
+    if (e.currentTarget.value.trim().length > 0){
+      send = true;
+    } else {
+      send = false;
+    }
     this.setState({
       chatMessage: e.currentTarget.value,
-    })
+      send: send,
+    });
   }
 
   selectEmoji(e, emojiObject){
@@ -131,6 +141,7 @@ class ChatBox extends React.Component{
 
     this.setState({
       chatMessage: "",
+      send: false,
     })
 
     const ele = document.getElementById(`chatbox-item-${room.title}`);
@@ -182,19 +193,12 @@ class ChatBox extends React.Component{
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
-              {
-                this.props.user.id === this.props.room.admin ? (
-                  <button className="delete-input-button" onClick={this.deleteRoom}>Delete Room</button>
-                )
-                  :
-                  (null)
-              }
-              <div className="chatbox-header-icons">
-                <div className="leave-room-icon" onClick={this.props.leaveRoom} id={this.props.roomId}>
-                  <i className="fas fa-times" ></i>
-                  {/* <button className="toggle-room" onClick={this.toggle}>{this.state.openOrClose}</button> */}
-                </div>
-              </div>
+              <ChatBoxHeaderOptions user={this.props.user} 
+                                    room={this.props.room}
+                                    deleteRoom={this.deleteRoom}
+                                    leaveRoom={this.props.leaveRoom}
+                                    roomId={this.props.roomId}/>
+              
             </div>
             <div className="message-ul">
               <ul>{messages}</ul>
@@ -213,10 +217,18 @@ class ChatBox extends React.Component{
               }
               <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
              
-              <form className="message-input" onSubmit={this.submitMessage}>
-                <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
-                <button className="text-input-button" type="submit">Send</button>
+              {this.state.send === true ? (
+                <form className="message-input" onSubmit={this.submitMessage}>
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                  <button className="text-input-button" type="submit">Send</button>
+                </form>
+              ) : (
+                <form className="message-input">
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                <button className="text-input-button-invalid" type="submit">Send</button>
               </form>
+              )}
+
               
             </div>
             <ClickOutHandler onClickOut={this.closeUserList}> 

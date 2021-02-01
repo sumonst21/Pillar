@@ -59,7 +59,10 @@
 
 .text-input-button:focus {
    outline: none;
-   
+}
+
+.text-input-button-invalid:focus {
+   outline: none;
 }
 
 img.giphy-li-img {

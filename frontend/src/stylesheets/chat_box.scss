@@ -161,10 +161,10 @@
   width: 300px;
 
   h1 {
-    font-size: x-large;
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 700;
-  }
+    display: inline;
+    white-space: nowrap;
+    overflow: hidden;
+}
 }
 
 .chatbox-header {
@@ -174,13 +174,34 @@
   background-color: #6684ce;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  max-height: 36px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.chatbox-header-menu {
+    position: absolute;
+    top: 39px;
+    width: 110px;
+    left: 176px;
+    background-color: #6684ce;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 9px;
+    align-items: center;
+}
+
+.chatbox-header h1 {
+ display: inline
 }
 
 .chatbox-header-icons {
   display: flex;
 }
 
-.chatbox-header-icons:hover {
+span.chatbox-ellipsis:hover {
   cursor: pointer;
   color: rgb(156, 154, 154);
 }
@@ -214,19 +235,22 @@ button.text-input-button:hover {
 }
 
 button.delete-input-button {
-  margin-left: 110px;
-  position: relative;
-  bottom: 1px;
-  font-size: small;
+    margin: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 button.delete-input-button:hover {
   background-color: #7a65cd;
 }
+button.delete-input-button:focus {
+  outline: none;
+}
 .message-input {
   display: flex;
   flex-wrap: nowrap;
 }
+
 
 .chatboxUsers {
   background-color: rgba(255, 255, 255, 0.2);
@@ -257,12 +281,19 @@ button.delete-input-button:hover {
 button,
 .leave-room-icon {
   cursor: pointer;
-  margin-right: 2px;
-  margin-bottom: 1px;
 }
 
 button.text-input-button {
   height: 100%;
+}
+
+button.text-input-button-invalid {
+  height: 100%;
+  color: #f5f0f069;
+}
+
+button.text-input-button-invalid:hover {
+  cursor: not-allowed;
 }
 
 aside.emoji-picker-react {
@@ -280,4 +311,10 @@ aside.emoji-picker-react {
   position: absolute;
   bottom: 100px;
   right: 9px;
+}
+
+
+span.chatbox-ellipsis {
+    margin: 3px;
+    padding: 3px;
 }
