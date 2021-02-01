@@ -232,6 +232,7 @@ button.delete-input-button:hover {
   flex-wrap: nowrap;
 }
 
+
 .chatboxUsers {
   background-color: rgba(255, 255, 255, 0.2);
   font-size: smaller;
@@ -267,6 +268,15 @@ button,
 
 button.text-input-button {
   height: 100%;
+}
+
+button.text-input-button-invalid {
+  height: 100%;
+  color: #f5f0f069;
+}
+
+button.text-input-button-invalid:hover {
+  cursor: not-allowed;
 }
 
 aside.emoji-picker-react {

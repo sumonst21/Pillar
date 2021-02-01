@@ -94,9 +94,17 @@ class ChatBox extends React.Component{
   };   
 
   handleChange(e){
+    let send;
+    
+    if (e.currentTarget.value.trim().length > 0){
+      send = true;
+    } else {
+      send = false;
+    }
     this.setState({
       chatMessage: e.currentTarget.value,
-    })
+      send: send,
+    });
   }
 
   selectEmoji(e, emojiObject){
@@ -132,6 +140,7 @@ class ChatBox extends React.Component{
 
     this.setState({
       chatMessage: "",
+      send: false,
     })
 
     const ele = document.getElementById(`chatbox-item-${room.title}`);
@@ -214,10 +223,18 @@ class ChatBox extends React.Component{
               }
               <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
              
-              <form className="message-input" onSubmit={this.submitMessage}>
-                <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
-                <button className="text-input-button" type="submit">Send</button>
+              {this.state.send === true ? (
+                <form className="message-input" onSubmit={this.submitMessage}>
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                  <button className="text-input-button" type="submit">Send</button>
+                </form>
+              ) : (
+                <form className="message-input">
+                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                <button className="text-input-button-invalid" type="submit">Send</button>
               </form>
+              )}
+
               
             </div>
             <ClickOutHandler onClickOut={this.closeUserList}> 
