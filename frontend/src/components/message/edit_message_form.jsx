@@ -63,7 +63,7 @@ export default class EditMessageForm extends Component {
       <div>
         {this.state.displayForm ? ( 
           <form onSubmit={this.handleSubmit}>
-            <textarea value={this.state.chatMessage} onChange={this.handleChange}></textarea>
+          <input type="text" value={this.state.chatMessage} onChange={this.handleChange}></input>
           <input type="submit" value="Save"></input>
           <button onClick={this.handleClick}>Cancel</button>
           </form>

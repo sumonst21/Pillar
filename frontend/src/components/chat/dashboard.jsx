@@ -128,7 +128,7 @@ class DashBoard extends React.Component{
    }
 
    roomCreated(room){
-       
+      this.props.closeModal();
       let roomsJoined = cloneDeep(this.state.roomsJoined);
       let roomsAvail = cloneDeep(this.state.roomsAvailable);
       let allRooms = cloneDeep(this.state.all);
@@ -269,7 +269,6 @@ class DashBoard extends React.Component{
                {
                   roomIds.map(id=>
                      {
-                        // debugger;
                         if (id !== undefined){
                      return (this.props.rooms[id].closedFor.includes(this.props.user.email) ?
                          "" :  <ChatBox leaveRoom={this.leaveRoom} deleteRoom={this.deleteRoom} roomId={id} key={id} socket={this.socket}/>

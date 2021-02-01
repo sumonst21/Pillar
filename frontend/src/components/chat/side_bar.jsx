@@ -58,7 +58,7 @@ class Sidebar extends React.Component{
         let email = this.props.user.email;
         let id = this.props.user.id;
         // e.target.id 
-        debugger
+        
         this.props.editClosedFor(e.target.id, email,  id)
         .then(rooms => {
               ;
@@ -186,7 +186,7 @@ class Sidebar extends React.Component{
                         {Object.keys(this.props.rooms).length > 0 ?
 
                             roomIds.map(id => {
-                                //   debugger;
+                                //   ;
                                 if (id !== undefined) {
                                     return rooms[id].closedFor.includes(this.props.user.email)
                                         //   [this.props.user.username] 
