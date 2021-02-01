@@ -1,16 +1,16 @@
-# Pillr
+# Pillar
 
-Communication Made Better by PILLR [Live](pillrz.herokuapp.com)
+Communication Made Better by Pillar [Live](Pillarz.herokuapp.com)
 
 ### Mission Statement 
 
 (insert splash page gif here)
 
-Pillr was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communications. Slack is all fine and dandy until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
+Pillar was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communications. Slack is all fine and dandy until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
 
 As software developers, we work in groups, thus having an integrated UI for multi-channeled display comes in extremely handy when coordinating with different personel. To achieve this goal, we took inspiration from [TweetDeck](https://tweetdeck.twitter.com/), a dashboard application that is capable of receving multiple streams of tweets per user's customization. 
 
-**In short, you can think of Pillr as our attempt to create a 'dashboarded' Slack that displays multiple channels to better facilitate real time group communications.** 
+**In short, you can think of Pillar as our attempt to create a 'dashboarded' Slack that displays multiple channels to better facilitate real time group communications.** 
 
 
 ### Tech Stack
@@ -28,7 +28,7 @@ As software developers, we work in groups, thus having an integrated UI for mult
 ### Design roadmap
 
 To enhance user experience, we sketched out a design to **optimize the efficiency for ease of use**, which includes: 
-* a single page dashboard that provides accessibility to all of Pillr's features; (insert screenshot here);
+* a single page dashboard that provides accessibility to all of Pillar's features; (insert screenshot here);
 * lightweigt indempotent chatroom operations (create, delete, update, show, join/leave, post/delete messages); (insert multiple chatroom gifs here);
 * cross device state preservation for chatroom display; (insert screenshots) 
 * algorithmic solution(Boyer-Moore) for fast seach result lookup. (insert gifs)
@@ -42,4 +42,4 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
 * cross device state preservation
   * logic and code (discuss thought process and why this feature is important)
 * algortithmic solution for searchbar
-  * logic and code (compare search time between Pillr and slack using gif)
+  * logic and code (compare search time between Pillar and slack using gif)
