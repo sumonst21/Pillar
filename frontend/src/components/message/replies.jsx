@@ -175,7 +175,7 @@ class Replies extends React.Component {
                      }
                   }),
 
-                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Cancel</button> 
+                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Close</button> 
                   ])
                : (msg.replies.length > 0 ? 
                   (msg.replies.length > 1 ?
