@@ -295,27 +295,9 @@ aside.emoji-picker-react {
     box-sizing: border-box;
     box-shadow: 0 0px 0px #efefef; 
     overflow: hidden;
-    position: absolute;
-    bottom: 100px;
-    right: 17px;
 }
 
-aside.emoji-picker2{
-  background: #fff;
-    display: flex;
-    flex-direction: column;
-    height: 320px;
-    width: 280px;
-    font-family: sans-serif;
-    border: 1px solid #efefef;
-    border-radius: 5px;
-    box-sizing: border-box;
-    box-shadow: 0 0px 0px #efefef; 
-    overflow: hidden;
-    // position: absolute;
-    bottom: 100px;
-    right: 9px;
-}
+
 
 span.chatbox-ellipsis {
   margin: 3px;

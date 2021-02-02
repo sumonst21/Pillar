@@ -200,7 +200,9 @@ class Replies extends React.Component {
                         <button onClick={this.openEmoji} > ☺ </button> :
                         <div onClick={this.openEmoji}>
                            <ClickOutHandler onClickOut={this.openEmoji} >
-                              <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
+                              <div className="picker-wrapper-reply">
+                                 <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
+                              </div>
 
                               <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
                            </ClickOutHandler>

@@ -211,10 +211,12 @@ class ChatBox extends React.Component{
                 
                   <div onClick={this.openEmoji}>
                   <ClickOutHandler onClickOut={this.openEmoji} >
-                    <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                    <div className="picker-wrapper">
+                      <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                    </div>
                 
-                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
-                </ClickOutHandler>
+                    <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                  </ClickOutHandler>
                 </div>
               }
               <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
