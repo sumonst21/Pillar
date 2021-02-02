@@ -23,12 +23,21 @@
 
 .sidebar-left {
   margin-left: 22px;
+  display: flex;
+  align-items: center;
 
   & h1 {
     margin-right: 2px;
     color: white;
     font-size: 26px;
   }
+}
+
+.welcome-div {
+    color: white;
+    font-size: 12px;
+    margin-left: 20px;
+    width: max-content;
 }
 
 .team-modal {
