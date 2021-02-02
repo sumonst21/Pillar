@@ -206,30 +206,6 @@ class ChatBox extends React.Component{
             <div className="message-ul">
               <ul>{messages}</ul>
             </div>
-<<<<<<< HEAD
-            <div className='input-container' >
-              
-              {
-                this.state.emojiPicker === false ? 
-                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
-                
-                  <div onClick={this.openEmoji}>
-                  <ClickOutHandler onClickOut={this.openEmoji} >
-                    <div className="picker-wrapper">
-                      <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
-                    </div>
-                
-                    <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
-                  </ClickOutHandler>
-                </div>
-              }
-              <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
-             
-              {this.state.send === true ? (
-                <form className="message-input" onSubmit={this.submitMessage}>
-                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
-                  <button className="text-input-button" type="submit">Send</button>
-=======
             <div className="chatbox-bottom">
               <div className='input-container' >
                 
@@ -238,12 +214,14 @@ class ChatBox extends React.Component{
                     <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
                   
                     <div onClick={this.openEmoji}>
-                    <ClickOutHandler onClickOut={this.openEmoji} >
-                      <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                      <ClickOutHandler onClickOut={this.openEmoji} >
+                        <div className="picker-wrapper">
+                          <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                        </div>
                   
-                    <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
-                  </ClickOutHandler>
-                  </div>
+                        <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                      </ClickOutHandler>
+                    </div>
                 }
                 <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
               
@@ -256,7 +234,6 @@ class ChatBox extends React.Component{
                   <form className="message-input">
                     <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
                   <button className="text-input-button-invalid" type="submit">Send</button>
->>>>>>> afe05a090c63f1dc5412befc7783ce7e273ffa23
                 </form>
                 )}
 
