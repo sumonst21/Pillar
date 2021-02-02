@@ -28,7 +28,12 @@
 
 .message-li-buttons {
   // margin-left: 2%;
-  width: max-content;
+  width: 284px;
+}
+
+li.reply {
+    display: flex;
+    flex-direction: column;
 }
 
 .message-li-buttons-change {
