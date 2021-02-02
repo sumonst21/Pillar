@@ -8,18 +8,34 @@ export default class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      repliesOpen: false
+      repliesOpen: false,
+      showOptions: false,
     }
     this.editMessage = this.editMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
     this.deleteGif = this.deleteGif.bind(this);
-    this.toggleReplies = this.toggleReplies.bind(this)
+    this.toggleReplies = this.toggleReplies.bind(this);
+    this.showOptions = this.showOptions.bind(this);
   };
 
   componentDidMount(){
     this.props.socket.on("Message Edited", this.editMessage);
     this.props.socket.on("Message Deleted", this.deleteMessage);
   };
+
+  showOptions(e){
+    e.stopPropagation();
+    if (this.state.showOptions){
+      this.setState({
+        showOptions: false,
+      })
+    } else {
+      this.setState({
+        showOptions: true,
+      })
+    }
+  }
+ 
 
   editMessage(msg){
      
@@ -60,29 +76,37 @@ export default class Message extends Component {
     
     let message;
     if (msg.message.includes('giphy')){
-      message = <li className="message-li" key={msg.id}>
+      message = <li className="message-li" key={msg.id} id={`msg_${msg.id}`}
+                    onMouseEnter={this.showOptions} onMouseLeave={this.showOptions}>
+                  <div className="message-li-text">
                     <h6>{msg.username}: </h6>
                     <img className="chat-img" src={msg.message} alt="image" />
-                  {author && 
-                    <button onClick={this.deleteGif}>Delete Gif</button>
-                  }
-
-                 <RepliesForm socket={this.props.socket} msg={msg} message={msg.message} />
+                  </div>
+                  {this.state.showOptions ? (
+                    <div className="message-li-buttons">
+                      {author && 
+                        <button className="text-input-button2" onClick={this.deleteGif}>Delete Gif</button>
+                      }
+                      <RepliesForm socket={this.props.socket} msg={msg} message={msg.message} />
+                    </div>
+                  ) : (null)}
                 </li>         
     } else {
       message = 
-      
-      <li className="message-li" key={msg.id} id={this.props.id}>
+        <li className="message-li" key={msg.id} id={`msg_${msg.id}`} 
+            onMouseEnter={this.showOptions} onMouseLeave={this.showOptions}>
         <div className="message-li-text">
           <h6>{msg.username}:</h6>
           <p>{msg.message}</p>
         </div>
-        <div className="message-li-buttons">
-          {
-            author && <EditMessageForm socket={this.props.socket} msg={msg}/> 
-          }       
-          <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
-        </div>
+        {this.state.showOptions ? (
+          <div className="message-li-buttons">
+            {
+              author && <EditMessageForm socket={this.props.socket} msg={msg}/> 
+            }       
+            <RepliesForm socket={this.props.socket} msg={msg} message={msg.message}/>
+          </div>
+        ):(null)}
       </li>
     }
 

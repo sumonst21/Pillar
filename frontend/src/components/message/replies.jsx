@@ -158,7 +158,8 @@ class Replies extends React.Component {
                            <li key={reply._id} className="reply" >
                               <h6>{reply.username}:</h6>  <img className="chat-img" src={reply.reply} alt="image" />
                               {reply.userId === this.props.user.id && 
-                                 <button onClick={this.deleteGifReply} id={reply._id}>Delete Gif</button>
+                                 <button onClick={this.deleteGifReply} className="text-input-button2" 
+                                    id={reply._id}>Delete Gif</button>
                               }
                            </li>
                         )
@@ -175,15 +176,15 @@ class Replies extends React.Component {
                      }
                   }),
 
-                     <button key="button" className="replies-div" onClick={this.toggleReplies}> Close</button> 
+                     <button key="button" className="replies-div text-input-button2" onClick={this.toggleReplies}> Close</button> 
                   ])
                : (msg.replies.length > 0 ? 
                   (msg.replies.length > 1 ?
-                      <button className="replies-div" onClick={this.toggleReplies}> {msg.replies.length} replies</button>
+                      <button className="replies-div text-input-button2" onClick={this.toggleReplies}> {msg.replies.length} replies</button>
                       :
-                     <button className="replies-div" onClick={this.toggleReplies}> {msg.replies.length} reply</button>
+                     <button className="replies-div text-input-button2" onClick={this.toggleReplies}> {msg.replies.length} reply</button>
                   )
-                  : <button className="replies-div" onClick={this.toggleReplies}> Reply</button>)
+                  : <button className="replies-div text-input-button2" onClick={this.toggleReplies}> Reply</button>)
             }
             {this.state.replyBox === false ?
             // (<button onClick={this.handleReply}> Add Reply</button>)
@@ -197,14 +198,14 @@ class Replies extends React.Component {
                         
                   </form>
                      {this.state.emojiPicker === false ?
-                        <button onClick={this.openEmoji} > ☺ </button> :
+                        <button className="text-input-button2" onClick={this.openEmoji} > ☺ </button> :
                         <div onClick={this.openEmoji}>
                            <ClickOutHandler onClickOut={this.openEmoji} >
                               <div className="picker-wrapper-reply">
                                  <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
                               </div>
 
-                              <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                              <button className="text-input-button2" onClick={this.openEmoji} > ☺ </button>
                            </ClickOutHandler>
                         </div>}
                      <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />

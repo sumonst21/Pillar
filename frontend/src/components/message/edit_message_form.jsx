@@ -64,14 +64,14 @@ export default class EditMessageForm extends Component {
         {this.state.displayForm ? ( 
           <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.chatMessage} onChange={this.handleChange}></input>
-          <input type="submit" value="Save"></input>
-          <button onClick={this.handleClick}>Cancel</button>
+            <input className="text-input-button2" type="submit" value="Save"></input>
+            <button className="text-input-button2" onClick={this.handleClick}>Cancel</button>
           </form>
          ) 
         :
         (<div className="message-li-buttons-change">
-          <button onClick={this.handleClick}>Edit</button>
-          <button onClick={this.handleDelete}>Delete</button>
+          <button className="text-input-button2" onClick={this.handleClick}>Edit</button>
+            <button className="text-input-button2" onClick={this.handleDelete}>Delete</button>
           </div>
         )}
       </div>

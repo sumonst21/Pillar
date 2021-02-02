@@ -93,7 +93,11 @@ input.message-text-input::placeholder {
     color: #f5f0f069;
 }
 
-button.text-input-button:hover {
+.text-input-button:hover {
+    background-color: #7a65cd;
+}
+
+.text-input-button2:hover {
     background-color: #7a65cd;
 }
 
@@ -179,4 +183,24 @@ span.chatbox-ellipsis {
 .picker-wrapper{
     position: absolute;
     top: 361px;
+}
+
+
+.text-input-button{
+    height: 25px;
+}
+.text-input-button2{
+    height: 20px;
+    font-size: 12px;
+}
+.text-input-button:focus, .text-input-button2:focus{
+   outline: none;
+}
+
+.text-input-button-invalid:focus {
+   outline: none;
+}
+
+.text-input-button-invalid {
+   color: darkgrey;
 }

@@ -4,6 +4,7 @@
 
 .message-li {
   display: flex;
+  position: relative;
   padding: 3%;
   margin-left: 0%;
   flex-direction: column;
@@ -26,9 +27,19 @@
   margin-bottom: 2px;
 }
 
+.message-container:hover {
+  background-color: rgba(255, 255, 255, 0.432);
+}
+
 .message-li-buttons {
-  // margin-left: 2%;
-  width: 284px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 25px;
+    top: 1px;
+    width: 175px;
+    right: 5px;
 }
 
 li.reply {
@@ -38,7 +49,7 @@ li.reply {
 
 .message-li-buttons-change {
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -55,3 +66,4 @@ button {
   color: white;
   border: none;
 }
+
