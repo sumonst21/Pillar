@@ -193,65 +193,51 @@ class ChatBox extends React.Component{
           <div className="chatbox-container" id={`chatbox-item-${this.props.room.title}`}>
             <div className="chatbox-header">
               <h1>{this.props.room.title}</h1>
-              <ChatBoxHeaderOptions user={this.props.user} 
+              <ChatBoxHeaderOptions user={this.props.user}
+                                    users= {users} 
                                     room={this.props.room}
                                     deleteRoom={this.deleteRoom}
                                     leaveRoom={this.props.leaveRoom}
-                                    roomId={this.props.roomId}/>
+                                    roomId={this.props.roomId}
+                                    openModal={this.props.openModal}
+                                    closeModal={this.props.closeModal}/>
               
             </div>
             <div className="message-ul">
               <ul>{messages}</ul>
             </div>
-            <div className='input-container' >
+            <div className="chatbox-bottom">
+              <div className='input-container' >
+                
+                {
+                  this.state.emojiPicker === false ? 
+                    <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
+                  
+                    <div onClick={this.openEmoji}>
+                    <ClickOutHandler onClickOut={this.openEmoji} >
+                      <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
+                  
+                    <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
+                  </ClickOutHandler>
+                  </div>
+                }
+                <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
               
-              {
-                this.state.emojiPicker === false ? 
-                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button> : 
-                
-                  <div onClick={this.openEmoji}>
-                  <ClickOutHandler onClickOut={this.openEmoji} >
-                    <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} /> 
-                
-                  <button className="text-input-button" onClick={this.openEmoji} > ☺ </button>
-                </ClickOutHandler>
-                </div>
-              }
-              <Giphy case={"chatbox"} useGiphy={this.useGiphy} roomTitle={this.props.room.title}/>
-             
-              {this.state.send === true ? (
-                <form className="message-input" onSubmit={this.submitMessage}>
-                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
-                  <button className="text-input-button" type="submit">Send</button>
+                {this.state.send === true ? (
+                  <form className="message-input" onSubmit={this.submitMessage}>
+                    <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                    <button className="text-input-button" type="submit">Send</button>
+                  </form>
+                ) : (
+                  <form className="message-input">
+                    <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
+                  <button className="text-input-button-invalid" type="submit">Send</button>
                 </form>
-              ) : (
-                <form className="message-input">
-                  <input className="message-text-input" type="text" placeholder="Send message" value={this.state.chatMessage} onChange={this.handleChange} />
-                <button className="text-input-button-invalid" type="submit">Send</button>
-              </form>
-              )}
+                )}
 
-              
-            </div>
-            <ClickOutHandler onClickOut={this.closeUserList}> 
-              {/* <p onClick={this.toggleUserList} >List of current users in this room</p> */}
-              
-              <div className="chatboxUsers" >
-                <p  onClick={this.openUserList} >Members</p>
                 
-                { this.state.userList === "open" ?
-                <ul className="chatboxUl"> 
-                  {users.map(user => {
-                  return (
-                   <li>
-                    {user.username}
-                  </li>
-                  )})}
-                </ul>
-
-                  : ""}
               </div>
-            </ClickOutHandler>
+            </div>
           </div>
         ) : null}
       </div>
