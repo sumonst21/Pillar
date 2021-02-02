@@ -157,7 +157,7 @@
   color: white;
   border-radius: 5px;
   box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.1);
-  height: 780px;
+  height: 740px;
   width: 300px;
 
   h1 {
@@ -201,7 +201,7 @@
   display: flex;
 }
 
-.chatbox-header-icons:hover {
+.chatbox-ellipsis:hover {
     cursor: pointer;
     color: rgb(156, 154, 154);
 }
@@ -221,11 +221,11 @@
 }
 
 .input-container {
-  display: flex;
-  padding: 2%;
-  justify-content: space-between;
-  border-top: 2px solid white;
-  height: 25px;
+    display: flex;
+    padding: 2%;
+    justify-content: space-between;
+    height: 25px;
+    width: 100%;
 }
 
 input.message-text-input::placeholder {
@@ -240,6 +240,7 @@ button.delete-input-button {
   margin: 3px;
   padding-top: 3px;
   padding-bottom: 3px;
+  width: 107px;
 }
 
 button.delete-input-button:hover{
@@ -256,18 +257,17 @@ button.delete-input-button:hover{
   text-align: center;
   //  display: inline;
   color: white;
-  padding: 5px 5px;
-  margin: 5px 0 0 0;
   border-radius: 3px;
-  cursor: pointer;
   font-weight: bold;
   line-height: normal;
 }
 
 .chatboxUl {
-  margin: 5px 0 0 0;
-  //  display: inline;
-  color: white;
+    margin: 5px 0 0 0;
+    color: white;
+    margin-bottom: 10px;
+    max-height: 300px;
+    overflow: scroll;
 }
 
 .chat-img {
@@ -276,8 +276,7 @@ button.delete-input-button:hover{
   padding: 3px 0;
 }
 
-button,
-.leave-room-icon {
+button {
   cursor: pointer;
   margin-right: 2px;
   margin-bottom: 1px;
@@ -295,6 +294,12 @@ aside.emoji-picker-react {
     box-sizing: border-box;
     box-shadow: 0 0px 0px #efefef; 
     overflow: hidden;
+<<<<<<< HEAD
+=======
+    position: absolute;
+    bottom: 55px;
+    right: 15px;
+>>>>>>> afe05a090c63f1dc5412befc7783ce7e273ffa23
 }
 
 
@@ -304,3 +309,14 @@ span.chatbox-ellipsis {
   padding: 3px;
 }
 
+.chatbox-bottom {
+    height: 52px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-top: 2px solid white;
+    align-items: center;
+    background-color: #6684ce;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

@@ -108,6 +108,7 @@ class Sidebar extends React.Component{
             <div className='sidebar-container'>
                 <div className="sidebar-left">
                     <h1>PILLAR</h1>
+                    <div className="welcome-div">Welcome, {this.props.user.username}</div>
                     
                 </div>
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ClickOutHandler from 'react-onclickout';
+import { openModal, closeModal } from '../../actions/modal_actions';
 
 export default class ChatBoxHeaderOptions extends Component {
   constructor(props){
@@ -9,6 +10,7 @@ export default class ChatBoxHeaderOptions extends Component {
     }
     this.handleClick= this.handleClick.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.showMembers = this.showMembers.bind(this);
   }
 
   handleClick(e){
@@ -18,6 +20,16 @@ export default class ChatBoxHeaderOptions extends Component {
   }
 
   closeMenu(){
+    this.setState({
+      menuOpen: false,
+    })
+  }
+
+  showMembers(){
+    this.props.openModal({modal: "members", 
+                          extras: {users: this.props.users,
+                                  room: this.props.room}
+                          });
     this.setState({
       menuOpen: false,
     })
@@ -46,6 +58,8 @@ export default class ChatBoxHeaderOptions extends Component {
                           onClick={this.props.leaveRoom} 
                           id={this.props.roomId}>Leave Room
                   </button>
+                  <button onClick={this.showMembers} className="delete-input-button show-members">Members</button>
+
                 </div>
               </div>
             </ClickOutHandler>
@@ -56,3 +70,5 @@ export default class ChatBoxHeaderOptions extends Component {
     )
   }
 }
+
+
