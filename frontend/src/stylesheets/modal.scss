@@ -54,3 +54,24 @@ li.session-error-li {
 body {
   min-height: 900px;
 }
+
+.modal-background.show-members {
+    background-color: #00000094;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-child-show-members {
+    background-color: #c066ce;
+    border-radius: 7px;
+}
+
+.members-modal-title {
+    color: white;
+    background-color: #6684ce;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding: 10px;
+    border-bottom: solid white 2px;
+}

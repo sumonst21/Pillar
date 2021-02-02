@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
 import NewRoomForm from '../chat/new_room_form/new_room_form_container';
+import Members from '../chat/members';
 
 function Modal({ modal, closeModal }) {
   if (!modal) {
@@ -29,7 +30,15 @@ function Modal({ modal, closeModal }) {
           </div>
         </div>
       )
-
+    case 'members':
+      component = <Members extras={modal.extras} />
+      return (
+        <div className="modal-background show-members" onClick={closeModal}>
+          <div className="modal-child-show-members" onClick={e => e.stopPropagation()}>
+            {component}
+          </div>
+        </div>
+      )
     case 'team':
       component = <NewRoomForm extras={modal.extras} />;
       return(
