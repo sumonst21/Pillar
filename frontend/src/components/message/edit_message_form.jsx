@@ -5,29 +5,14 @@ export default class EditMessageForm extends Component {
     super(props);
     this.state = {
       chatMessage: props.msg.message,
-      displayForm: false,
-
     }
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete  = this.handleDelete.bind(this);
 
   }
 
-
-  handleClick(){
-    if (this.state.displayForm){
-      this.setState({
-        displayForm: false,
-      })
-    } else {
-      this.setState({
-        displayForm: true,
-      })
-    }
-  }
 
   handleChange(e){
     this.setState({
@@ -47,7 +32,7 @@ export default class EditMessageForm extends Component {
 
     })
 
-    this.handleClick(e);
+    this.props.close();
   }
 
   handleDelete(e){
@@ -60,20 +45,15 @@ export default class EditMessageForm extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.displayForm ? ( 
-          <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.chatMessage} onChange={this.handleChange}></input>
-            <input className="text-input-button2" type="submit" value="Save"></input>
-            <button className="text-input-button2" onClick={this.handleClick}>Cancel</button>
+      <div className="edit-form-container">
+          <form className="edit-message-form" onSubmit={this.handleSubmit}>
+            <input className="edit-form-input" type="text" value={this.state.chatMessage} onChange={this.handleChange}></input>
+            <div className="edit-message-form-buttons">
+              <input className="text-input-button2" type="submit" value="Save"></input>
+              <button className="text-input-button2 delete" onClick={this.handleDelete}>Delete</button>
+              <button className="text-input-button2" onClick={this.props.close}>Cancel</button>
+            </div>
           </form>
-         ) 
-        :
-        (<div className="message-li-buttons-change">
-          <button className="text-input-button2" onClick={this.handleClick}>Edit</button>
-            <button className="text-input-button2" onClick={this.handleDelete}>Delete</button>
-          </div>
-        )}
       </div>
     )
   }

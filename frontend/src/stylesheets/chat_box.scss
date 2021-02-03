@@ -38,6 +38,7 @@
   max-height: 36px;
   box-sizing: border-box;
   align-items: center;
+  
 }
 
 .chatbox-header-menu {
@@ -52,6 +53,7 @@
   justify-content: space-evenly;
   border-radius: 9px;
   align-items: center;
+  z-index: 10;
 }
 
 .chatbox-header h1 {
@@ -111,9 +113,11 @@ button.delete-input-button {
 button.delete-input-button:hover{
   background-color: #7a65cd;
 }
-.message-input {
-  display: flex;
-  flex-wrap: nowrap;
+
+.message-text-input {
+    margin-right: 6px;
+    color: white;
+    height: 23px;
 }
 
 .chatboxUsers {
@@ -203,4 +207,9 @@ span.chatbox-ellipsis {
 
 .text-input-button-invalid {
    color: darkgrey;
+   height: 100%;
+}
+
+button.text-input-button2.reply-emoji {
+    height: 25px;
 }

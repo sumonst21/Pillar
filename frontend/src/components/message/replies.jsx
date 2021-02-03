@@ -20,7 +20,7 @@ class Replies extends React.Component {
       this.handleReply = this.handleReply.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.submitReply = this.submitReply.bind(this);
-      this.toggleReplies = this.toggleReplies.bind(this)
+      // this.toggleReplies = this.toggleReplies.bind(this)
       this.openEmoji = this.openEmoji.bind(this);
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
@@ -79,12 +79,12 @@ class Replies extends React.Component {
       })
    };
 
-   toggleReplies() {
-      this.state.repliesOpen === true ?
-         this.setState({ repliesOpen: false, replyBox: false })
-          : 
-         this.setState({ repliesOpen: true, replyBox: true })
-   };
+   // toggleReplies() {
+   //    this.state.repliesOpen === true ?
+   //       this.setState({ repliesOpen: false, replyBox: false })
+   //        : 
+   //       this.setState({ repliesOpen: true, replyBox: true })
+   // };
 
    selectEmoji(e, emojiObject) {
       let newMessage = this.state.replyText + emojiObject.emoji;
@@ -145,74 +145,61 @@ class Replies extends React.Component {
       let msg = this.props.msg;
 
       return(
-         <div>
-           
-           
-            {msg.replies && this.state.repliesOpen === true ?
-               (
-
-                  [msg.replies.map(reply => {
-                     // return (
-                     if (reply.reply.includes("giphy")){
-                        return (
-                           <li key={reply._id} className="reply" >
-                              <h6>{reply.username}:</h6>  <img className="chat-img" src={reply.reply} alt="image" />
-                              {reply.userId === this.props.user.id && 
-                                 <button onClick={this.deleteGifReply} className="text-input-button2" 
-                                    id={reply._id}>Delete Gif</button>
-                              }
-                           </li>
-                        )
-                     }
-                     else{
-                        return (
-                           <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
-                              <h6>{reply.username}:</h6>  {reply.reply}
-                              {reply.userId === this.props.user.id &&
-                                 <EditReplyForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
-                              }
-                           </li>
-                        )
-                     }
-                  }),
-
-                     <button key="button" className="replies-div text-input-button2" onClick={this.toggleReplies}> Close</button> 
-                  ])
-               : (msg.replies.length > 0 ? 
-                  (msg.replies.length > 1 ?
-                      <button className="replies-div text-input-button2" onClick={this.toggleReplies}> {msg.replies.length} replies</button>
-                      :
-                     <button className="replies-div text-input-button2" onClick={this.toggleReplies}> {msg.replies.length} reply</button>
-                  )
-                  : <button className="replies-div text-input-button2" onClick={this.toggleReplies}> Reply</button>)
-            }
-            {this.state.replyBox === false ?
-            // (<button onClick={this.handleReply}> Add Reply</button>)
-            ""
-            :
-            (
-               <div>
-                  <form onSubmit={this.submitReply}>
-                    
-                     <input type="text" onChange={this.handleChange} value={this.state.replyText}/>
-                        
-                  </form>
-                     {this.state.emojiPicker === false ?
-                        <button className="text-input-button2" onClick={this.openEmoji} > ☺ </button> :
-                        <div onClick={this.openEmoji}>
-                           <ClickOutHandler onClickOut={this.openEmoji} >
-                              <div className="picker-wrapper-reply">
-                                 <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
-                              </div>
-
-                              <button className="text-input-button2" onClick={this.openEmoji} > ☺ </button>
-                           </ClickOutHandler>
-                        </div>}
-                     <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
-                     {/* <button onClick={this.handleReply}> Cancel</button> */}
+         <div className="replies-container">
+            {msg.replies ?
+               (<div className="replies-list-container">
+                  <ul className="replies-list">
+                     {msg.replies.map(reply => {
+                        // return (
+                        if (reply.reply.includes("giphy")){
+                           return (
+                              <li key={reply._id} className="reply" >
+                                 <h6>{reply.username}:</h6>  <img className="chat-img" src={reply.reply} alt="image" />
+                                 {reply.userId === this.props.user.id && 
+                                    <button onClick={this.deleteGifReply} className="text-input-button2" 
+                                       id={reply._id}>Delete Gif</button>
+                                 }
+                              </li>
+                           )
+                        }
+                        else{
+                           return (
+                              <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
+                                 <h6>{reply.username}:</h6>  
+                                 <p>{reply.reply}</p>
+                                 {reply.userId === this.props.user.id &&
+                                    <EditReplyForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
+                                 }
+                              </li>
+                           )
+                        }
+                     })}
+                  </ul>
                </div>
-            )}
-            
+                  )
+               : (null)
+            }
+            <div className="send-reply-form">
+                  {this.state.emojiPicker === false ?
+                     <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button> :
+                     <div onClick={this.openEmoji}>
+                        <ClickOutHandler onClickOut={this.openEmoji} >
+                           <div className="picker-wrapper-reply">
+                              <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
+                           </div>
+
+                           <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button>
+                        </ClickOutHandler>
+                     </div>}
+                  <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
+               <form onSubmit={this.submitReply}>
+                  
+                  <input className="message-text-input" type="text" placeholder="Send a reply" 
+                     onChange={this.handleChange} value={this.state.replyText}/>
+                  <button className="text-input-button" type="submit">Send</button>
+                     
+               </form>
+            </div>            
          </div>
       )
    }
