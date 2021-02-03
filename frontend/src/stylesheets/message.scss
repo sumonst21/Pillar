@@ -4,6 +4,7 @@
 
 .message-li {
   display: flex;
+  position: relative;
   padding: 3%;
   margin-left: 0%;
   flex-direction: column;
@@ -26,19 +27,38 @@
   margin-bottom: 2px;
 }
 
+.message-container:hover {
+  background-color: rgba(255, 255, 255, 0.432);
+}
+
+.message-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 25px;
+}
+
 .message-li-buttons {
-  // margin-left: 2%;
-  width: 284px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 25px;
 }
 
 li.reply {
     display: flex;
     flex-direction: column;
+    padding-left: 9px;
+    padding-top: 5px;
+    padding-right: 8px;
+    padding-bottom: 9px;
+    border-bottom: 2px solid #83b1a3;
 }
 
 .message-li-buttons-change {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  min-width: 87px;
 }
 
 input {
@@ -54,4 +74,59 @@ button {
   border-radius: 5px;
   color: white;
   border: none;
+}
+
+.replies-container {
+    background-color: #7b66ce69;
+    width: 300px;
+    position: relative;
+    left: -9px;
+    border-top: 2px solid #545454;
+    margin-top: 6px;
+}
+
+.send-reply-form {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #7b66ce;
+}
+
+.edit-form-container {
+    height: 60px;
+    margin-top: 10px;
+}
+
+.edit-message-form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.edit-message-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+input.text-input-button2 {
+    color: white;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+input.text-input-button2:hover {
+cursor: pointer;
+}
+
+button.text-input-button2.delete {
+    margin-right: 5px;
+}
+
+input.edit-form-input {
+    height: 25px;
+    color: white;
+    padding-left: 7px;
 }

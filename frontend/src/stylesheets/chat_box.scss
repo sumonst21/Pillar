@@ -38,6 +38,7 @@
   max-height: 36px;
   box-sizing: border-box;
   align-items: center;
+  
 }
 
 .chatbox-header-menu {
@@ -52,6 +53,7 @@
   justify-content: space-evenly;
   border-radius: 9px;
   align-items: center;
+  z-index: 10;
 }
 
 .chatbox-header h1 {
@@ -93,7 +95,11 @@ input.message-text-input::placeholder {
     color: #f5f0f069;
 }
 
-button.text-input-button:hover {
+.text-input-button:hover {
+    background-color: #7a65cd;
+}
+
+.text-input-button2:hover {
     background-color: #7a65cd;
 }
 
@@ -107,9 +113,11 @@ button.delete-input-button {
 button.delete-input-button:hover{
   background-color: #7a65cd;
 }
-.message-input {
-  display: flex;
-  flex-wrap: nowrap;
+
+.message-text-input {
+    margin-right: 6px;
+    color: white;
+    height: 23px;
 }
 
 .chatboxUsers {
@@ -179,4 +187,29 @@ span.chatbox-ellipsis {
 .picker-wrapper{
     position: absolute;
     top: 361px;
+}
+
+
+.text-input-button{
+    height: 25px;
+}
+.text-input-button2{
+    height: 20px;
+    font-size: 12px;
+}
+.text-input-button:focus, .text-input-button2:focus{
+   outline: none;
+}
+
+.text-input-button-invalid:focus {
+   outline: none;
+}
+
+.text-input-button-invalid {
+   color: darkgrey;
+   height: 100%;
+}
+
+button.text-input-button2.reply-emoji {
+    height: 25px;
 }

@@ -87,21 +87,6 @@
     height: 25px;
 }
 
-.text-input-button{
-    height: 25px;
-}
-.text-input-button:focus {
-   outline: none;
-}
-
-.text-input-button-invalid:focus {
-   outline: none;
-}
-
-.text-input-button-invalid {
-   color: darkgrey;
-}
-
 img.giphy-li-img {
     max-height: 44px;
 }
