@@ -76,7 +76,9 @@ class Giphy extends React.Component {
                                  })
                         ) : ""} 
                      </ul>
-                     <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Enter a search term to find a Giphy" />
+                     <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} 
+                        type="text" value={this.state.keyword} onChange={this.handleChange} 
+                        placeholder="Enter a search term to find a Giphy" />
                   </div>
                </div>
             </ClickOutHandler>    

@@ -143,3 +143,22 @@ input.edit-form-input {
 .picker-wrapper-reply {
     margin-bottom: 5px;
 }
+
+.reply-options-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+input.edit-form-input-reply {
+    height: 25px;
+    width: 277px;
+    margin-top: 9px;
+}
+
+button:focus{
+  outline: none;
+}
+
+.text-input-button-reply:hover {
+  background-color: #7b66ce;
+}

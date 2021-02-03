@@ -2,10 +2,10 @@ import React from "react"
 import moment from "moment";
 import Picker from 'emoji-picker-react';
 import GiphyReply from "../giphy/giphy_reply";
-import EditReplyForm from './edit_reply_form';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {switcheThread} from './../../components/chat/data_share';
 import ClickOutHandler from 'react-onclickout';
+import Reply from './reply';
 
 class Replies extends React.Component {
    constructor(props){
@@ -17,16 +17,17 @@ class Replies extends React.Component {
          repliesOpen: false,
          emojiPicker: false,
          giphyBox: false,
+         showOptions: false,
       }
       this.handleReply = this.handleReply.bind(this);
       this.handleChange = this.handleChange.bind(this);
       this.submitReply = this.submitReply.bind(this);
-      // this.toggleReplies = this.toggleReplies.bind(this)
       this.openEmoji = this.openEmoji.bind(this);
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
       this.deleteGifReply = this.deleteGifReply.bind(this);
       this.toggleGiphy = this.toggleGiphy.bind(this);
+      
 
    };
 
@@ -55,6 +56,7 @@ class Replies extends React.Component {
       })
    };
 
+
    submitReply(e){
       e.preventDefault();
       let username = this.props.user.username;
@@ -80,13 +82,6 @@ class Replies extends React.Component {
          repliesOpen: true,
       })
    };
-
-   // toggleReplies() {
-   //    this.state.repliesOpen === true ?
-   //       this.setState({ repliesOpen: false, replyBox: false })
-   //        : 
-   //       this.setState({ repliesOpen: true, replyBox: true })
-   // };
 
    selectEmoji(e, emojiObject) {
       let newMessage = this.state.replyText + emojiObject.emoji;
@@ -175,6 +170,8 @@ class Replies extends React.Component {
          )
       }
 
+
+
       return(
          <div className="replies-container">
             {msg.replies ?
@@ -185,23 +182,20 @@ class Replies extends React.Component {
                         if (reply.reply.includes("giphy")){
                            return (
                               <li key={reply._id} className="reply" >
-                                 <h6>{reply.username}:</h6>  <img className="chat-img" src={reply.reply} alt="image" />
+                                 <h6>{reply.username}:</h6>  
+                                 <img className="chat-img" src={reply.reply} alt="image" />
                                  {reply.userId === this.props.user.id && 
                                     <button onClick={this.deleteGifReply} className="text-input-button2" 
-                                       id={reply._id}>Delete Gif</button>
+                                       id={reply._id}>Delete Gif
+                                    </button>
                                  }
                               </li>
                            )
                         }
                         else{
                            return (
-                              <li key={reply._id} className="reply" id={`msg-reply-${reply.reply}`}>
-                                 <h6>{reply.username}:</h6>  
-                                 <p>{reply.reply}</p>
-                                 {reply.userId === this.props.user.id &&
-                                    <EditReplyForm socket={this.props.socket} msg={msg} replyId={reply._id}/>
-                                 }
-                              </li>
+                              <Reply reply={reply} socket={this.props.socket}
+                                       msg={msg} user={this.props.user}/>
                            )
                         }
                      })}
@@ -212,7 +206,8 @@ class Replies extends React.Component {
             }
             <div className="send-reply-form">
                {this.state.giphyBox ? (
-                  <GiphyReply useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
+                  <GiphyReply useGiphy={this.useGiphy} toggleGiphy={this.toggleGiphy} 
+                     roomTitle={this.props.room.title} />
                ):(null)}
                {emoji_menu}
                <div className="reply-form-buttons">

@@ -47,7 +47,8 @@ class GiphyReply extends React.Component {
    }
 
    handleSelection(e){
-      this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));      
+      this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));
+      this.props.toggleGiphy();
       const ele = document.getElementById(`chatbox-item-${this.props.roomTitle}`);
       ele.scrollTop = ele.scrollHeight;
    }
@@ -59,7 +60,7 @@ class GiphyReply extends React.Component {
    render(){
 
          return(
-            <ClickOutHandler onClickOut={this.toggleGiphy} >
+            <ClickOutHandler onClickOut={this.props.toggleGiphy} >
                <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
                   <div className={this.props.case ? "giphy-search" : "reply-giphy-search"}>
                      
