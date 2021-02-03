@@ -1,7 +1,7 @@
 import React from "react"
 import moment from "moment";
 import Picker from 'emoji-picker-react';
-import Giphy from "../giphy/giphy";
+import GiphyReply from "../giphy/giphy_reply";
 import EditReplyForm from './edit_reply_form';
 import * as cloneDeep from 'lodash/cloneDeep';
 import {switcheThread} from './../../components/chat/data_share';
@@ -16,6 +16,7 @@ class Replies extends React.Component {
          replyText: "",
          repliesOpen: false,
          emojiPicker: false,
+         giphyBox: false,
       }
       this.handleReply = this.handleReply.bind(this);
       this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,7 @@ class Replies extends React.Component {
       this.selectEmoji = this.selectEmoji.bind(this);
       this.useGiphy = this.useGiphy.bind(this);
       this.deleteGifReply = this.deleteGifReply.bind(this);
+      this.toggleGiphy = this.toggleGiphy.bind(this);
 
    };
 
@@ -140,9 +142,25 @@ class Replies extends React.Component {
       }
    }
 
+   toggleGiphy(){
+      if (this.state.giphyBox){
+         this.setState({
+            giphyBox: false,
+         })
+      } else (
+         this.setState({
+            giphyBox: true
+         })
+      )
+   }
+
 
    render(){
       let msg = this.props.msg;
+      let giphy_button = "Giphy";
+      if (this.state.giphyBox){
+         giphy_button = "Close";
+      }
 
       return(
          <div className="replies-container">
@@ -180,8 +198,15 @@ class Replies extends React.Component {
                : (null)
             }
             <div className="send-reply-form">
-                  {this.state.emojiPicker === false ?
-                     <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button> :
+               {this.state.giphyBox ? (
+                  <GiphyReply useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
+               ):(null)}
+
+               <div className="reply-form-buttons">
+                  
+                  {this.state.emojiPicker === false ? (
+                     <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button> 
+                     ) : (
                      <div onClick={this.openEmoji}>
                         <ClickOutHandler onClickOut={this.openEmoji} >
                            <div className="picker-wrapper-reply">
@@ -190,15 +215,16 @@ class Replies extends React.Component {
 
                            <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button>
                         </ClickOutHandler>
-                     </div>}
-                  <Giphy useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
-               <form onSubmit={this.submitReply}>
-                  
-                  <input className="message-text-input" type="text" placeholder="Send a reply" 
-                     onChange={this.handleChange} value={this.state.replyText}/>
-                  <button className="text-input-button" type="submit">Send</button>
+                     </div>
+                  )}
+                  <button className="text-input-button reply" onClick={this.toggleGiphy}>{giphy_button}</button>
+                  <form onSubmit={this.submitReply}>
                      
-               </form>
+                     <input className="message-text-input reply" type="text" placeholder="Send a reply" 
+                        onChange={this.handleChange} value={this.state.replyText}/>
+                     <button className="text-input-button reply" type="submit">Send</button>
+                  </form>
+               </div>
             </div>            
          </div>
       )

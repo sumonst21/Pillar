@@ -8,12 +8,11 @@
     flex-direction: column;
     align-items: center;
 }
-.reply-giphy-search{
-     background-color: #6684ce;
+
+.reply-giphy-search {
+    background-color: #6684ce;
     width: 280px;
-    right: 4px;
-    position: relative;
-    margin: 3px 0;
+    margin: 4px 0 11px;
     display: flex;
     flex-direction: column;
     align-items: center;
