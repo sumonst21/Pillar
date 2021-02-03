@@ -5,7 +5,7 @@ import './giphy.css';
 import { getGiphy } from "../../util/giphy_api_util";
 
 
-class Giphy extends React.Component {
+class GiphyReply extends React.Component {
    constructor(props){
       super(props)
       this.state = {
@@ -47,7 +47,8 @@ class Giphy extends React.Component {
    }
 
    handleSelection(e){
-      this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));      
+      this.setState({ giphyBoxOpen: false}, this.props.useGiphy(e));
+      this.props.toggleGiphy();
       const ele = document.getElementById(`chatbox-item-${this.props.roomTitle}`);
       ele.scrollTop = ele.scrollHeight;
    }
@@ -57,11 +58,10 @@ class Giphy extends React.Component {
    }
 
    render(){
-      if(this.state.giphyBoxOpen === true){
+
          return(
-            <ClickOutHandler onClickOut={this.toggleGiphy} >
+            <ClickOutHandler onClickOut={this.props.toggleGiphy} >
                <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
-                  <button className="text-input-button" id="toggler" onClick={this.toggleGiphy}> Close </button>
                   <div className={this.props.case ? "giphy-search" : "reply-giphy-search"}>
                      
                      <ul className={this.props.case ? "giphy-ul" : "reply-giphy-ul"}>
@@ -76,24 +76,12 @@ class Giphy extends React.Component {
                                  })
                         ) : ""} 
                      </ul>
-                     <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} 
-                        type="text" value={this.state.keyword} onChange={this.handleChange} 
-                        placeholder="Enter a search term to find a Giphy" />
+                     <input className="giphy-search-input" id={`${this.props.roomTitle}-giphysearch`} type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Enter a search term to find a Giphy" />
                   </div>
                </div>
             </ClickOutHandler>    
          )
-      }else{
-         return(
-            <div className={this.props.case ? "giphydiv" : "reply-giphydiv"}>
-               <button className={this.props.case ? "text-input-button" : "text-input-button reply"} id="toggler" 
-                  onClick={this.toggleGiphy}> Giphy 
-                  </button>
-               <div className="giphy-search"></div>
-            </div>
-         )
-      }
    }
 }
 
-export default Giphy;
+export default GiphyReply;

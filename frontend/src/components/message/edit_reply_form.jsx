@@ -15,29 +15,15 @@ export default class EditReplyForm extends Component {
 
     this.state = {
       reply: reply,
-      displayForm: false,
-
     }
 
-    this.handleClick = this.handleClick.bind(this);
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete  = this.handleDelete.bind(this);
 
   }
 
-
-  handleClick(){
-    if (this.state.displayForm){
-      this.setState({
-        displayForm: false,
-      })
-    } else {
-      this.setState({
-        displayForm: true,
-      })
-    }
-  }
 
   handleChange(e){
     let rep = this.state.reply;
@@ -59,7 +45,7 @@ export default class EditReplyForm extends Component {
       replies: replies,
     })
 
-    this.handleClick(e);
+    this.props.toggleEditForm();
   }
 
   handleDelete(e){
@@ -81,20 +67,16 @@ export default class EditReplyForm extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.displayForm ? ( 
+      <div> 
           <form onSubmit={this.handleSubmit}>
-            <textarea value={this.state.reply.reply} onChange={this.handleChange}></textarea>
-          <input type="submit" value="Save"></input>
-          <button onClick={this.handleClick}>Cancel</button>
-          </form>
-         ) 
-        :
-        (<div>
-          <button onClick={this.handleClick}>Edit Message</button>
-          <button onClick={this.handleDelete}>Delete Message</button>
+            <input class="edit-form-input-reply" type="text" value={this.state.reply.reply} onChange={this.handleChange}></input>
+          <div className="edit-message-form-buttons">
+            <input className="text-input-button2" type="submit" value="Save"></input>
+            <button className="text-input-button2 delete" onClick={this.handleDelete}>Delete </button>
+            <button className="text-input-button2" onClick={this.handleClick}>Cancel</button>
           </div>
-        )}
+          </form>
+
       </div>
     )
   }

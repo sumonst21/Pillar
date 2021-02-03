@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { debug } from 'request';
 import EditMessageForm from './edit_message_form_container.js';
-import Replies from './replies.jsx';
 import RepliesForm from './replies_container.js'
 export default class Message extends Component {
 

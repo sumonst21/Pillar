@@ -87,10 +87,11 @@ button {
 
 .send-reply-form {
     display: flex;
-    height: 48px;
     align-items: center;
     justify-content: space-evenly;
     background-color: #7b66ce;
+    flex-direction: column;
+    padding: 5px 0px 5px;
 }
 
 .edit-form-container {
@@ -129,4 +130,35 @@ input.edit-form-input {
     height: 25px;
     color: white;
     padding-left: 7px;
+}
+
+.reply-form-buttons {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 3px;
+}
+
+.picker-wrapper-reply {
+    margin-bottom: 5px;
+}
+
+.reply-options-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+input.edit-form-input-reply {
+    height: 25px;
+    width: 277px;
+    margin-top: 9px;
+}
+
+button:focus{
+  outline: none;
+}
+
+.text-input-button-reply:hover {
+  background-color: #7b66ce;
 }

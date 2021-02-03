@@ -99,6 +99,10 @@ input.message-text-input::placeholder {
     background-color: #7a65cd;
 }
 
+.text-input-button.reply:hover {
+    background-color: #859dd7;
+}
+
 .text-input-button2:hover {
     background-color: #7a65cd;
 }
@@ -212,4 +216,11 @@ span.chatbox-ellipsis {
 
 button.text-input-button2.reply-emoji {
     height: 25px;
+}
+.text-input-button2.reply-emoji:hover {
+    background-color: #859dd7;
+}
+
+.text-input-button.reply:hover {
+    background-color: #859dd7;
 }
