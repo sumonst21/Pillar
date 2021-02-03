@@ -162,6 +162,19 @@ class Replies extends React.Component {
          giphy_button = "Close";
       }
 
+      let emoji_menu = null;
+      if(this.state.emojiPicker){
+         emoji_menu = (
+            <div onClick={this.openEmoji}>
+               <ClickOutHandler onClickOut={this.openEmoji} >
+                  <div className="picker-wrapper-reply">
+                     <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
+                  </div>
+               </ClickOutHandler>
+            </div>
+         )
+      }
+
       return(
          <div className="replies-container">
             {msg.replies ?
@@ -201,25 +214,11 @@ class Replies extends React.Component {
                {this.state.giphyBox ? (
                   <GiphyReply useGiphy={this.useGiphy} roomTitle={this.props.room.title} />
                ):(null)}
-
+               {emoji_menu}
                <div className="reply-form-buttons">
-                  
-                  {this.state.emojiPicker === false ? (
-                     <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button> 
-                     ) : (
-                     <div onClick={this.openEmoji}>
-                        <ClickOutHandler onClickOut={this.openEmoji} >
-                           <div className="picker-wrapper-reply">
-                              <Picker className="emoji-picker" onEmojiClick={this.selectEmoji} />
-                           </div>
-
-                           <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button>
-                        </ClickOutHandler>
-                     </div>
-                  )}
+                  <button className="text-input-button2 reply-emoji" onClick={this.openEmoji} > ☺ </button> 
                   <button className="text-input-button reply" onClick={this.toggleGiphy}>{giphy_button}</button>
                   <form onSubmit={this.submitReply}>
-                     
                      <input className="message-text-input reply" type="text" placeholder="Send a reply" 
                         onChange={this.handleChange} value={this.state.replyText}/>
                      <button className="text-input-button reply" type="submit">Send</button>

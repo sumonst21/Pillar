@@ -46,7 +46,7 @@ export default class ChatBoxHeaderOptions extends Component {
     return (
       <div className="chatbox-header-icons">
         <span className="chatbox-ellipsis" onClick={this.handleClick}>
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+          <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
         </span>
         {
           this.state.menuOpen ? (
