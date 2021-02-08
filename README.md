@@ -4,7 +4,7 @@ Communication Made Better by Pillar [Live](https://pillrz.herokuapp.com/#/)
 
 ### Mission Statement 
 
-(insert splash page gif here)
+![Splash Page Demo](https://github.com/dabaojian1992/Pillar/blob/main/gifs/splash.gif)
 
 Pillar was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communications. Slack is all fine and dandy until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
 
@@ -28,10 +28,17 @@ As software developers, we work in groups, thus having an integrated UI for mult
 ### Design roadmap
 
 To enhance user experience, we sketched out a design to **optimize the efficiency for ease of use**, which includes: 
-* a single page dashboard that provides accessibility to all of Pillar's features; (insert screenshot here);
-* lightweigt indempotent chatroom operations (create, delete, update, show, join/leave, post/delete messages); (insert multiple chatroom gifs here);
-* cross device state preservation for chatroom display; (insert screenshots) 
-* algorithmic solution(Boyer-Moore) for fast seach result lookup. (insert gifs)
+* a single page dashboard that provides accessibility to all of Pillar's features; 
+![all features](https://github.com/dabaojian1992/Pillar/blob/main/gifs/all_features.gif)
+
+* lightweigt indempotent chatroom operations (create, delete, update, show, join/leave, post/delete messages); 
+![Chatroom Operations](https://github.com/dabaojian1992/Pillar/blob/main/gifs/chatroom_operations.gif)
+
+* cross device state preservation for chatroom display; 
+![state preservation](https://github.com/dabaojian1992/Pillar/blob/main/gifs/state_preservation.gif)
+
+* algorithmic solution(Boyer-Moore) for fast seach result lookup. 
+![searchbar](https://github.com/dabaojian1992/Pillar/blob/main/gifs/search.gif)
 
 ### Design execution
 
