@@ -2,9 +2,11 @@
 
 Communication Made Better by Pillar [Live](https://pillrz.herokuapp.com/#/)
 
+![Splash Page Demo](https://github.com/dabaojian1992/Pillar/blob/main/gifs/splash.gif)
+
+
 ### Mission Statement 
 
-![Splash Page Demo](https://github.com/dabaojian1992/Pillar/blob/main/gifs/splash.gif)
 
 Pillar was born out of our frustration with using [Slack](https://slack.com/intl/en-is/) as the primary tool for group communications. Slack is all fine and dandy until users try to migrate a message from one channel to another, and when time is of the essence, this whole quit-current-channel-then-switch-to-another-then-switch-back process could become exponentially more cumbersome. 
 
