@@ -2,7 +2,7 @@
 
 Communication Made Better by Pillar [Live](https://pillrz.herokuapp.com/#/)
 
-![Splash Page Demo](https://github.com/dabaojian1992/Pillar/blob/main/gifs/splash.gif)
+![Splash Page Demo](https://github.com/dabaojian1992/Pillar/blob/main/gifs/splash2.gif)
 
 
 ### Mission Statement 
