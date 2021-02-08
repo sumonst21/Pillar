@@ -76,7 +76,7 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
    }
    ```
 * chartooms operations
-  * For chatrooms, we came up two approaches to assign messages upon mounting:（1）Fetching the messages to the frontend all at once and filtering the messages according to each message's foreign key that denotes the chatroom it belongs to; （2）alternatively, saving the messages to the parent chatroom directly upon users sending the message so that everytime when the components mount, no extra time will be wasted. 
+  * For chatrooms, we came up two approaches to assign messages upon mounting:（1）Fetching the messages to the frontend all at once and filtering the messages according to each message's foreign key that denotes the chatroom it belongs to; （2）alternatively, saving the messages to the parent chatroom directly upon users sending the message so that when everytime a components mounts, no extra time will be wasted. 
   * From an user experience standpoint,["a delay between 100 and 300 milliseconds is perceptible. a delay between 300 and 1,000 milliseconds makes the user feel like a machine is working, and if the delay is above 1,000 milliseconds, your user will likely start to mentally context-switch"](https://designingforperformance.com/performance-is-ux/#:~:text=A%20delay%20of%20less%20than,start%20to%20mentally%20context%2Dswitch)
   * Therefore, we went with the latter approach for the obvious reason: as number of message grows,relying message assignment purely in the frontend would delay chatroom load time. 
   ```js
