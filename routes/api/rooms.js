@@ -205,7 +205,6 @@ router.post('/:roomId',
 );
 
 router.patch('/closedfor', (req, res) => {
-     ;
     REQ = req; 
     Room.findByIdAndUpdate(req.body.roomId)
     .exec().then(room => {
@@ -219,9 +218,7 @@ router.patch('/closedfor', (req, res) => {
         room.closedFor.push(req.body.email)
     }
 
-    // room.ayo = "hi"
-    // room.title = room.title + "hello"
-     
+   
     room.save().then(saved => {
       Room.find({})
         .populate({
@@ -234,10 +231,7 @@ router.patch('/closedfor', (req, res) => {
         }).populate({
           path: 'users',
           model: 'User'
-        }) //populate the array of messages
-        // .populate({
-        //    path: 'closedFor',
-        //   })
+        }) 
         .exec((err, rooms) => {
 
           if (err) {
@@ -251,12 +245,8 @@ router.patch('/closedfor', (req, res) => {
           }
 
         })
+    }) 
     })
-        // return res.json(room) 
- 
-    })
-   
-  
   });
 
 module.exports = router;
