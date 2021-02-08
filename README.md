@@ -168,7 +168,7 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
   });
   ```
 * algortithmic solution for searchbar
-  * One of the most complained features of Slack is its search being slow. To make a more efficient search feature, we customized our own [Boyer-Moore algotithm](https://www.youtube.com/watch?v=4Xyhb72LCX4) implementing its bad character rule. 
+  * One of the most complained features of Slack is its search being slow. To create a more efficient searchbar, we customized our own [Boyer-Moore algotithm](https://www.youtube.com/watch?v=4Xyhb72LCX4) implementing its bad character rule. 
   ```js
   boyer_moore(arr, sub) {
         let filteredMessages = [];
@@ -203,6 +203,6 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
             }
         });
 
-        return filteredMessages; //this returns an array: [room_title, message_index, matching_character_index]
+        return filteredMessages; 
     };
   ```
