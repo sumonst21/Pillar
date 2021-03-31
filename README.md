@@ -33,7 +33,7 @@ To enhance user experience, we sketched out a design to **optimize the efficienc
 * a single page dashboard that provides accessibility to all of Pillar's features; 
 ![all features](https://github.com/dabaojian1992/Pillar/blob/main/gifs/all_features.gif)
 
-* lightweigt indempotent chatroom operations (create, delete, update, show, join/leave, post/delete messages); 
+* lightweight indempotent chatroom operations (create, delete, update, show, join/leave, post/delete messages); 
 ![Chatroom Operations](https://github.com/dabaojian1992/Pillar/blob/main/gifs/chatroom_operations.gif)
 
 * cross device state preservation for chatroom display; 
